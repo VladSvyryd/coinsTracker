@@ -1,3 +1,23 @@
 go to angular project folder and use :
     ng build --base-href /static/
 to compile angular files into index.html form and put it in the folder of python renderer
+
+// DB
+   - go in folder where db is
+   - "create db" : sqlite3 name.db
+   - "create table"
+
+
+@app.route('/users')
+def getAllUsers():
+    myDB = sqlite3.connect('db/coins.db')
+
+    dbCursor = myDB.cursor()
+    dbCursor.execute('SELECT * FROM users')
+    print(dbCursor.fetchall())
+    return jsonify(dbCursor.fetchall()), 201
+
+
+    <div *ngFor="let user of users | async">
+  {{user | json}}
+</div>
