@@ -26,8 +26,14 @@ class Users(Resource):
         dbCursor.execute('SELECT * FROM users')
         return jsonify(dbCursor.fetchall())
 
-
+class Incomes(Resource):
+    def get(self):
+        myDB = sqlite3.connect('db/coins.db')
+        dbCursor = myDB.cursor()
+        dbCursor.execute('SELECT * FROM incomes WHERE user_id=2')
+        return jsonify(dbCursor.fetchall())
 api.add_resource(Employees, '/employees')  # Route_1
-api.add_resource(Users, '/users')  # Route_2
 
+api.add_resource(Users, '/users')  # Route_2
+api.add_resource(Incomes, '/incomes')  # Route_3
 app.run()
