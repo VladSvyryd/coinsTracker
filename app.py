@@ -24,7 +24,12 @@ class Users(Resource):
         myDB = sqlite3.connect('db/coins.db')
         dbCursor = myDB.cursor()
         dbCursor.execute('SELECT * FROM users')
+        dbCursor.close()
         return jsonify(dbCursor.fetchall())
+    def add(self):
+        myDB = sqlite3.connect('db/coins.db')
+        dbCursor = myDB.cursor()
+        dbCursor.execute("INSERT INTO users(firstname) values (?)", ("Joe",))
 
 
 api.add_resource(Employees, '/employees')  # Route_1

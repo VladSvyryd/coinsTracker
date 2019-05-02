@@ -1,0 +1,395 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"be7bac3f-e838-4fe9-aa21-65d7c95bdbee\" name=\"Default Changelist\" comment=\"server : done , angular front end created : done\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/dataSources.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/api.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/app.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/app.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/commands .txt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/commands .txt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/myApp/src/app/app.component.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/myApp/src/app/app.component.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/myApp/src/app/app.component.ts\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/myApp/src/app/app.component.ts\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/myApp/src/app/app.module.ts\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/myApp/src/app/app.module.ts\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/static/es2015-polyfills.js\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/static/favicon.ico\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/static/main.js\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/static/polyfills.js\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/static/runtime.js\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/static/styles.js\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/static/vendor.js\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/templates/index.html\" beforeDir=\"false\" />\r\n    </list>\r\n    <option name=\"EXCLUDED_CONVERTED_TO_IGNORED\" value=\"true\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"DatabaseView\">\r\n    <option name=\"SHOW_INTERMEDIATE\" value=\"true\" />\r\n    <option name=\"GROUP_DATA_SOURCES\" value=\"true\" />\r\n    <option name=\"GROUP_SCHEMA\" value=\"true\" />\r\n    <option name=\"GROUP_CONTENTS\" value=\"false\" />\r\n    <option name=\"SORT_POSITIONED\" value=\"false\" />\r\n    <option name=\"SHOW_EMPTY_GROUPS\" value=\"false\" />\r\n    <option name=\"AUTO_SCROLL_FROM_SOURCE\" value=\"false\" />\r\n    <option name=\"HIDDEN_KINDS\">\r\n      <set />\r\n    </option>\r\n    <expand>\r\n      <path>\r\n        <item name=\"Database\" type=\"3277223f:DatabaseStructure$DbRootGroup\" />\r\n        <item name=\"coins.db\" type=\"feb32156:DbDataSourceImpl\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"Database\" type=\"3277223f:DatabaseStructure$DbRootGroup\" />\r\n        <item name=\"coins.db\" type=\"feb32156:DbDataSourceImpl\" />\r\n        <item name=\"schemas\" type=\"d4e8921:DatabaseStructure$FamilyGroup\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"Database\" type=\"3277223f:DatabaseStructure$DbRootGroup\" />\r\n        <item name=\"coins.db\" type=\"feb32156:DbDataSourceImpl\" />\r\n        <item name=\"schemas\" type=\"d4e8921:DatabaseStructure$FamilyGroup\" />\r\n        <item name=\"main: schema\" type=\"981a47c2:SqliteImplModel$Schema\" />\r\n      </path>\r\n    </expand>\r\n    <select />\r\n  </component>\r\n  <component name=\"FileEditorManager\">\r\n    <leaf SIDE_TABS_SIZE_LIMIT_KEY=\"300\">\r\n      <file pinned=\"false\" current-in-tab=\"false\">\r\n        <entry file=\"file://$PROJECT_DIR$/app.py\">\r\n          <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n            <state relative-caret-position=\"323\">\r\n              <caret line=\"26\" column=\"42\" selection-start-line=\"26\" selection-start-column=\"42\" selection-end-line=\"26\" selection-end-column=\"42\" />\r\n              <folding>\r\n                <element signature=\"e#0#33#0\" expanded=\"true\" />\r\n              </folding>\r\n            </state>\r\n          </provider>\r\n        </entry>\r\n      </file>\r\n      <file pinned=\"false\" current-in-tab=\"false\">\r\n        <entry file=\"file://$PROJECT_DIR$/myApp/src/app/app.component.ts\">\r\n          <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n            <state relative-caret-position=\"340\">\r\n              <caret line=\"21\" column=\"35\" selection-start-line=\"21\" selection-start-column=\"35\" selection-end-line=\"21\" selection-end-column=\"35\" />\r\n              <folding>\r\n                <element signature=\"e#0#42#0\" expanded=\"true\" />\r\n              </folding>\r\n            </state>\r\n          </provider>\r\n        </entry>\r\n      </file>\r\n      <file pinned=\"false\" current-in-tab=\"false\">\r\n        <entry file=\"file://$PROJECT_DIR$/myApp/src/app/app.component.html\">\r\n          <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n            <state relative-caret-position=\"136\">\r\n              <caret line=\"8\" column=\"30\" selection-start-line=\"8\" selection-start-column=\"30\" selection-end-line=\"8\" selection-end-column=\"30\" />\r\n            </state>\r\n          </provider>\r\n        </entry>\r\n      </file>\r\n      <file pinned=\"false\" current-in-tab=\"true\">\r\n        <entry file=\"das://b15779de-c0a2-4db0-9963-1d200a805564/schema/main/table/users\">\r\n          <provider selected=\"true\" editor-type-id=\"com.intellij.database.editor.DatabaseTableFileEditorProvider\">\r\n            <state>\r\n              <filtering enabled=\"true\">\r\n                <filter text=\"\" />\r\n              </filtering>\r\n            </state>\r\n          </provider>\r\n        </entry>\r\n      </file>\r\n      <file pinned=\"false\" current-in-tab=\"false\">\r\n        <entry file=\"das://b15779de-c0a2-4db0-9963-1d200a805564/schema/main/table/users.sql\">\r\n          <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n            <state relative-caret-position=\"17\">\r\n              <caret line=\"1\" column=\"13\" selection-start-line=\"1\" selection-start-column=\"13\" selection-end-line=\"1\" selection-end-column=\"13\" />\r\n            </state>\r\n          </provider>\r\n        </entry>\r\n      </file>\r\n      <file pinned=\"false\" current-in-tab=\"false\">\r\n        <entry file=\"file://$PROJECT_DIR$/commands .txt\">\r\n          <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n            <state relative-caret-position=\"340\">\r\n              <caret line=\"20\" column=\"4\" selection-start-line=\"20\" selection-start-column=\"4\" selection-end-line=\"22\" selection-end-column=\"6\" />\r\n            </state>\r\n          </provider>\r\n        </entry>\r\n      </file>\r\n    </leaf>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"IdeDocumentHistory\">\r\n    <option name=\"CHANGED_PATHS\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/get-pip.py\" />\r\n        <option value=\"$PROJECT_DIR$/templates/index.html\" />\r\n        <option value=\"$PROJECT_DIR$/static/main.js\" />\r\n        <option value=\"$APPLICATION_CONFIG_DIR$/consoles/db/7e6ebe4a-91ad-497a-94a1-8223db52743c/console.sql\" />\r\n        <option value=\"$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell\" />\r\n        <option value=\"$PROJECT_DIR$/api.py\" />\r\n        <option value=\"$PROJECT_DIR$/myApp/src/app/app.module.ts\" />\r\n        <option value=\"$PROJECT_DIR$/commands .txt\" />\r\n        <option value=\"$PROJECT_DIR$/app.py\" />\r\n        <option value=\"$PROJECT_DIR$/myApp/src/app/app.component.ts\" />\r\n        <option value=\"$PROJECT_DIR$/myApp/src/app/app.component.html\" />\r\n        <option value=\"b15779de-c0a2-4db0-9963-1d200a805564/schema/main/table/users.sql\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectFrameBounds\" extendedState=\"6\">\r\n    <option name=\"x\" value=\"620\" />\r\n    <option name=\"y\" value=\"120\" />\r\n    <option name=\"width\" value=\"1440\" />\r\n    <option name=\"height\" value=\"775\" />\r\n  </component>\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectView\">\r\n    <navigator proportions=\"\" version=\"1\">\r\n      <foldersAlwaysOnTop value=\"true\" />\r\n    </navigator>\r\n    <panes>\r\n      <pane id=\"Scope\" />\r\n      <pane id=\"ProjectPane\">\r\n        <subPane>\r\n          <expand>\r\n            <path>\r\n              <item name=\"code\" type=\"b2602c69:ProjectViewProjectNode\" />\r\n              <item name=\"code\" type=\"462c0819:PsiDirectoryNode\" />\r\n            </path>\r\n            <path>\r\n              <item name=\"code\" type=\"b2602c69:ProjectViewProjectNode\" />\r\n              <item name=\"code\" type=\"462c0819:PsiDirectoryNode\" />\r\n              <item name=\"static\" type=\"462c0819:PsiDirectoryNode\" />\r\n            </path>\r\n            <path>\r\n              <item name=\"code\" type=\"b2602c69:ProjectViewProjectNode\" />\r\n              <item name=\"code\" type=\"462c0819:PsiDirectoryNode\" />\r\n              <item name=\"templates\" type=\"462c0819:PsiDirectoryNode\" />\r\n            </path>\r\n          </expand>\r\n          <select />\r\n        </subPane>\r\n      </pane>\r\n    </panes>\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"DatabaseDriversLRU\" value=\"sqlite\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"com.intellij.ide.scratch.LRUPopupBuilder$1/Edit As Language\" value=\"SQLite\" />\r\n    <property name=\"database.console.LAST_STATE\" value=\"false\" />\r\n    <property name=\"editor.config.ad.shown\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/static\" />\r\n    <property name=\"nodejs_interpreter_path.stuck_in_default_project\" value=\"undefined stuck path\" />\r\n    <property name=\"nodejs_npm_path_reset_for_default_project\" value=\"true\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"project.propVCSSupport.Mappings\" />\r\n    <property name=\"ts.external.directory.path\" value=\"C:\\Users\\vlado\\Documents\\semester 6\\web_with_zhang\\code\\myApp\\node_modules\\typescript\\lib\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\vlado\\Documents\\semester 6\\web_with_zhang\\code\\static\" />\r\n      <recent name=\"C:\\Users\\vlado\\Documents\\semester 6\\web_with_zhang\\code\\templates\" />\r\n    </key>\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\vlado\\Documents\\semester 6\\web_with_zhang\\code\\static\" />\r\n      <recent name=\"C:\\Users\\vlado\\Documents\\semester 6\\web_with_zhang\\code\\templates\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunDashboard\">\r\n    <option name=\"ruleStates\">\r\n      <list>\r\n        <RuleState>\r\n          <option name=\"name\" value=\"ConfigurationTypeDashboardGroupingRule\" />\r\n        </RuleState>\r\n        <RuleState>\r\n          <option name=\"name\" value=\"StatusDashboardGroupingRule\" />\r\n        </RuleState>\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Python.app\">\r\n    <configuration name=\"api\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\">\r\n      <module name=\"code\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/api.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"app\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\">\r\n      <module name=\"code\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/app.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Python.app\" />\r\n        <item itemvalue=\"Python.api\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SvnConfiguration\">\r\n    <configuration />\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"be7bac3f-e838-4fe9-aa21-65d7c95bdbee\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1555616442542</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1555616442542</updated>\r\n      <workItem from=\"1555616450825\" duration=\"51000\" />\r\n      <workItem from=\"1555616557951\" duration=\"2169000\" />\r\n      <workItem from=\"1556189048724\" duration=\"1483000\" />\r\n      <workItem from=\"1556190614579\" duration=\"6076000\" />\r\n      <workItem from=\"1556292199005\" duration=\"156000\" />\r\n      <workItem from=\"1556469246603\" duration=\"945000\" />\r\n      <workItem from=\"1556470225137\" duration=\"5260000\" />\r\n      <workItem from=\"1556476259888\" duration=\"397000\" />\r\n      <workItem from=\"1556562593603\" duration=\"3804000\" />\r\n      <workItem from=\"1556716382715\" duration=\"1024000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"server : done , angular front end created : done\">\r\n      <created>1556190204709</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1556190204709</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TimeTrackingManager\">\r\n    <option name=\"totallyTimeSpent\" value=\"21365000\" />\r\n  </component>\r\n  <component name=\"TodoView\">\r\n    <todo-panel id=\"selected-file\">\r\n      <is-autoscroll-to-source value=\"true\" />\r\n    </todo-panel>\r\n    <todo-panel id=\"all\">\r\n      <are-packages-shown value=\"true\" />\r\n      <is-autoscroll-to-source value=\"true\" />\r\n    </todo-panel>\r\n  </component>\r\n  <component name=\"ToolWindowManager\">\r\n    <frame x=\"-7\" y=\"-7\" width=\"1550\" height=\"838\" extended-state=\"6\" />\r\n    <layout>\r\n      <window_info active=\"true\" content_ui=\"combo\" id=\"Project\" order=\"0\" sideWeight=\"0.49891067\" visible=\"true\" weight=\"0.20911528\" />\r\n      <window_info id=\"Structure\" order=\"1\" sideWeight=\"0.50108933\" side_tool=\"true\" weight=\"0.18900804\" />\r\n      <window_info id=\"Favorites\" order=\"2\" side_tool=\"true\" />\r\n      <window_info anchor=\"bottom\" id=\"Database Console\" order=\"0\" weight=\"0.32894737\" />\r\n      <window_info anchor=\"bottom\" id=\"Message\" order=\"1\" />\r\n      <window_info anchor=\"bottom\" id=\"Find\" order=\"2\" weight=\"0.32894737\" />\r\n      <window_info anchor=\"bottom\" id=\"Run\" order=\"3\" weight=\"0.48391813\" />\r\n      <window_info anchor=\"bottom\" id=\"Debug\" order=\"4\" weight=\"0.4\" />\r\n      <window_info anchor=\"bottom\" id=\"Cvs\" order=\"5\" weight=\"0.25\" />\r\n      <window_info anchor=\"bottom\" id=\"Inspection\" order=\"6\" weight=\"0.4\" />\r\n      <window_info anchor=\"bottom\" id=\"TODO\" order=\"7\" weight=\"0.32894737\" />\r\n      <window_info anchor=\"bottom\" id=\"Docker\" order=\"8\" show_stripe_button=\"false\" />\r\n      <window_info anchor=\"bottom\" id=\"Version Control\" order=\"9\" weight=\"0.32894737\" />\r\n      <window_info anchor=\"bottom\" id=\"Database Changes\" order=\"10\" show_stripe_button=\"false\" weight=\"0.32894737\" />\r\n      <window_info anchor=\"bottom\" id=\"Event Log\" order=\"11\" side_tool=\"true\" />\r\n      <window_info anchor=\"bottom\" id=\"Terminal\" order=\"12\" weight=\"0.19444445\" />\r\n      <window_info anchor=\"bottom\" id=\"Python Console\" order=\"13\" weight=\"0.32921812\" />\r\n      <window_info anchor=\"bottom\" id=\"TypeScript\" order=\"14\" />\r\n      <window_info anchor=\"right\" id=\"Commander\" internal_type=\"SLIDING\" order=\"0\" type=\"SLIDING\" weight=\"0.4\" />\r\n      <window_info anchor=\"right\" id=\"Ant Build\" order=\"1\" weight=\"0.25\" />\r\n      <window_info anchor=\"right\" content_ui=\"combo\" id=\"Hierarchy\" order=\"2\" weight=\"0.25\" />\r\n      <window_info anchor=\"right\" id=\"SciView\" order=\"3\" weight=\"0.3297587\" />\r\n      <window_info anchor=\"right\" id=\"Database\" order=\"4\" visible=\"true\" weight=\"0.44235924\" />\r\n    </layout>\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"1\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <ignored-roots>\r\n      <path value=\"$PROJECT_DIR$/svyb\" />\r\n      <path value=\"$PROJECT_DIR$/myApp\" />\r\n    </ignored-roots>\r\n    <MESSAGE value=\"server : done , angular front end created : done\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"server : done , angular front end created : done\" />\r\n  </component>\r\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\r\n    <SUITE FILE_PATH=\"coverage/code$api.coverage\" NAME=\"api Coverage Results\" MODIFIED=\"1556474071813\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\r\n    <SUITE FILE_PATH=\"coverage/code$app.coverage\" NAME=\"app Coverage Results\" MODIFIED=\"1556565182726\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"editorHistoryManager\">\r\n    <entry file=\"file://$PROJECT_DIR$/package-lock.json\" />\r\n    <entry file=\"file://$PROJECT_DIR$/static/es2015-polyfills.js\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\" />\r\n    </entry>\r\n    <entry file=\"file://$PROJECT_DIR$/static/main.js\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n        <state relative-caret-position=\"144\">\r\n          <caret line=\"96\" column=\"31\" selection-start-line=\"96\" selection-start-column=\"31\" selection-end-line=\"96\" selection-end-column=\"31\" />\r\n          <folding>\r\n            <element signature=\"n#style#0;n#div#0;n#!!top\" expanded=\"true\" />\r\n            <element signature=\"n#src#0;n#img#0;n#div#0;n#!!top\" expanded=\"true\" />\r\n          </folding>\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n    <entry file=\"das://7e6ebe4a-91ad-497a-94a1-8223db52743c/schema/main/table/categories\" />\r\n    <entry file=\"das://7e6ebe4a-91ad-497a-94a1-8223db52743c/schema/main/table/outcome\" />\r\n    <entry file=\"das://7e6ebe4a-91ad-497a-94a1-8223db52743c/schema/main/table/account\" />\r\n    <entry file=\"file://$APPLICATION_CONFIG_DIR$/consoles/db/7e6ebe4a-91ad-497a-94a1-8223db52743c/console.sql\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\" />\r\n    </entry>\r\n    <entry file=\"das://7e6ebe4a-91ad-497a-94a1-8223db52743c/schema/main/table/users\" />\r\n    <entry file=\"das://7e6ebe4a-91ad-497a-94a1-8223db52743c/schema/main/table/income\" />\r\n    <entry file=\"das://7e6ebe4a-91ad-497a-94a1-8223db52743c/schema/main/table/sqlite_master\" />\r\n    <entry file=\"file://$APPLICATION_CONFIG_DIR$/consoles/db/c66c31ac-eb5b-4d3c-921f-072065f2bdba/console.sql\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\" />\r\n    </entry>\r\n    <entry file=\"file://$APPLICATION_CONFIG_DIR$/consoles/db/5aa860b8-027c-453c-8f71-75004e1d42b8/console.sql\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\" />\r\n    </entry>\r\n    <entry file=\"file://$APPLICATION_CONFIG_DIR$/consoles/db/ea04677b-4e27-461c-8ef0-200f42cdc63c/console.sql\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\" />\r\n    </entry>\r\n    <entry file=\"file://$PROJECT_DIR$/db/coins\" />\r\n    <entry file=\"file://$APPLICATION_CONFIG_DIR$/consoles/db/b15779de-c0a2-4db0-9963-1d200a805564/console.sql\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\" />\r\n    </entry>\r\n    <entry file=\"file://$PROJECT_DIR$/myApp/node_modules/@angular/core/src/metadata/ng_module.d.ts\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n        <state relative-caret-position=\"142\">\r\n          <caret line=\"222\" column=\"4\" selection-start-line=\"222\" selection-start-column=\"4\" selection-end-line=\"222\" selection-end-column=\"4\" />\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n    <entry file=\"file://$PROJECT_DIR$/api.py\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n        <state relative-caret-position=\"119\">\r\n          <caret line=\"7\" selection-start-line=\"7\" selection-end-line=\"7\" selection-end-column=\"24\" />\r\n          <folding>\r\n            <element signature=\"e#0#14#0\" expanded=\"true\" />\r\n          </folding>\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n    <entry file=\"file://$PROJECT_DIR$/static/styles.js\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\" />\r\n    </entry>\r\n    <entry file=\"file://$PROJECT_DIR$/templates/indexMain.html\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n        <state relative-caret-position=\"85\">\r\n          <caret line=\"5\" column=\"22\" selection-start-line=\"5\" selection-start-column=\"22\" selection-end-line=\"5\" selection-end-column=\"22\" />\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n    <entry file=\"file://$PROJECT_DIR$/myApp/src/app/app-routing.module.ts\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n        <state>\r\n          <folding>\r\n            <element signature=\"e#0#41#0\" expanded=\"true\" />\r\n          </folding>\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n    <entry file=\"file://$PROJECT_DIR$/get-pip.py\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n        <state relative-caret-position=\"602\">\r\n          <caret line=\"21360\" column=\"10\" selection-start-line=\"21360\" selection-start-column=\"10\" selection-end-line=\"21360\" selection-end-column=\"10\" />\r\n          <folding>\r\n            <element signature=\"e#1138#1152#0\" expanded=\"true\" />\r\n          </folding>\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n    <entry file=\"file://$PROJECT_DIR$/myApp/src/app/app.module.ts\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n        <state relative-caret-position=\"306\">\r\n          <caret line=\"18\" column=\"2\" selection-start-line=\"18\" selection-start-column=\"2\" selection-end-line=\"18\" selection-end-column=\"2\" />\r\n          <folding>\r\n            <element signature=\"e#0#58#0\" expanded=\"true\" />\r\n          </folding>\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n    <entry file=\"file://$USER_HOME$/Anaconda3/Lib/site-packages/flask/templating.py\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n        <state relative-caret-position=\"140\">\r\n          <caret line=\"121\" column=\"4\" selection-start-line=\"121\" selection-start-column=\"4\" selection-end-line=\"121\" selection-end-column=\"4\" />\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n    <entry file=\"file://$PROJECT_DIR$/app.py\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n        <state relative-caret-position=\"323\">\r\n          <caret line=\"26\" column=\"42\" selection-start-line=\"26\" selection-start-column=\"42\" selection-end-line=\"26\" selection-end-column=\"42\" />\r\n          <folding>\r\n            <element signature=\"e#0#33#0\" expanded=\"true\" />\r\n          </folding>\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n    <entry file=\"file://$PROJECT_DIR$/myApp/src/app/app.component.ts\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n        <state relative-caret-position=\"340\">\r\n          <caret line=\"21\" column=\"35\" selection-start-line=\"21\" selection-start-column=\"35\" selection-end-line=\"21\" selection-end-column=\"35\" />\r\n          <folding>\r\n            <element signature=\"e#0#42#0\" expanded=\"true\" />\r\n          </folding>\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n    <entry file=\"file://$PROJECT_DIR$/commands .txt\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n        <state relative-caret-position=\"340\">\r\n          <caret line=\"20\" column=\"4\" selection-start-line=\"20\" selection-start-column=\"4\" selection-end-line=\"22\" selection-end-column=\"6\" />\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n    <entry file=\"file://$PROJECT_DIR$/myApp/src/app/app.component.html\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n        <state relative-caret-position=\"136\">\r\n          <caret line=\"8\" column=\"30\" selection-start-line=\"8\" selection-start-column=\"30\" selection-end-line=\"8\" selection-end-column=\"30\" />\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n    <entry file=\"das://b15779de-c0a2-4db0-9963-1d200a805564/schema/main/table/users.sql\">\r\n      <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n        <state relative-caret-position=\"17\">\r\n          <caret line=\"1\" column=\"13\" selection-start-line=\"1\" selection-start-column=\"13\" selection-end-line=\"1\" selection-end-column=\"13\" />\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n    <entry file=\"das://b15779de-c0a2-4db0-9963-1d200a805564/schema/main/table/users\">\r\n      <provider selected=\"true\" editor-type-id=\"com.intellij.database.editor.DatabaseTableFileEditorProvider\">\r\n        <state>\r\n          <filtering enabled=\"true\">\r\n            <filter text=\"\" />\r\n          </filtering>\r\n        </state>\r\n      </provider>\r\n    </entry>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision dbf82c9fc4a777841f318eb141c007acdeda7580)
++++ .idea/workspace.xml	(date 1556794346388)
+@@ -2,22 +2,8 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="be7bac3f-e838-4fe9-aa21-65d7c95bdbee" name="Default Changelist" comment="server : done , angular front end created : done">
+-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/api.py" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/commands .txt" beforeDir="false" afterPath="$PROJECT_DIR$/commands .txt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/myApp/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/myApp/src/app/app.component.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/myApp/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/myApp/src/app/app.component.ts" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/myApp/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/myApp/src/app/app.module.ts" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/static/es2015-polyfills.js" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/static/favicon.ico" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/static/main.js" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/static/polyfills.js" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/static/runtime.js" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/static/styles.js" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/static/vendor.js" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
+     </list>
+     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+     <option name="SHOW_DIALOG" value="false" />
+@@ -57,64 +43,14 @@
+   </component>
+   <component name="FileEditorManager">
+     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+-      <file pinned="false" current-in-tab="false">
++      <file pinned="false" current-in-tab="true">
+         <entry file="file://$PROJECT_DIR$/app.py">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="323">
+-              <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
++            <state relative-caret-position="224">
++              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+               <folding>
+                 <element signature="e#0#33#0" expanded="true" />
+               </folding>
+-            </state>
+-          </provider>
+-        </entry>
+-      </file>
+-      <file pinned="false" current-in-tab="false">
+-        <entry file="file://$PROJECT_DIR$/myApp/src/app/app.component.ts">
+-          <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="340">
+-              <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
+-              <folding>
+-                <element signature="e#0#42#0" expanded="true" />
+-              </folding>
+-            </state>
+-          </provider>
+-        </entry>
+-      </file>
+-      <file pinned="false" current-in-tab="false">
+-        <entry file="file://$PROJECT_DIR$/myApp/src/app/app.component.html">
+-          <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="136">
+-              <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+-            </state>
+-          </provider>
+-        </entry>
+-      </file>
+-      <file pinned="false" current-in-tab="true">
+-        <entry file="das://b15779de-c0a2-4db0-9963-1d200a805564/schema/main/table/users">
+-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+-            <state>
+-              <filtering enabled="true">
+-                <filter text="" />
+-              </filtering>
+-            </state>
+-          </provider>
+-        </entry>
+-      </file>
+-      <file pinned="false" current-in-tab="false">
+-        <entry file="das://b15779de-c0a2-4db0-9963-1d200a805564/schema/main/table/users.sql">
+-          <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="17">
+-              <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+-            </state>
+-          </provider>
+-        </entry>
+-      </file>
+-      <file pinned="false" current-in-tab="false">
+-        <entry file="file://$PROJECT_DIR$/commands .txt">
+-          <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="340">
+-              <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="22" selection-end-column="6" />
+             </state>
+           </provider>
+         </entry>
+@@ -142,10 +78,13 @@
+         <option value="$PROJECT_DIR$/api.py" />
+         <option value="$PROJECT_DIR$/myApp/src/app/app.module.ts" />
+         <option value="$PROJECT_DIR$/commands .txt" />
+-        <option value="$PROJECT_DIR$/app.py" />
+         <option value="$PROJECT_DIR$/myApp/src/app/app.component.ts" />
+         <option value="$PROJECT_DIR$/myApp/src/app/app.component.html" />
+         <option value="b15779de-c0a2-4db0-9963-1d200a805564/schema/main/table/users.sql" />
++        <option value="$PROJECT_DIR$/app.py" />
++        <option value="$USER_HOME$/Desktop/api.py" />
++        <option value="$USER_HOME$/AppData/Local/Temp/Temp1_jwt_api_example (1).zip/api_example/api.py" />
++        <option value="$PROJECT_DIR$/_app.py" />
+       </list>
+     </option>
+   </component>
+@@ -161,7 +100,6 @@
+       <foldersAlwaysOnTop value="true" />
+     </navigator>
+     <panes>
+-      <pane id="Scope" />
+       <pane id="ProjectPane">
+         <subPane>
+           <expand>
+@@ -172,17 +110,18 @@
+             <path>
+               <item name="code" type="b2602c69:ProjectViewProjectNode" />
+               <item name="code" type="462c0819:PsiDirectoryNode" />
+-              <item name="static" type="462c0819:PsiDirectoryNode" />
++              <item name="db" type="462c0819:PsiDirectoryNode" />
+             </path>
+             <path>
+               <item name="code" type="b2602c69:ProjectViewProjectNode" />
+               <item name="code" type="462c0819:PsiDirectoryNode" />
+-              <item name="templates" type="462c0819:PsiDirectoryNode" />
++              <item name="static" type="462c0819:PsiDirectoryNode" />
+             </path>
+           </expand>
+           <select />
+         </subPane>
+       </pane>
++      <pane id="Scope" />
+     </panes>
+   </component>
+   <component name="PropertiesComponent">
+@@ -192,18 +131,19 @@
+     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/Edit As Language" value="SQLite" />
+     <property name="database.console.LAST_STATE" value="false" />
+     <property name="editor.config.ad.shown" value="true" />
+-    <property name="last_opened_file_path" value="$PROJECT_DIR$/static" />
++    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
++    <property name="settings.editor.selected.configurable" value="configurable.group.project" />
+     <property name="ts.external.directory.path" value="C:\Users\vlado\Documents\semester 6\web_with_zhang\code\myApp\node_modules\typescript\lib" />
+   </component>
+   <component name="RecentsManager">
+-    <key name="MoveFile.RECENT_KEYS">
++    <key name="CopyFile.RECENT_KEYS">
++      <recent name="C:\Users\vlado\Documents\semester 6\web_with_zhang\code" />
+       <recent name="C:\Users\vlado\Documents\semester 6\web_with_zhang\code\static" />
+       <recent name="C:\Users\vlado\Documents\semester 6\web_with_zhang\code\templates" />
+     </key>
+-    <key name="CopyFile.RECENT_KEYS">
++    <key name="MoveFile.RECENT_KEYS">
+       <recent name="C:\Users\vlado\Documents\semester 6\web_with_zhang\code\static" />
+       <recent name="C:\Users\vlado\Documents\semester 6\web_with_zhang\code\templates" />
+     </key>
+@@ -220,7 +160,29 @@
+       </list>
+     </option>
+   </component>
+-  <component name="RunManager" selected="Python.app">
++  <component name="RunManager" selected="Python._app">
++    <configuration name="_app" type="PythonConfigurationType" factoryName="Python" temporary="true">
++      <module name="code" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <envs>
++        <env name="PYTHONUNBUFFERED" value="1" />
++      </envs>
++      <option name="SDK_HOME" value="" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
++      <option name="IS_MODULE_SDK" value="true" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/_app.py" />
++      <option name="PARAMETERS" value="" />
++      <option name="SHOW_COMMAND_LINE" value="false" />
++      <option name="EMULATE_TERMINAL" value="false" />
++      <option name="MODULE_MODE" value="false" />
++      <option name="REDIRECT_INPUT" value="false" />
++      <option name="INPUT_FILE" value="" />
++      <method v="2" />
++    </configuration>
+     <configuration name="api" type="PythonConfigurationType" factoryName="Python" temporary="true">
+       <module name="code" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+@@ -267,6 +229,7 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Python._app" />
+         <item itemvalue="Python.app" />
+         <item itemvalue="Python.api" />
+       </list>
+@@ -291,7 +254,9 @@
+       <workItem from="1556470225137" duration="5260000" />
+       <workItem from="1556476259888" duration="397000" />
+       <workItem from="1556562593603" duration="3804000" />
+-      <workItem from="1556716382715" duration="1024000" />
++      <workItem from="1556716382715" duration="1722000" />
++      <workItem from="1556748314517" duration="2498000" />
++      <workItem from="1556750972738" duration="2255000" />
+     </task>
+     <task id="LOCAL-00001" summary="server : done , angular front end created : done">
+       <created>1556190204709</created>
+@@ -304,7 +269,7 @@
+     <servers />
+   </component>
+   <component name="TimeTrackingManager">
+-    <option name="totallyTimeSpent" value="21365000" />
++    <option name="totallyTimeSpent" value="26816000" />
+   </component>
+   <component name="TodoView">
+     <todo-panel id="selected-file">
+@@ -318,7 +283,7 @@
+   <component name="ToolWindowManager">
+     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+     <layout>
+-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49891067" visible="true" weight="0.20911528" />
++      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49891067" visible="true" weight="0.21447721" />
+       <window_info id="Structure" order="1" sideWeight="0.50108933" side_tool="true" weight="0.18900804" />
+       <window_info id="Favorites" order="2" side_tool="true" />
+       <window_info anchor="bottom" id="Database Console" order="0" weight="0.32894737" />
+@@ -330,17 +295,17 @@
+       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+       <window_info anchor="bottom" id="TODO" order="7" weight="0.32894737" />
+       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32894737" />
++      <window_info active="true" anchor="bottom" id="Version Control" order="9" visible="true" weight="0.32894737" />
+       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" weight="0.32894737" />
+       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+-      <window_info anchor="bottom" id="Terminal" order="12" weight="0.19444445" />
+-      <window_info anchor="bottom" id="Python Console" order="13" weight="0.32921812" />
++      <window_info anchor="bottom" id="Terminal" order="12" weight="0.5409357" />
++      <window_info anchor="bottom" id="Python Console" order="13" weight="0.32894737" />
+       <window_info anchor="bottom" id="TypeScript" order="14" />
+       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+       <window_info anchor="right" id="SciView" order="3" weight="0.3297587" />
+-      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.44235924" />
++      <window_info anchor="right" id="Database" order="4" weight="0.18632708" />
+     </layout>
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -355,8 +320,9 @@
+     <option name="LAST_COMMIT_MESSAGE" value="server : done , angular front end created : done" />
+   </component>
+   <component name="com.intellij.coverage.CoverageDataManagerImpl">
++    <SUITE FILE_PATH="coverage/code$_app.coverage" NAME="_app Coverage Results" MODIFIED="1556794093532" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+     <SUITE FILE_PATH="coverage/code$api.coverage" NAME="api Coverage Results" MODIFIED="1556474071813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+-    <SUITE FILE_PATH="coverage/code$app.coverage" NAME="app Coverage Results" MODIFIED="1556565182726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
++    <SUITE FILE_PATH="coverage/code$app.coverage" NAME="app Coverage Results" MODIFIED="1556749396773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+   </component>
+   <component name="editorHistoryManager">
+     <entry file="file://$PROJECT_DIR$/package-lock.json" />
+@@ -403,16 +369,6 @@
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/api.py">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="119">
+-          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="24" />
+-          <folding>
+-            <element signature="e#0#14#0" expanded="true" />
+-          </folding>
+-        </state>
+-      </provider>
+-    </entry>
+     <entry file="file://$PROJECT_DIR$/static/styles.js">
+       <provider selected="true" editor-type-id="text-editor" />
+     </entry>
+@@ -459,30 +415,42 @@
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/app.py">
++    <entry file="das://b15779de-c0a2-4db0-9963-1d200a805564/schema/main/table/users.sql">
++      <provider selected="true" editor-type-id="text-editor" />
++    </entry>
++    <entry file="file://$PROJECT_DIR$/commands .txt">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="340">
++          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="22" selection-end-column="6" />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/api.py">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="323">
+-          <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
++        <state relative-caret-position="119">
++          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="24" />
+           <folding>
+-            <element signature="e#0#33#0" expanded="true" />
++            <element signature="e#0#14#0" expanded="true" />
+           </folding>
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/myApp/src/app/app.component.ts">
++    <entry file="file://$USER_HOME$/Desktop/api.py">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="340">
+-          <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
++        <state relative-caret-position="136">
++          <caret line="8" column="21" lean-forward="true" selection-end-line="241" />
+           <folding>
+-            <element signature="e#0#42#0" expanded="true" />
++            <element signature="e#0#56#0" expanded="true" />
+           </folding>
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/commands .txt">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="340">
+-          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="22" selection-end-column="6" />
++    <entry file="das://b15779de-c0a2-4db0-9963-1d200a805564/schema/main/table/users">
++      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
++        <state>
++          <filtering enabled="true">
++            <filter text="" />
++          </filtering>
+         </state>
+       </provider>
+     </entry>
+@@ -493,19 +461,43 @@
+         </state>
+       </provider>
+     </entry>
+-    <entry file="das://b15779de-c0a2-4db0-9963-1d200a805564/schema/main/table/users.sql">
++    <entry file="file://$PROJECT_DIR$/myApp/src/app/app.component.ts">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="17">
+-          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
++        <state relative-caret-position="271">
++          <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
++          <folding>
++            <element signature="e#0#42#0" expanded="true" />
++          </folding>
+         </state>
+       </provider>
+     </entry>
+-    <entry file="das://b15779de-c0a2-4db0-9963-1d200a805564/schema/main/table/users">
+-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+-        <state>
+-          <filtering enabled="true">
+-            <filter text="" />
+-          </filtering>
++    <entry file="file://$USER_HOME$/AppData/Local/Temp/Temp1_jwt_api_example (1).zip/api_example/api.py">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="119">
++          <caret line="7" selection-start-line="7" selection-end-line="7" />
++          <folding>
++            <element signature="e#0#56#0" expanded="true" />
++          </folding>
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/_app.py">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="119">
++          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
++          <folding>
++            <element signature="e#0#56#0" expanded="true" />
++          </folding>
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app.py">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="224">
++          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
++          <folding>
++            <element signature="e#0#33#0" expanded="true" />
++          </folding>
+         </state>
+       </provider>
+     </entry>
