@@ -5,7 +5,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import jwt  # json web token
 import datetime  # to work with date and time
 from functools import wraps  # for decorator
-from passlib.hash import sha256_crypt
 import os
 
 app = Flask(__name__)
