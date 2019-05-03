@@ -2,6 +2,8 @@
   <dictionary name="vlado">
     <words>
       <w>lastname</w>
+      <w>spendings</w>
+      <w>sqlalchemy</w>
     </words>
   </dictionary>
 </component>
