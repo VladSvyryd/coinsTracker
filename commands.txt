@@ -7,6 +7,6 @@ to compile angular files into index.html form and put it in the folder of python
    - "create db" : sqlite3 name.db
    OR
 
-   - open python console, "import db from app"  (from app.py , where we created instance of our db)
+   - open python console, "from app import db"  (from app.py , where we created instance of our db)
    - then "db.create_all()"  this will create and put database in to the final directory
 
