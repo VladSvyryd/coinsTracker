@@ -5,19 +5,8 @@ to compile angular files into index.html form and put it in the folder of python
 // DB
    - go in folder where db is
    - "create db" : sqlite3 name.db
-   - "create table"
+   OR
 
+   - open python console, "import db from app"  (from app.py , where we created instance of our db)
+   - then "db.create_all()"  this will create and put database in to the final directory
 
-@app.route('/users')
-def getAllUsers():
-    myDB = sqlite3.connect('db/coins.db')
-
-    dbCursor = myDB.cursor()
-    dbCursor.execute('SELECT * FROM users')
-    print(dbCursor.fetchall())
-    return jsonify(dbCursor.fetchall()), 201
-
-
-    <div *ngFor="let user of users | async">
-  {{user | json}}
-</div>
