@@ -90,7 +90,7 @@ def token_required(f):
 @app.route('/user', methods=['GET'])
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
-def get_all_user(current_user):
+def get_all_users(current_user):
     # check if the user that asks a request is as Admin: true  in DB
     if not current_user.admin:
         return jsonify({'server message' : 'Cannot perform that function!'})
@@ -115,9 +115,7 @@ def get_all_user(current_user):
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
 def get_one_user(current_user, public_id):
-    # check if the user that asks a request is as Admin: true  in DB
-    if not current_user.admin:
-        return jsonify({'server message': 'Cannot perform that function!'})
+
 
     # create a query to filter table for this specific user
     user = User.query.filter_by(public_id=public_id).first()
@@ -131,20 +129,21 @@ def get_one_user(current_user, public_id):
 
 
 @app.route('/user', methods=['POST'])
-# this is a decorator to make this route opened to authenticated users with token
-@token_required
-def create_user(current_user):
-    # check if the user that asks a request is as Admin: true  in DB
-    if not current_user.admin:
-        return jsonify({'server message': 'Cannot perform that function!'})
+def create_user():
 
     # get the data as json format
     data = request.get_json()
+
+    is_already_user = User.query.filter_by(email=data['email']).first()
+
+    if is_already_user:
+        return jsonify({'server message': 'There is already a user with such email. Try to Log In'})
+
     # create a password as hash with external library
     hashed_password = generate_password_hash(data['password'], method='sha256')
     # hashed_password = sha256_crypt.encrypt(data['password'])
     # create new User WITH random string as public key,
-    new_user = User(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False)
+    new_user = User(public_id=str(uuid.uuid4()), name=data.get("name", "Mew"), email=data.get("email"), password=hashed_password, admin=False)
     # insert into table User a New User
     db.session.add(new_user)
     db.session.commit()
@@ -198,7 +197,7 @@ def login():
     if not auth or not auth.username or not auth.password:
         # send a response with error type and header type of error
         return make_response('Could not verify any data', 401, {'WWW-Authenticate': 'Basic realm="Login required!!!"'})
-    user = User.query.filter_by(name=auth.username).first()
+    user = User.query.filter_by(email=auth.username).first()
     # if there is no such user in db than response error
     if not user:
         return make_response('Could not verify user', 401, {'WWW-Authenticate': 'Basic realm="Login required!!!"'})
