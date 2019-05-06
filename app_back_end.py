@@ -5,10 +5,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import jwt  # json web token
 import datetime  # to work with date and time
 from functools import wraps  # for decorator
+from flask_cors import CORS
 
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 # create settings property of DB to use this to code and encode password
 app.config['SECRET_KEY'] = 'thisissecret'
@@ -192,17 +194,17 @@ def delete_user(current_user, public_id):
 
 @app.route('/login')
 def login():
-    auth = request.authorization
+    auth = request.headers
     print(auth)
-    if not auth or not auth.username or not auth.password:
+    if not auth or not auth['email'] or not auth['password']:
         # send a response with error type and header type of error
         return make_response('Could not verify any data', 401, {'WWW-Authenticate': 'Basic realm="Login required!!!"'})
-    user = User.query.filter_by(email=auth.username).first()
+    user = User.query.filter_by(email=auth['email']).first()
     # if there is no such user in db than response error
     if not user:
         return make_response('Could not verify user', 401, {'WWW-Authenticate': 'Basic realm="Login required!!!"'})
     # check password , pass password from database and coming password from the request
-    if check_password_hash(user.password, auth.password):
+    if check_password_hash(user.password, auth['password']):
         # create a json web token with public_id from database and expiration date of it, third parameter is a secret
         # word to encode the hash
         token = jwt.encode({'public_id': user.public_id,
