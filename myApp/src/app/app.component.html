@@ -1,18 +1,18 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+<div class="wrapper">
+<mat-toolbar class="header">{{title}}       <p><button mat-flat-button color="primary" (click)="sidenav.toggle()">Toggle</button></p>
+</mat-toolbar>
 
-<p>dmaklwmdklamwkldmaklwmdklamwkldmklawmdkl</p>
-<button (click)="getUsers()">getUsers</button>
-<div *ngFor="let user of users">
-  {{user | json}}
-</div>
+  <mat-sidenav-container class="sidebar">
+    <mat-sidenav #sidenav mode="side" opened="false" class="example-sidenav"
+                 [fixedInViewport]="options.fixed" [fixedTopGap]="options.top"
+                 [fixedBottomGap]="options.bottom">
+      Sidenav
+    </mat-sidenav>
 
-  <p>dmaklwmdklamwkldmaklwmdklamwkldmklawmdkl</p>
-<button (click)="getEmployees()">getUsers</button>
+    <mat-sidenav-content class="mainA">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 
 
-<router-outlet></router-outlet>
-
+  </div>
