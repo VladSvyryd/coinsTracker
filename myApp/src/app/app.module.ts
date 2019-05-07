@@ -8,11 +8,16 @@ import { MyOwnCustomMaterialModule } from './myMaterialComponents';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ValidationComponent } from './components/validation/validation.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './services/token.interceptor';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ValidationComponent
+    ValidationComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +27,11 @@ import {ReactiveFormsModule} from "@angular/forms";
     MyOwnCustomMaterialModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

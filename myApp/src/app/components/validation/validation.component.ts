@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AuthServiceService} from "../../services/auth-service.service";
+import {Router} from "@angular/router";
 
 
 
@@ -27,16 +28,19 @@ export class ValidationComponent implements OnInit {
       this.password.hasError('minlength') ? 'Not a valid password, at least 8 digits' :
         '';
   }
-  constructor(fb: FormBuilder,private authService:AuthServiceService) {  this.options = fb.group({
+  constructor(fb: FormBuilder,private authService:AuthServiceService, private router: Router) {  this.options = fb.group({
     email: this.email,
     password: this.password,
     name: this.name
   }); }
 
   tryLogin(){
+    this.authService.login(this.options.value.email,this.options.value.password);
     console.log(this.options.value.email)
-    this.authService.login(this.options.value.email,this.options.value.password)
+    this.router.navigate(['/dashboard'])
+
   }
+
 
   ngOnInit() {
   }

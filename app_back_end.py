@@ -71,8 +71,8 @@ def token_required(f):
         token = None
 
         # check the header on token
-        if 'x-access-token' in request.headers:
-            token = request.headers['x-access-token']
+        if 'Authorization' in request.headers:
+            token = request.headers['Authorization']
 
         if not token:
             return jsonify({'server message' : 'Token is missing'}), 401
@@ -93,9 +93,7 @@ def token_required(f):
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
 def get_all_users(current_user):
-    # check if the user that asks a request is as Admin: true  in DB
-    if not current_user.admin:
-        return jsonify({'server message' : 'Cannot perform that function!'})
+
 
     # create a query to get all users
     users = User.query.all()
