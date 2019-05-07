@@ -1,40 +1,52 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,  HttpHeaders} from '@angular/common/http';
+import { Account } from "../models/account";
+import { Observable } from "rxjs";
+
+
 
 
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthServiceService {
-  token:Object;
+  token: Object;
+
   server_path = "http://127.0.0.1:5000";
 
   httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-  })
-};
-  constructor(private httpClient: HttpClient) { }
-  login(email:string, password:string){
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })
+  };
 
-   this.httpOptions.headers.append('email', email );
-   this.httpOptions.headers.append('password', password);
+  constructor(private httpClient: HttpClient) {
+  }
+
+  login(email: string, password: string) {
+
+    this.httpOptions.headers.append('email', email);
+    this.httpOptions.headers.append('password', password);
 
     this.httpClient.get(this.server_path + "/login", this.httpOptions).subscribe(data => {
-      this.token  =  data as Object;
+      this.token = data as Object;
       console.log(this.token);
       this.saveToken(this.token)
     });
 
 
-}
-  saveToken(token){
+  }
+
+  saveToken(token) {
     localStorage.setItem("userToken", token.token)
   }
-  loadToken(){
+
+  loadToken() {
     return localStorage.getItem("userToken");
   }
+
   public isAuthenticated(): boolean {
     // get the token
     const token = this.loadToken();
@@ -43,13 +55,15 @@ export class AuthServiceService {
     return true;
   }
 
-  getAllUsers(){
+  getAllUsers() {
     this.httpClient.get(this.server_path + "/user").subscribe(data => {
       console.log(data);
     });
   }
 
   getAllAccounts() {
-    this.httpClient.get(this.server_path + "/account").subscribe(data => {  return data });
+    return this.httpClient.get(this.server_path + "/account");
   }
+
 }
+

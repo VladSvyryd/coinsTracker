@@ -322,6 +322,7 @@ def create_account(current_user):
 def get_all_accounts(current_user):
 
     accounts = Accounts.query.filter_by(user_id=current_user.public_id).all()
+    print(accounts)
     output = []
     for account in accounts:
         account_list = {}
@@ -331,7 +332,7 @@ def get_all_accounts(current_user):
         account_list['amount'] = account.amount
         account_list['date'] = account.date
         output.append(account_list)
-    return jsonify({'accounts': output})
+    return jsonify(output)
 
 
 @app.route('/account/<account_id>', methods=['GET'])
