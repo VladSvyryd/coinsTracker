@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {OverlayContainer} from '@angular/cdk/overlay';
 
 
 @Component({
@@ -8,6 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'CoinKeeper';
+  blackThemeOn = false;
   options = {
       bottom: 0,
       fixed: false,
@@ -16,6 +18,8 @@ export class AppComponent {
   users: JSON;
   readonly ROOT_URL = 'http://127.0.0.1:5000/';
 
-constructor(){}
+constructor(overlayContainer: OverlayContainer) {
+    overlayContainer.getContainerElement().classList.add('unicorn-dark-theme');
+  }
 
 }

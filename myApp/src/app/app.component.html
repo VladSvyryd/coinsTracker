@@ -1,8 +1,15 @@
-<div class="wrapper">
-<mat-toolbar class="header">{{title}}       <p><button mat-flat-button color="primary" (click)="sidenav.toggle()">Toggle</button></p>
-</mat-toolbar>
+<div class="wrapper " [ngClass]="{
+  'unicorn-dark-theme': themeToggle.checked
+}"
+>
+  <mat-toolbar class="header">{{title}}
+    <p><button mat-flat-button color="accent" (click)="sidenav.toggle()">Toggle</button></p>
+    <mat-slide-toggle #themeToggle  color="accent">
+      Do it!
+    </mat-slide-toggle>
+  </mat-toolbar>
 
-  <mat-sidenav-container class="sidebar">
+  <mat-sidenav-container class="sidebar ">
     <mat-sidenav #sidenav mode="side" opened="false" class="example-sidenav"
                  [fixedInViewport]="options.fixed" [fixedTopGap]="options.top"
                  [fixedBottomGap]="options.bottom">
@@ -15,4 +22,4 @@
   </mat-sidenav-container>
 
 
-  </div>
+</div>
