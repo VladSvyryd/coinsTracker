@@ -11,13 +11,15 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './services/token.interceptor';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ValidationComponent,
-    DashboardComponent
+    DashboardComponent,
+    PlaceholderComponent
   ],
   imports: [
     BrowserModule,

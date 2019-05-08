@@ -1,37 +1,30 @@
+<app-placeholder *ngIf="true"></app-placeholder>
 
-<div class="placeholder">
-<mat-list>
-  <mat-list-item>Item 1</mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item>Item 2</mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item>Item 3</mat-list-item>
+<mat-list *ngIf="true">
+  <mat-form-field class="example-chip-list">
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let account of accounts" [selectable]="selectable"
+                [removable]="removable" (removed)="remove(account)">
+        {{account.name}}
+        {{account.amount}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="New account..."
+             [matChipInputFor]="chipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="addOnBlur"
+             (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+  </mat-form-field>
+
+  <ul>
+    <li *ngFor="let account of accounts" >
+      -- id: {{account.id}}<br>
+      -- name: {{account.name}}<br>
+      -- cost: {{account.date}}<br>
+      -- description: {{account.description}}<br>
+    </li>
+  </ul>
 </mat-list>
-</div>
 
-  <mat-list>
-    <mat-form-field class="example-chip-list">
-      <mat-chip-list #chipList>
-        <mat-chip *ngFor="let account of accounts" [selectable]="selectable"
-                  [removable]="removable" (removed)="remove(account)">
-          {{account.name}}
-          {{account.amount}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <input placeholder="New account..."
-               [matChipInputFor]="chipList"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               [matChipInputAddOnBlur]="addOnBlur"
-               (matChipInputTokenEnd)="add($event)">
-      </mat-chip-list>
-    </mat-form-field>
-  </mat-list>
 
-<ul>
-  <li *ngFor="let account of accounts" >
-    -- id: {{account.id}}<br>
-    -- name: {{account.name}}<br>
-    -- cost: {{account.date}}<br>
-    -- description: {{account.description}}<br>
-  </li>
-</ul>
