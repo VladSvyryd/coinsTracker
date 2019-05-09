@@ -128,8 +128,15 @@ def get_one_user(current_user, public_id):
     return jsonify({'user': user_data})
 
 
-@app.route('/user', methods=['POST'])
+@app.route('/user_signUp', methods=['POST'])
 def create_user():
+    print("executed")
+    print(request.headers)
+    print(request.get_json())
+    auth = request.headers
+    if not auth['password']:
+        # send a response with error type and header type of error
+        return make_response('Could not verify any data', 401, {"WWW-Authenticate': 'No password'"})
 
     # get the data as json format
     data = request.get_json()
@@ -140,7 +147,7 @@ def create_user():
         return jsonify({'server message': 'There is already a user with such email. Try to Log In'})
 
     # create a password as hash with external library
-    hashed_password = generate_password_hash(data['password'], method='sha256')
+    hashed_password = generate_password_hash(auth['password'], method='sha256')
     # hashed_password = sha256_crypt.encrypt(data['password'])
     # create new User WITH random string as public key,
     new_user = User(public_id=str(uuid.uuid4()), name=data.get("name", "Mew"), email=data.get("email"), password=hashed_password, admin=False)
@@ -193,7 +200,6 @@ def delete_user(current_user, public_id):
 @app.route('/login')
 def login():
     auth = request.headers
-    print(auth)
     if not auth or not auth['email'] or not auth['password']:
         # send a response with error type and header type of error
         return make_response('Could not verify any data', 401, {'WWW-Authenticate': 'Basic realm="Login required!!!"'})
@@ -309,8 +315,8 @@ def create_account(current_user):
 
     # get data
     data = request.get_json()
-
-    new_account = Accounts(name=data['name'], user_id=current_user.public_id, amount=data['amount'], date=datetime.datetime.utcnow())
+    print(data)
+    new_account = Accounts(name=data['name'], user_id=current_user.public_id, amount=(int)(data['amount']), date=datetime.datetime.utcnow())
     db.session.add(new_account)
     db.session.commit()
     return jsonify({'server message': 'new account is added'})

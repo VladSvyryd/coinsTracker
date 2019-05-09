@@ -21,24 +21,37 @@ export class DashboardComponent implements OnInit {
 
 
   constructor(private authService:AuthServiceService) {
+
     this.authService.getAllAccounts().subscribe((res : Account[])=>{
+      this.sleep(4000);
       this.accounts = res;
     });
   }
-add(event: MatChipInputEvent): void {
+  sleep(delay) {
+    let start = new Date().getTime();
+    while (new Date().getTime() < start + delay);
+  }
+  add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
     console.log(input, value)
-    // Add our fruit
+    // Add our account
+
     if ((value || '').trim()) {
       let valueAsString = value.toString().trim();
       this.accounts.push({
-        amount:21,
-  date:"",
-  description:"",
-  id:2,
-  name:valueAsString
+        amount:999,
+        date:"",
+        description:"",
+        name:valueAsString
       });
+      let newAccount: Account = { amount: 999,
+        date:"",
+        description:"",
+        name:valueAsString}
+      this.authService.createAccount(newAccount)
+
+
     }
 
     // Reset the input value
@@ -52,6 +65,7 @@ add(event: MatChipInputEvent): void {
 
     if (index >= 0) {
       this.accounts.splice(index, 1);
+      this.authService.deleteAccount(account)
     }
   }
   ngOnInit() {
