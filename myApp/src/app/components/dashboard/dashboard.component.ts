@@ -40,12 +40,14 @@ export class DashboardComponent implements OnInit {
     if ((value || '').trim()) {
       let valueAsString = value.toString().trim();
       this.accounts.push({
+        id:1,
         amount:999,
         date:"",
         description:"",
         name:valueAsString
       });
       let newAccount: Account = { amount: 999,
+        id: 2,
         date:"",
         description:"",
         name:valueAsString}
