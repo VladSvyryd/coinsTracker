@@ -3,12 +3,6 @@ import {HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/c
 import { Account } from "../models/account";
 import {Observable, throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
-import {User} from "../models/user";
-
-
-
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -25,12 +19,11 @@ export class AuthServiceService {
   login(email: string, password: string) {
     let httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin" : "true",
+        "email" : email,
+        "password" : password
       })
     };
-
-    httpOptions.headers.append('email', email);
-    httpOptions.headers.append('password', password);
 
     this.httpClient.get(this.server_path + "/login", httpOptions).subscribe(data => {
       this.token = data as Object;
@@ -46,8 +39,13 @@ export class AuthServiceService {
   }
 
   loadToken() {
-    return localStorage.getItem("userToken");
+    if(localStorage.getItem("userToken") != null){
+      console.log(localStorage.getItem("userToken"));
+      return localStorage.getItem("userToken");
+    }
+    return false
   }
+
 
   public isAuthenticated(): boolean {
     // get the token
@@ -70,14 +68,13 @@ export class AuthServiceService {
   register(email: string, password: string, name:string){
     let httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        'password' : password
       })
     };
-    httpOptions.headers.append('password', password);
 
-    let body = new HttpParams().set("name" ,name).set("password" ,email);
+    let body = { "name" : name,"email":email};
 
-    this.httpClient.post(this.server_path+"/user_signUp", body.toString(), httpOptions).pipe(
+    this.httpClient.post(this.server_path+"/user_signUp", body, httpOptions).pipe(
       catchError(this.handleError)
     ).subscribe();;
   }
@@ -119,4 +116,10 @@ export class AuthServiceService {
     ).subscribe();
   }
 }
+
+
+
+
+
+import {User} from "../models/user";
 

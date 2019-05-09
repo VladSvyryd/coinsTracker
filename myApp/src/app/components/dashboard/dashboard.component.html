@@ -1,47 +1,5 @@
-<app-placeholder *ngIf="this.accounts == false"></app-placeholder>
-
-<mat-list *ngIf="this.accounts">
-  <mat-form-field class="example-chip-list">
-    <mat-chip-list #chipList>
-      <mat-chip *ngFor="let account of accounts" [selectable]="selectable"
-                [removable]="removable" (removed)="remove(account)">
-        {{account.name}}
-        {{account.amount}}
-        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-      </mat-chip>
-      <input placeholder="New account..."
-             [matChipInputFor]="chipList"
-             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-             [matChipInputAddOnBlur]="addOnBlur"
-             (matChipInputTokenEnd)="add($event)">
-    </mat-chip-list>
-  </mat-form-field>
-
-  <ul>
-    <li *ngFor="let account of accounts" >
-      -- id: {{account.id}}<br>
-      -- name: {{account.name}}<br>
-      -- cost: {{account.date}}<br>
-      -- description: {{account.description}}<br>
-    </li>
-  </ul>
-</mat-list>
-
+<app-placeholder *ngIf="false"></app-placeholder>
 <div class="placeholder">
-  <mat-divider></mat-divider>
-  <div class="title">Incomes</div>
-  <mat-grid-list cols="3" rowHeight="150px">
-    <mat-grid-tile
-      *ngFor="let tile of tiles"
-      [colspan]="tile.cols"
-      [rowspan]="tile.rows"
-      [style.background]="tile.color">
-      <div class="circle">
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
-
-  <mat-divider></mat-divider>
   <div class="wrapper">
 
     <div class="title">
@@ -54,32 +12,27 @@
         <h3 class="titleDate" class="rightTop">$</h3>
       </div>
     </div>
-
-
     <div class="boxWithCircles">
-      <div class="circlesInRow"
-           *ngFor="let tile of tiles"
-           [style.background]="tile.color">
-        <div class="circle">
-        </div>
-      </div>
+      <mat-list *ngIf="this.accounts">
+        <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let account of accounts" [selectable]="selectable"
+                      [removable]="removable" (removed)="remove(account)">
+              {{account.name}}
+              {{account.amount}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="New account..."
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+        </mat-form-field>
+      </mat-list>
     </div>
   </div>
 
-  <mat-divider></mat-divider>
-  <div class="title">Categories</div>
-  <mat-grid-list cols="3" rowHeight="150px">
-    <mat-grid-tile
-      *ngFor="let tile of tiles"
-      [colspan]="tile.cols"
-      [rowspan]="tile.rows"
-      [style.background]="tile.color">
-      <div class="circle">
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
-
-  <mat-divider></mat-divider>
 
 </div>
 

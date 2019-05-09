@@ -2,15 +2,17 @@ from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 import uuid  # to generate random public id
 from werkzeug.security import generate_password_hash, check_password_hash
-import jwt # json web token (you need to install PyJWT if ou get an error while trying to get a token)
+import jwt  # json web token (you need to install PyJWT if ou get an error while trying to get a token)
 import datetime  # to work with date and time
 from functools import wraps  # for decorator
 from flask_cors import CORS
 
 import os
+from models import db
 
 app = Flask(__name__)
 CORS(app)
+db.init_app(app)
 
 # create settings property of DB to use this to code and encode password
 app.config['SECRET_KEY'] = 'thisissecret'
@@ -21,47 +23,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db\\temp_coins.db')
 
 # connect to db
-db = SQLAlchemy(app)
-
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    public_id = db.Column(db.String(50), unique=True)
-    name = db.Column(db.String(50))
-    email = db.Column(db.String(50))
-    password = db.Column(db.String(80))
-    admin = db.Column(db.Boolean)
-
-
-class Categories(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-    description = db.Column(db.String(250))
-    user_id = db.Column(db.Integer)
-
-
-class Incomes(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    amount = db.Column(db.Integer)
-    date = db.Column(db.TIMESTAMP)
-    user_id = db.Column(db.Integer)
-
-
-class Spendings(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    amount = db.Column(db.Integer)
-    date = db.Column(db.TIMESTAMP)
-    user_id = db.Column(db.Integer)
-    category_id = db.Column(db.Integer)
-
-
-class Accounts(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-    description = db.Column(db.String(250))
-    user_id = db.Column(db.Integer)
-    amount = db.Column(db.Integer)
-    date = db.Column(db.TIMESTAMP)
+from models import User, Incomes, Accounts, Categories, Spendings
 
 
 def token_required(f):
@@ -199,6 +161,7 @@ def delete_user(current_user, public_id):
 @app.route('/login')
 def login():
     auth = request.headers
+    print(auth)
     if not auth or not auth['email'] or not auth['password']:
         # send a response with error type and header type of error
         return make_response('Could not verify any data', 401, {'WWW-Authenticate': 'Basic realm="Login required!!!"'})
@@ -366,9 +329,9 @@ def update_account(current_user, account_id):
         return jsonify({'server message': 'No income found'})
 
     account.name = data['name']
-# account.description = data['description'] or account.description
-# account.amount = data['amount']
-# account.date = datetime.datetime.utcnow()
+    # account.description = data['description'] or account.description
+    # account.amount = data['amount']
+    # account.date = datetime.datetime.utcnow()
     db.session.commit()
     return jsonify({'server message': 'This acount has been changed'})
 

@@ -23,7 +23,6 @@ export class DashboardComponent implements OnInit {
   constructor(private authService:AuthServiceService) {
 
     this.authService.getAllAccounts().subscribe((res : Account[])=>{
-      this.sleep(4000);
       this.accounts = res;
     });
   }
@@ -31,6 +30,7 @@ export class DashboardComponent implements OnInit {
     let start = new Date().getTime();
     while (new Date().getTime() < start + delay);
   }
+  // add Chip on UI
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
@@ -62,6 +62,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  // remove chip from UI
   remove(account: Account): void {
     const index = this.accounts.indexOf(account);
 
