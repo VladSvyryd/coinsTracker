@@ -27,4 +27,60 @@
   </ul>
 </mat-list>
 
+<div class="placeholder">
+  <mat-divider></mat-divider>
+  <div class="title">Incomes</div>
+  <mat-grid-list cols="3" rowHeight="150px">
+    <mat-grid-tile
+      *ngFor="let tile of tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color">
+      <div class="circle">
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-divider></mat-divider>
+  <div class="wrapper">
+
+    <div class="title">
+      <div class="titleCol">
+        <h3 class="titleDate">Accounts</h3>
+        <h4 class="titleDate">Date</h4>
+      </div>
+
+      <div class="titleCol">
+        <h3 class="titleDate" class="rightTop">$</h3>
+      </div>
+    </div>
+
+
+    <div class="boxWithCircles">
+      <div class="circlesInRow"
+           *ngFor="let tile of tiles"
+           [style.background]="tile.color">
+        <div class="circle">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+  <div class="title">Categories</div>
+  <mat-grid-list cols="3" rowHeight="150px">
+    <mat-grid-tile
+      *ngFor="let tile of tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color">
+      <div class="circle">
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-divider></mat-divider>
+
+</div>
+
 

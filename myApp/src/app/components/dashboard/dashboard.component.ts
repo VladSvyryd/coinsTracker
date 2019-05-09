@@ -4,6 +4,14 @@ import { Observable } from "rxjs";
 import { Account } from "../../models/account";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material';
+import {Tile} from "../placeholder/placeholder.component";
+
+export interface Tile {
+  cols: number;
+  rows: number;
+  text: string;
+  color: string;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -20,12 +28,19 @@ export class DashboardComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
 
+  tiles: Tile[] = [
+    {text: '+', cols: 1, rows: 1},
+    {text: '+', cols: 1, rows: 1},
+    {text: '+', cols: 1, rows: 1},
+  ];
+
+
   constructor(private authService:AuthServiceService) {
     this.authService.getAllAccounts().subscribe((res : Account[])=>{
       this.accounts = res;
     });
   }
-add(event: MatChipInputEvent): void {
+  add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
     console.log(input, value)
@@ -34,10 +49,10 @@ add(event: MatChipInputEvent): void {
       let valueAsString = value.toString().trim();
       this.accounts.push({
         amount:21,
-  date:"",
-  description:"",
-  id:2,
-  name:valueAsString
+        date:"",
+        description:"",
+        id:2,
+        name:valueAsString
       });
     }
 
