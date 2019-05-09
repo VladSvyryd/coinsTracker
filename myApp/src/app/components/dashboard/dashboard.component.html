@@ -1,6 +1,6 @@
-<app-placeholder *ngIf="true"></app-placeholder>
+<app-placeholder *ngIf="this.accounts == false"></app-placeholder>
 
-<mat-list *ngIf="true">
+<mat-list *ngIf="this.accounts">
   <mat-form-field class="example-chip-list">
     <mat-chip-list #chipList>
       <mat-chip *ngFor="let account of accounts" [selectable]="selectable"

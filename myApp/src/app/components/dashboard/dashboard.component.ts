@@ -4,14 +4,6 @@ import { Observable } from "rxjs";
 import { Account } from "../../models/account";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material';
-import {Tile} from "../placeholder/placeholder.component";
-
-export interface Tile {
-  cols: number;
-  rows: number;
-  text: string;
-  color: string;
-}
 
 @Component({
   selector: 'app-dashboard',
@@ -28,32 +20,40 @@ export class DashboardComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
 
-  tiles: Tile[] = [
-    {text: '+', cols: 1, rows: 1},
-    {text: '+', cols: 1, rows: 1},
-    {text: '+', cols: 1, rows: 1},
-  ];
-
-
   constructor(private authService:AuthServiceService) {
+
     this.authService.getAllAccounts().subscribe((res : Account[])=>{
+      this.sleep(4000);
       this.accounts = res;
     });
+  }
+  sleep(delay) {
+    let start = new Date().getTime();
+    while (new Date().getTime() < start + delay);
   }
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
     console.log(input, value)
-    // Add our fruit
+    // Add our account
+
     if ((value || '').trim()) {
       let valueAsString = value.toString().trim();
       this.accounts.push({
-        amount:21,
+        id:1,
+        amount:999,
         date:"",
         description:"",
-        id:2,
         name:valueAsString
       });
+      let newAccount: Account = { amount: 999,
+        id: 2,
+        date:"",
+        description:"",
+        name:valueAsString}
+      this.authService.createAccount(newAccount)
+
+
     }
 
     // Reset the input value
@@ -67,6 +67,7 @@ export class DashboardComponent implements OnInit {
 
     if (index >= 0) {
       this.accounts.splice(index, 1);
+      this.authService.deleteAccount(account)
     }
   }
   ngOnInit() {

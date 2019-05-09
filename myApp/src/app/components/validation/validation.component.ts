@@ -41,6 +41,10 @@ export class ValidationComponent implements OnInit {
 
   }
 
+  tryRegister(){
+    console.log("print");
+    this.authService.register(this.options.value.email, this.options.value.password, this.options.value.name);
+  }
 
   ngOnInit() {
   }

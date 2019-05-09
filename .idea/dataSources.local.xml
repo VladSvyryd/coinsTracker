@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="SQLite - temp_coins.db" uuid="b15779de-c0a2-4db0-9963-1d200a805564">
+    <data-source name="temp_coins.db" uuid="b15779de-c0a2-4db0-9963-1d200a805564">
       <database-info product="SQLite" version="3.25.1" jdbc-version="2.1" driver-name="SQLite JDBC" driver-version="3.25.1" dbms="SQLITE" exact-version="3.25.1" exact-driver-version="3.25">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
@@ -10,13 +10,16 @@
       <auth-required>false</auth-required>
       <introspection-schemas>*:@</introspection-schemas>
     </data-source>
-    <data-source name="temp_coins" uuid="f053dafe-e839-4e66-9eab-1edb31b99c5d">
+    <data-source name="_old_temp_coins" uuid="f053dafe-e839-4e66-9eab-1edb31b99c5d">
       <database-info product="SQLite" version="3.25.1" jdbc-version="2.1" driver-name="SQLite JDBC" driver-version="3.25.1" dbms="SQLITE" exact-version="3.25.1" exact-driver-version="3.25">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <auth-required>false</auth-required>
       <introspection-schemas>*:@</introspection-schemas>
+    </data-source>
+    <data-source name="coins" uuid="9acc3503-07d1-4025-9634-bc25ac3b1b5e">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="SQLITE" exact-version="0" />
     </data-source>
   </component>
 </project>
