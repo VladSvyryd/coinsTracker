@@ -12,6 +12,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './services/token.interceptor';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
+import { DialogWindowComponent } from './components/dialog-window/dialog-window.component';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material";
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { PlaceholderComponent } from './components/placeholder/placeholder.compo
     AppComponent,
     ValidationComponent,
     DashboardComponent,
-    PlaceholderComponent
+    PlaceholderComponent,
+    DialogWindowComponent
   ],
   imports: [
     BrowserModule,
@@ -29,11 +32,19 @@ import { PlaceholderComponent } from './components/placeholder/placeholder.compo
     MyOwnCustomMaterialModule,
     ReactiveFormsModule
   ],
+   entryComponents: [
+    DialogWindowComponent
+  ],
   providers: [ {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }],
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  },
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {hasBackdrop: true}
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

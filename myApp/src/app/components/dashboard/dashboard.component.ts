@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthServiceService} from "../../services/auth-service.service";
+import {DashboardService} from "../../services/dashboard.service";
 import { Observable } from "rxjs";
 import { Account } from "../../models/account";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material';
+import {MatDialog} from '@angular/material';
+import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
 
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -17,12 +23,14 @@ export class DashboardComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
+  animal: string;
+  name: string;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
 
-  constructor(private authService:AuthServiceService) {
+  constructor(private dashboardService:DashboardService, public dialog: MatDialog) {
 
-    this.authService.getAllAccounts().subscribe((res : Account[])=>{
+    this.dashboardService.getAllAccounts().subscribe((res : Account[])=>{
       this.accounts = res;
     });
   }
@@ -30,28 +38,37 @@ export class DashboardComponent implements OnInit {
     let start = new Date().getTime();
     while (new Date().getTime() < start + delay);
   }
+    openDialog() {
+    const dialogRef = this.dialog.open(DialogWindowComponent, {
+      width: '250px',
+      data: {name: this.name, animal: this.animal}
+    });
+     dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+       this.animal = result;
+    });
+  }
+
+
   // add Chip on UI
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-    console.log(input, value)
     // Add our account
-
     if ((value || '').trim()) {
       let valueAsString = value.toString().trim();
       this.accounts.push({
         id:1,
         amount:999,
         date:"",
-        description:"",
         name:valueAsString
       });
       let newAccount: Account = { amount: 999,
         id: 2,
         date:"",
-        description:"",
         name:valueAsString}
-      this.authService.createAccount(newAccount)
+      this.dashboardService.createAccount(newAccount)
 
 
     }
@@ -68,7 +85,7 @@ export class DashboardComponent implements OnInit {
 
     if (index >= 0) {
       this.accounts.splice(index, 1);
-      this.authService.deleteAccount(account)
+      this.dashboardService.deleteAccount(account)
     }
   }
   ngOnInit() {

@@ -1,7 +1,6 @@
 import { Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/common/http';
-import { Account } from "../models/account";
-import {Observable, throwError} from "rxjs";
+import {throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
@@ -9,7 +8,6 @@ import {catchError} from "rxjs/operators";
 
 export class AuthServiceService {
   token: Object;
-
   server_path = "http://127.0.0.1:5000";
 
 
@@ -27,7 +25,6 @@ export class AuthServiceService {
 
     this.httpClient.get(this.server_path + "/login", httpOptions).subscribe(data => {
       this.token = data as Object;
-      console.log(this.token);
       this.saveToken(this.token)
     });
 
@@ -40,7 +37,6 @@ export class AuthServiceService {
 
   loadToken() {
     if(localStorage.getItem("userToken") != null){
-      console.log(localStorage.getItem("userToken"));
       return localStorage.getItem("userToken");
     }
     return false
@@ -55,15 +51,6 @@ export class AuthServiceService {
     return true;
   }
 
-  getAllUsers() {
-    this.httpClient.get(this.server_path + "/user").subscribe(data => {
-      console.log(data);
-    });
-  }
-
-  getAllAccounts() {
-    return this.httpClient.get(this.server_path + "/account");
-  }
 
   register(email: string, password: string, name:string){
     let httpOptions = {
@@ -74,9 +61,9 @@ export class AuthServiceService {
 
     let body = { "name" : name,"email":email};
 
-    this.httpClient.post(this.server_path+"/user_signUp", body, httpOptions).pipe(
+   return this.httpClient.post(this.server_path+"/user_signUp", body, httpOptions).pipe(
       catchError(this.handleError)
-    ).subscribe();;
+    );
   }
 
   logout() {
@@ -101,20 +88,6 @@ export class AuthServiceService {
       'Something bad happened; please try again later.');
   };
 
-  createAccount(account:Account) {
-    // let new_account:Account = {name: name, amount: amount, date: "",description: ""};
-    let new_account = {name: account.name, amount: account.amount};
-    this.httpClient.post(this.server_path+"/account", new_account).pipe(
-      catchError(this.handleError)
-    ).subscribe();
-  }
-
-  deleteAccount(account:Account) {
-    account.id
-    this.httpClient.delete(this.server_path+"/account/"+ account.id).pipe(
-      catchError(this.handleError)
-    ).subscribe();
-  }
 }
 
 
