@@ -6,6 +6,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material';
 import {MatDialog} from '@angular/material';
 import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 export interface DialogData {
   animal: string;
@@ -24,7 +25,6 @@ export class DashboardComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   animal: string;
-  name: string;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
 
@@ -41,42 +41,35 @@ export class DashboardComponent implements OnInit {
     openDialog() {
     const dialogRef = this.dialog.open(DialogWindowComponent, {
       width: '250px',
-      data: {name: this.name, animal: this.animal}
+      data: {name: '' ,amount: ''}
     });
      dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-       this.animal = result;
+      console.log("This comes from dialog",result);
+      if(result != undefined && result.name !== "" && result.amount != "")this.add(result);
     });
   }
-
+ drop(event: CdkDragDrop<{title: string, poster: string}[]>) {
+    moveItemInArray(this.accounts, event.previousIndex, event.currentIndex);
+  }
 
   // add Chip on UI
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
+  add(tempObject): void {
     // Add our account
-    if ((value || '').trim()) {
-      let valueAsString = value.toString().trim();
+
+      let new_name = tempObject.name.toString().trim();
+      let new_amount = tempObject.amount.toString().trim();
       this.accounts.push({
         id:1,
-        amount:999,
+        amount:new_amount,
         date:"",
-        name:valueAsString
+        name:new_name
       });
-      let newAccount: Account = { amount: 999,
+      let newAccount: Account = { amount: new_amount,
         id: 2,
         date:"",
-        name:valueAsString}
+        name:new_name}
       this.dashboardService.createAccount(newAccount)
 
-
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
   }
 
   // remove chip from UI

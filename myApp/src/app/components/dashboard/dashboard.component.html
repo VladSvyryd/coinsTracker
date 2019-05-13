@@ -13,27 +13,24 @@
       </div>
     </div>
     <div class="boxWithCircles">
-      <mat-list *ngIf="this.accounts">
-        <mat-form-field class="example-chip-list">
-          <mat-chip-list #chipList>
-            <mat-chip *ngFor="let account of accounts" [selectable]="selectable"
-                      [removable]="removable" (removed)="remove(account)">
-              {{account.name}}
-              {{account.amount}}
-              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
-            <input placeholder="New account..."
-                   [matChipInputFor]="chipList"
-                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   [matChipInputAddOnBlur]="addOnBlur"
-                   (matChipInputTokenEnd)="add($event)">
-          </mat-chip-list>
-        </mat-form-field>
-      </mat-list>
+      <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" *ngIf="this.accounts" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let account of accounts" cdkDrag>
+          <button mat-fab>  {{this.account.name}}  <mat-icon (click)="remove(account)">close</mat-icon></button>
+
+          <div *cdkDragPreview  >
+            <p>
+              {{this.account.name}}
+            </p>
+            <p>
+              {{this.account.amount}}
+            </p>
+          </div>
+        </div>
+      </div>
+        <button mat-fab [disabled]="accounts.length>3" (click)="openDialog()"><mat-icon>add</mat-icon> </button>
     </div>
   </div>
-<button mat-button (click)="openDialog()">Open dialog</button>
-
 </div>
+
 
 

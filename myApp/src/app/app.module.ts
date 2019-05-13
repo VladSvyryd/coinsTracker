@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,6 +14,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 import { DialogWindowComponent } from './components/dialog-window/dialog-window.component';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material";
+import { UpsComponent } from './components/ups/ups.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material";
     ValidationComponent,
     DashboardComponent,
     PlaceholderComponent,
-    DialogWindowComponent
+    DialogWindowComponent,
+    UpsComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,8 @@ import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material";
     HttpClientModule,
     BrowserAnimationsModule,
     MyOwnCustomMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
    entryComponents: [
     DialogWindowComponent

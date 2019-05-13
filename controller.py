@@ -19,7 +19,7 @@ app.config['SECRET_KEY'] = 'thisissecret'
 # to get right path to our db
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-# config that path to get access to db (in the main directory of prokect, database file is in db dictionary)
+# config that path to get access to db (in the main directory of project, database file is in db dictionary)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db\\temp_coins.db')
 
 # connect to db

@@ -2,6 +2,7 @@ import { Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
+import * as jwt_decode from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
@@ -35,20 +36,26 @@ export class AuthServiceService {
     localStorage.setItem("userToken", token.token)
   }
 
-  loadToken() {
-    if(localStorage.getItem("userToken") != null){
+  getToken() {
       return localStorage.getItem("userToken");
-    }
-    return false
   }
+ getTokenExpirationDate(token: string): Date {
+    const decoded = jwt_decode(token);
 
+    if (decoded.exp === undefined) return null;
 
-  public isAuthenticated(): boolean {
-    // get the token
-    const token = this.loadToken();
-    // return a boolean reflecting
-    // whether or not the token is expired
-    return true;
+    const date = new Date(0);
+    date.setUTCSeconds(decoded.exp);
+    return date;
+  }
+   isTokenExpired(token?: string): boolean {
+    if(!token) token = this.getToken();
+    if(!token) return true;
+
+    const date = this.getTokenExpirationDate(token);
+    if(date === undefined) return false;
+    console.log(date)
+    return !(date.valueOf() > new Date().valueOf());
   }
 
 
@@ -68,7 +75,7 @@ export class AuthServiceService {
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('userToken');
     // this.currentUserSubject.next(null);
   }
 

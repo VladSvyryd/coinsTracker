@@ -4,7 +4,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {AuthServiceService} from "../../services/auth-service.service";
 import {Router} from "@angular/router";
 import {MatTabGroup, MatSnackBar} from "@angular/material";
-import {catchError} from "rxjs/operators";
+import {catchError} from "rxjs/operators"
+
 @Component({
   selector: 'app-validation',
   templateUrl: './validation.component.html',
@@ -25,9 +26,13 @@ export class ValidationComponent implements OnInit {
     email: this.email,
     password: this.password,
     name: this.name
+  });
+  console.log(this.authService.isTokenExpired());
+    if(!this.authService.isTokenExpired()){
+      this.router.navigate(['/dashboard'])
+    }
 
-
-  }); }
+  }
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
