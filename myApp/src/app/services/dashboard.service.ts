@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {throwError} from "rxjs";
 import {Account} from "../models/account";
 import {catchError} from "rxjs/operators";
+import {Income} from "../models/income";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class DashboardService {
     return this.httpClient.get(this.server_path + "/account");
   }
 
+
   createAccount(account:Account) {
     // let new_account:Account = {name: name, amount: amount, date: "",description: ""};
     let new_account:Account = {name: account.name, amount: account.amount};
@@ -26,17 +28,27 @@ export class DashboardService {
   }
 
   deleteAccount(account:Account) {
-    account.id
     this.httpClient.delete(this.server_path+"/account/"+ account.id).pipe(
       catchError(this.handleError)
     ).subscribe();
   }
 
+ getAllIncomes() {
+    return this.httpClient.get(this.server_path + "/income");
+  }
 
 
-
-
-
+createIncome(income:Income) {
+    let new_income:Account = {name: income.name, amount: income.amount};
+    this.httpClient.post(this.server_path+"/income", new_income).pipe(
+      catchError(this.handleError)
+    ).subscribe();
+  }
+deleteIncome(income:Income) {
+    this.httpClient.delete(this.server_path+"/income/"+ income.id).pipe(
+      catchError(this.handleError)
+    ).subscribe();
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

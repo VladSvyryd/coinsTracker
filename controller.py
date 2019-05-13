@@ -183,18 +183,18 @@ def login():
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
 def get_all_incomes(current_user):
-    # check if the user that asks a request is as Admin: true  in DB
-    if not current_user.admin:
-        return jsonify({'server_message': 'Cannot perform that function!'})
 
     incomes = Incomes.query.filter_by(user_id=current_user.public_id).all()
     output = []
     for income in incomes:
         income_list = {}
+        income_list['name'] = income.name
+        income_list['id'] = income.id
         income_list['amount'] = income.amount
         income_list['date'] = income.date
+
         output.append(income_list)
-    return jsonify({'incomes': output})
+    return jsonify(output)
 
     # user = Incomes.query.filter_by
 
@@ -252,9 +252,6 @@ def upgrade_income(current_user, income_id):
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
 def delete_income(current_user, income_id):
-    # check if the user that asks a request is as Admin: true  in DB
-    if not current_user.admin:
-        return jsonify({'server_message': 'Cannot perform that function!'})
 
     # create a query to filter table for this specific user
     income = Incomes.query.filter_by(id=income_id).first()

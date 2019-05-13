@@ -1,5 +1,26 @@
 <app-placeholder *ngIf="false"></app-placeholder>
 <div class="placeholder">
+    <div class="wrapper">
+    <div class="title">
+      <div class="titleCol">
+        <h3 class="titleDate">Incomes</h3>
+        <h4 class="titleDate">Date</h4>
+      </div>
+      <div class="titleCol">
+        <h3 class="titleDate" class="rightTop">$</h3>
+      </div>
+    </div>
+    <div class="boxWithCircles">
+      <div cdkDropList id="list-two" *ngIf="incomes" [cdkDropListConnectedTo]="['list-one']" cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" >
+        <div class="example-box" *ngFor="let income of incomes" cdkDrag  >
+                    <button mat-fab>  {{income.name}}  <mat-icon (click)="remove(income, incomes)">close</mat-icon></button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <div class="wrapper">
 
     <div class="title">
@@ -13,23 +34,23 @@
       </div>
     </div>
     <div class="boxWithCircles">
-      <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" *ngIf="this.accounts" (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let account of accounts" cdkDrag>
-          <button mat-fab>  {{this.account.name}}  <mat-icon (click)="remove(account)">close</mat-icon></button>
-
+      <div cdkDropList id="list-one" [cdkDropListConnectedTo]="['list-two']" cdkDropListOrientation="horizontal" class="example-list" *ngIf="accounts" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let account of accounts" cdkDrag  >
+          <button mat-fab>  {{account.name}}  <mat-icon (click)="remove(account)">close</mat-icon></button>
           <div *cdkDragPreview  >
             <p>
-              {{this.account.name}}
+              {{account.name}}
             </p>
             <p>
-              {{this.account.amount}}
+              {{account.amount}}
             </p>
           </div>
         </div>
       </div>
-        <button mat-fab [disabled]="accounts.length>3" (click)="openDialog()"><mat-icon>add</mat-icon> </button>
+      <button mat-fab [disabled]="accounts.length>3" (click)="openDialog()"><mat-icon>add</mat-icon> </button>
     </div>
   </div>
+
 </div>
 
 

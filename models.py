@@ -24,6 +24,7 @@ class Incomes(db.Model):
     amount = db.Column(db.Integer)
     date = db.Column(db.TIMESTAMP)
     user_id = db.Column(db.Integer)
+    name = db.Column(db.String(50))
 
 
 class Spendings(db.Model):
