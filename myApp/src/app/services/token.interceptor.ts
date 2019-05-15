@@ -14,12 +14,13 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(public auth: AuthServiceService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      console.log("request does not goes through");
+    if(!request.url.endsWith('/login')){      }
 
       request = request.clone({
         setHeaders: {
-          Authorization: `${this.auth.loadToken()}`, //Barear
-          "Access-Control-Allow-Origin": "true"
+          "Access-Control-Allow-Origin": "true",
+          "Authorization": `${this.auth.getToken()}`, //Barear
+          'Content-Type': 'application/json'
         }
       });
     return next.handle(request);

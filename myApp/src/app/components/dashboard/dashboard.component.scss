@@ -1,3 +1,126 @@
 .example-chip-list {
   width: 60%;
 }
+
+.placeholder {
+  max-width: 400px;
+  margin-left: 50px;
+}
+
+mat-divider {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+mat-grid-list {
+  margin-bottom: 70px;
+  box-shadow: 2px 2px 2px 2px #c6c6c9;
+  border-top-color: #9c27b0;
+}
+
+.circle {
+  border-radius: 100%;
+  // border: 3px solid lightgray;
+  height: 70px;
+  width: 70px;
+  background-color: orange;
+}
+
+.title {
+  display: flex;
+  background-color: #f1f1f2;
+  padding: 8px 15px 25px 18px;
+}
+.titleCol {
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+}
+.titleDate {
+  &:nth-child(1){
+  margin: 10px 0;
+
+  }
+&:nth-child(2){
+  margin: 3px 0;
+  }
+}
+.rightTop {
+  align-self: flex-end
+}
+
+.wrapper {
+  width: 100%;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, .36);
+
+}
+
+.boxWithCircles {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  height: 150px;
+  align-items: center;
+
+}
+
+
+// -----------------------------
+
+
+.example-list {
+  width:auto;
+  max-width: 100%;
+  min-height: 60px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.example-box {
+  padding: 20px 10px;
+  //border-right: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  font-size: 14px;
+  flex-grow: 1;
+  flex-basis: 0;
+  button{
+  position: relative;
+  mat-icon{
+position: absolute; top: -14px; right: -14px; font-size: 16px;
+  }
+  }
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

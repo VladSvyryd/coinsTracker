@@ -1,7 +1,7 @@
 export interface Account {
-  id: number
+  id?: number
   amount:number;
-  date:string;
-  description:string;
+  date?:string;
+  description?:string;
   name:string;
 }

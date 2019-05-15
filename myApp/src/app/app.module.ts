@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,6 +12,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './services/token.interceptor';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
+import { DialogWindowComponent } from './components/dialog-window/dialog-window.component';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material";
+import { UpsComponent } from './components/ups/ups.component';
 
 
 @NgModule({
@@ -19,7 +22,9 @@ import { PlaceholderComponent } from './components/placeholder/placeholder.compo
     AppComponent,
     ValidationComponent,
     DashboardComponent,
-    PlaceholderComponent
+    PlaceholderComponent,
+    DialogWindowComponent,
+    UpsComponent
   ],
   imports: [
     BrowserModule,
@@ -27,13 +32,22 @@ import { PlaceholderComponent } from './components/placeholder/placeholder.compo
     HttpClientModule,
     BrowserAnimationsModule,
     MyOwnCustomMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
+  ],
+   entryComponents: [
+    DialogWindowComponent
   ],
   providers: [ {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }],
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  },
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {hasBackdrop: true}
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

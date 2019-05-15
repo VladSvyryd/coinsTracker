@@ -1,21 +1,14 @@
 import { Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/common/http';
-import { Account } from "../models/account";
-import {Observable, throwError} from "rxjs";
+import {throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
-import {User} from "../models/user";
-
-
-
-
-
+import * as jwt_decode from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthServiceService {
   token: Object;
-
   server_path = "http://127.0.0.1:5000";
 
 
@@ -25,16 +18,14 @@ export class AuthServiceService {
   login(email: string, password: string) {
     let httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin" : "true",
+        "email" : email,
+        "password" : password
       })
     };
 
-    httpOptions.headers.append('email', email);
-    httpOptions.headers.append('password', password);
-
     this.httpClient.get(this.server_path + "/login", httpOptions).subscribe(data => {
       this.token = data as Object;
-      console.log(this.token);
       this.saveToken(this.token)
     });
 
@@ -45,46 +36,46 @@ export class AuthServiceService {
     localStorage.setItem("userToken", token.token)
   }
 
-  loadToken() {
-    return localStorage.getItem("userToken");
+  getToken() {
+      return localStorage.getItem("userToken");
+  }
+ getTokenExpirationDate(token: string): Date {
+    const decoded = jwt_decode(token);
+
+    if (decoded.exp === undefined) return null;
+
+    const date = new Date(0);
+    date.setUTCSeconds(decoded.exp);
+    return date;
+  }
+   isTokenExpired(token?: string): boolean {
+    if(!token) token = this.getToken();
+    if(!token) return true;
+
+    const date = this.getTokenExpirationDate(token);
+    if(date === undefined) return false;
+    console.log(date)
+    return !(date.valueOf() > new Date().valueOf());
   }
 
-  public isAuthenticated(): boolean {
-    // get the token
-    const token = this.loadToken();
-    // return a boolean reflecting
-    // whether or not the token is expired
-    return true;
-  }
-
-  getAllUsers() {
-    this.httpClient.get(this.server_path + "/user").subscribe(data => {
-      console.log(data);
-    });
-  }
-
-  getAllAccounts() {
-    return this.httpClient.get(this.server_path + "/account");
-  }
 
   register(email: string, password: string, name:string){
     let httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        'password' : password
       })
     };
-    httpOptions.headers.append('password', password);
 
-    let body = new HttpParams().set("name" ,name).set("password" ,email);
+    let body = { "name" : name,"email":email};
 
-    this.httpClient.post(this.server_path+"/user_signUp", body.toString(), httpOptions).pipe(
+   return this.httpClient.post(this.server_path+"/user_signUp", body, httpOptions).pipe(
       catchError(this.handleError)
-    ).subscribe();;
+    );
   }
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('userToken');
     // this.currentUserSubject.next(null);
   }
 
@@ -104,19 +95,11 @@ export class AuthServiceService {
       'Something bad happened; please try again later.');
   };
 
-  createAccount(account:Account) {
-    // let new_account:Account = {name: name, amount: amount, date: "",description: ""};
-    let new_account = {name: account.name, amount: account.amount};
-    this.httpClient.post(this.server_path+"/account", new_account).pipe(
-      catchError(this.handleError)
-    ).subscribe();
-  }
-
-  deleteAccount(account:Account) {
-    account.id
-    this.httpClient.delete(this.server_path+"/account/"+ account.id).pipe(
-      catchError(this.handleError)
-    ).subscribe();
-  }
 }
+
+
+
+
+
+import {User} from "../models/user";
 

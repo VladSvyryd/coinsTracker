@@ -1,0 +1,18 @@
+<div mat-dialog-content>
+  <p>New amount</p>
+  <form [formGroup]="options">
+    <mat-form-field >
+      <!-- <input [(ngModel)]="data.name" matInput placeholder="Name" required> -->
+      <input matInput placeholder="Enter name" formControlName="name" required>
+    </mat-form-field>
+    <mat-form-field >
+      <input matInput placeholder="Enter amount" formControlName="amount" required>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button type="submit" [disabled]="!(name.valid && amount.valid)" [mat-dialog-close]="options.value" cdkFocusInitial>Ok</button>
+</div>
+
+

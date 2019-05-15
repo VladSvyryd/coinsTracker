@@ -2,66 +2,28 @@ from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 import uuid  # to generate random public id
 from werkzeug.security import generate_password_hash, check_password_hash
-import jwt # json web token (you need to install PyJWT if ou get an error while trying to get a token)
+import jwt  # json web token (you need to install PyJWT if ou get an error while trying to get a token)
 import datetime  # to work with date and time
 from functools import wraps  # for decorator
 from flask_cors import CORS
 
 import os
+from models import db
 
 app = Flask(__name__)
 CORS(app)
+db.init_app(app)
 
 # create settings property of DB to use this to code and encode password
 app.config['SECRET_KEY'] = 'thisissecret'
 # to get right path to our db
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-# config that path to get access to db (in the main directory of prokect, database file is in db dictionary)
+# config that path to get access to db (in the main directory of project, database file is in db dictionary)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db\\temp_coins.db')
 
 # connect to db
-db = SQLAlchemy(app)
-
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    public_id = db.Column(db.String(50), unique=True)
-    name = db.Column(db.String(50))
-    email = db.Column(db.String(50))
-    password = db.Column(db.String(80))
-    admin = db.Column(db.Boolean)
-
-
-class Categories(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-    description = db.Column(db.String(250))
-    user_id = db.Column(db.Integer)
-
-
-class Incomes(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    amount = db.Column(db.Integer)
-    date = db.Column(db.TIMESTAMP)
-    user_id = db.Column(db.Integer)
-
-
-class Spendings(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    amount = db.Column(db.Integer)
-    date = db.Column(db.TIMESTAMP)
-    user_id = db.Column(db.Integer)
-    category_id = db.Column(db.Integer)
-
-
-class Accounts(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-    description = db.Column(db.String(250))
-    user_id = db.Column(db.Integer)
-    amount = db.Column(db.Integer)
-    date = db.Column(db.TIMESTAMP)
+from models import User, Incomes, Accounts, Categories, Spendings
 
 
 def token_required(f):
@@ -74,7 +36,7 @@ def token_required(f):
             token = request.headers['Authorization']
 
         if not token:
-            return jsonify({'server message' : 'Token is missing'}), 401
+            return jsonify({'server_message' : 'Token is missing'}), 401
 
         try:
             # token is a coded public_id of a user from database, when we decode a token we get exact user from DB
@@ -83,7 +45,7 @@ def token_required(f):
             # write query to find this user in db
             current_user = User.query.filter_by(public_id=data['public_id']).first()
         except:
-            return jsonify({'server message': 'Token is invalid'}), 401
+            return jsonify({'server_message': 'Token is invalid'}), 401
         return f(current_user, *args, **kwargs)
     return decorated
 
@@ -119,7 +81,7 @@ def get_one_user(current_user, public_id):
     # create a query to filter table for this specific user
     user = User.query.filter_by(public_id=public_id).first()
     if not user:
-        return jsonify({'server message': 'No user found'})
+        return jsonify({'server_message': 'No user found'})
 
     # create a dictionary of all infos in User table under current public_id
     user_data = {'public_id': user.public_id, 'name': user.name, 'password': user.password, 'admin': user.admin}
@@ -129,9 +91,6 @@ def get_one_user(current_user, public_id):
 
 @app.route('/user_signUp', methods=['POST'])
 def create_user():
-    print("executed")
-    print(request.headers)
-    print(request.get_json())
     auth = request.headers
     if not auth['password']:
         # send a response with error type and header type of error
@@ -143,7 +102,7 @@ def create_user():
     is_already_user = User.query.filter_by(email=data['email']).first()
 
     if is_already_user:
-        return jsonify({'server message': 'There is already a user with such email. Try to Log In'})
+        return jsonify({'server_message': 'There is already a user with such email. Try to Log In'})
 
     # create a password as hash with external library
     hashed_password = generate_password_hash(auth['password'], method='sha256')
@@ -154,7 +113,7 @@ def create_user():
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({'server message': 'New user created!'})
+    return jsonify({'server_message': 'New user created!', "new_user_created": "true"})
 
 
 # promote a user to admin
@@ -164,17 +123,17 @@ def create_user():
 def promote_user(current_user, public_id):
     # check if the user that asks a request is as Admin: true  in DB
     if not current_user.admin:
-        return jsonify({'server message': 'Cannot perform that function!'})
+        return jsonify({'server_message': 'Cannot perform that function!'})
 
     # create a query to filter table for this specific user
     user = User.query.filter_by(public_id=public_id).first()
     if not user:
-        return jsonify({'server message': 'No user found'})
+        return jsonify({'server_message': 'No user found'})
 
     user.admin = True
     db.session.commit()
 
-    return jsonify({'server message': 'This user is an Admin'})
+    return jsonify({'server_message': 'This user is an Admin'})
 
 
 @app.route('/user/<public_id>', methods=['DELETE'])
@@ -183,22 +142,23 @@ def promote_user(current_user, public_id):
 def delete_user(current_user, public_id):
     # check if the user that asks a request is as Admin: true  in DB
     if not current_user.admin:
-        return jsonify({'server message': 'Cannot perform that function!'})
+        return jsonify({'server_message': 'Cannot perform that function!'})
 
     # create a query to filter table for this specific user
     user = User.query.filter_by(public_id=public_id).first()
     if not user:
-        return jsonify({'server message': 'No user found'})
+        return jsonify({'server_message': 'No user found'})
 
     db.session.delete(user)
     db.session.commit()
 
-    return jsonify({'server message': 'The user has been deleted!'})
+    return jsonify({'server_message': 'The user has been deleted!'})
 
 
 @app.route('/login')
 def login():
     auth = request.headers
+    print(auth)
     if not auth or not auth['email'] or not auth['password']:
         # send a response with error type and header type of error
         return make_response('Could not verify any data', 401, {'WWW-Authenticate': 'Basic realm="Login required!!!"'})
@@ -223,18 +183,18 @@ def login():
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
 def get_all_incomes(current_user):
-    # check if the user that asks a request is as Admin: true  in DB
-    if not current_user.admin:
-        return jsonify({'server message': 'Cannot perform that function!'})
 
     incomes = Incomes.query.filter_by(user_id=current_user.public_id).all()
     output = []
     for income in incomes:
         income_list = {}
+        income_list['name'] = income.name
+        income_list['id'] = income.id
         income_list['amount'] = income.amount
         income_list['date'] = income.date
+
         output.append(income_list)
-    return jsonify({'incomes': output})
+    return jsonify(output)
 
     # user = Incomes.query.filter_by
 
@@ -245,11 +205,11 @@ def get_all_incomes(current_user):
 def get_one_income(current_user, income_id):
     # check if the user that asks a request is as Admin: true  in DB
     if not current_user.admin:
-        return jsonify({'server message': 'Cannot perform that function!'})
+        return jsonify({'server_message': 'Cannot perform that function!'})
 
     income = Incomes.query.filter_by(user_id=current_user.public_id).filter_by(id=income_id).first()
     if not income:
-        return jsonify({'server message': 'No such income found'})
+        return jsonify({'server_message': 'No such income found'})
     income_output = dict(amount=income.amount, date=income.date)
     return jsonify({'income': income_output})
 
@@ -260,14 +220,14 @@ def get_one_income(current_user, income_id):
 def create_income(current_user):
     # check if the user that asks a request is as Admin: true  in DB
     if not current_user.admin:
-        return jsonify({'server message': 'Cannot perform that function!'})
+        return jsonify({'server_message': 'Cannot perform that function!'})
     # get data
     data = request.get_json()
 
     new_income = Incomes(amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id)
     db.session.add(new_income)
     db.session.commit()
-    return jsonify({'server message': 'new income is added'})
+    return jsonify({'server_message': 'new income is added'})
 
 
 @app.route('/income/<income_id>', methods=['PUT'])
@@ -276,35 +236,32 @@ def create_income(current_user):
 def upgrade_income(current_user, income_id):
     # check if the user that asks a request is as Admin: true  in DB
     if not current_user.admin:
-        return jsonify({'server message': 'Cannot perform that function!'})
+        return jsonify({'server_message': 'Cannot perform that function!'})
     data = request.get_json()
     income = Incomes.query.filter_by(user_id=current_user.public_id).filter_by(id=income_id).first()
     if not income:
-        return jsonify({'server message': 'No income found'})
+        return jsonify({'server_message': 'No income found'})
 
     income.amount = data['amount']
     income.date = datetime.datetime.utcnow()
     db.session.commit()
-    return jsonify({'server message': 'This income has been changed'})
+    return jsonify({'server_message': 'This income has been changed'})
 
 
 @app.route('/income/<income_id>', methods=['DELETE'])
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
 def delete_income(current_user, income_id):
-    # check if the user that asks a request is as Admin: true  in DB
-    if not current_user.admin:
-        return jsonify({'server message': 'Cannot perform that function!'})
 
     # create a query to filter table for this specific user
     income = Incomes.query.filter_by(id=income_id).first()
     if not income:
-        return jsonify({'server message': 'No Income found'})
+        return jsonify({'server_message': 'No Income found'})
 
     db.session.delete(income)
     db.session.commit()
 
-    return jsonify({'server message': 'The income has been deleted!'})
+    return jsonify({'server_message': 'The income has been deleted!'})
 
 # ****** Accounts ******
 @app.route('/account', methods=['POST'])
@@ -318,7 +275,7 @@ def create_account(current_user):
     new_account = Accounts(name=data['name'], user_id=current_user.public_id, amount=(int)(data['amount']), date=datetime.datetime.utcnow())
     db.session.add(new_account)
     db.session.commit()
-    return jsonify({'server message': 'new account is added'})
+    return jsonify({'server_message': 'new account is added'})
 
 
 @app.route('/account', methods=['GET'])
@@ -346,11 +303,11 @@ def get_all_accounts(current_user):
 def get_one_account(current_user, account_id):
     # check if the user that asks a request is as Admin: true  in DB
     if not current_user.admin:
-        return jsonify({'server message': 'Cannot perform that function!'})
+        return jsonify({'server_message': 'Cannot perform that function!'})
 
     account = Accounts.query.filter_by(user_id=current_user.public_id).filter_by(id=account_id).first()
     if not account:
-        return jsonify({'server message': 'No such income found'})
+        return jsonify({'server_message': 'No such income found'})
     account_output = dict(amount=account.amount, date=account.date)
     return jsonify({'account': account_output})
 
@@ -363,14 +320,14 @@ def update_account(current_user, account_id):
     data = request.get_json()
     account = Accounts.query.filter_by(user_id=current_user.public_id).filter_by(id=account_id).first()
     if not account:
-        return jsonify({'server message': 'No income found'})
+        return jsonify({'server_message': 'No income found'})
 
     account.name = data['name']
-# account.description = data['description'] or account.description
-# account.amount = data['amount']
-# account.date = datetime.datetime.utcnow()
+    # account.description = data['description'] or account.description
+    # account.amount = data['amount']
+    # account.date = datetime.datetime.utcnow()
     db.session.commit()
-    return jsonify({'server message': 'This acount has been changed'})
+    return jsonify({'server_message': 'This acount has been changed'})
 
 
 @app.route('/account/<account_id>', methods=['DELETE'])
@@ -380,12 +337,12 @@ def delete_account(current_user, account_id):
     # create a query to filter table for this specific user
     account = Accounts.query.filter_by(user_id=current_user.public_id).filter_by(id=account_id).first()
     if not account:
-        return jsonify({'server message': 'No Account found'})
+        return jsonify({'server_message': 'No Account found'})
 
     db.session.delete(account)
     db.session.commit()
 
-    return jsonify({'server message': 'The account has been deleted!'})
+    return jsonify({'server_message': 'The account has been deleted!'})
 
 @app.route('/spending', methods=['GET'])
 @token_required
@@ -412,7 +369,7 @@ def create_spending(current_user):
     new_spending = Spendings(amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id, category_id=data['category_id'])
     db.session.add(new_spending)
     db.session.commit()
-    return jsonify({'server message': 'new spending is added'})
+    return jsonify({'server_message': 'new spending is added'})
 
 @app.route('/spending/<spending_id>', methods=['DELETE'])
 # this is a decorator to make this route opened to authenticated users with token
@@ -421,13 +378,13 @@ def delete_spending(current_user, spending_id):
     # create a query to filter table for this specific user
     spending = Spendings.query.filter_by(user_id=current_user.public_id).filter_by(id=spending_id).first()
     if not spending:
-        return jsonify({'server message': 'No spendings found'})
+        return jsonify({'server_message': 'No spendings found'})
 
     db.session.delete(spending)
     db.session.commit()
 
     #we should also roll back all values in the account and the categorie this spending was referring to
-    return jsonify({'server message': 'The spending has been deleted!'})
+    return jsonify({'server_message': 'The spending has been deleted!'})
 
 @app.route('/spending/<spending_id>', methods=['PUT'])
 # this is a decorator to make this route opened to authenticated users with token
@@ -437,11 +394,11 @@ def upgrade_spending(current_user, spending_id):
     data = request.get_json()
     spending = Spendings.query.filter_by(user_id=current_user.public_id).filter_by(id=spending_id).first()
     if not spending:
-        return jsonify({'server message': 'No spending found'})
+        return jsonify({'server_message': 'No spending found'})
 
     spending.amount = data['amount']
     db.session.commit()
-    return jsonify({'server message': 'This spending has been changed'})
+    return jsonify({'server_message': 'This spending has been changed'})
 
 
 if __name__ == '__main__':

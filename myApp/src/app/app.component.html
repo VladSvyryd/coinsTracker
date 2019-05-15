@@ -1,12 +1,11 @@
-<div class="wrapper " [ngClass]="{
-  'unicorn-dark-theme': themeToggle.checked
-}"
+<div class="wrapper " [ngClass]="{}"
 >
   <mat-toolbar class="header">{{title}}
-    <p><button mat-flat-button color="accent" (click)="sidenav.toggle()">Toggle</button></p>
-    <mat-slide-toggle #themeToggle  color="accent">
-      Do it!
-    </mat-slide-toggle>
+    <span class="right-spacer"></span>
+    <button mat-button (click)="tryLogout()">
+
+      <mat-icon  aria-hidden="false" aria-label="Log Out">exit_to_app</mat-icon>
+    </button>
   </mat-toolbar>
 
   <mat-sidenav-container class="sidebar ">
@@ -17,6 +16,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="mainA">
+      <button mat-fab color="accent" id="toggleMenu"(click)="sidenav.toggle()"><img src="../assets/img/lapa.png" alt=""></button>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

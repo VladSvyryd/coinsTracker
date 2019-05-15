@@ -10,11 +10,9 @@ import {MatListModule} from '@angular/material/list';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatGridListModule} from '@angular/material/grid-list';
-
-
-
-
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 
@@ -22,7 +20,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {NgModule} from '@angular/core';
 
 @NgModule({
-  imports: [MatChipsModule, MatSlideToggleModule, MatListModule, MatButtonModule, MatCheckboxModule, MatSidenavModule, MatToolbarModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTabsModule, MatDividerModule, MatGridListModule],
-  exports: [MatChipsModule, MatSlideToggleModule, MatListModule, MatButtonModule, MatCheckboxModule, MatSidenavModule, MatToolbarModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTabsModule, MatDividerModule, MatGridListModule],
+  imports: [DragDropModule, MatDialogModule, MatSnackBarModule, MatChipsModule, MatSlideToggleModule, MatListModule, MatButtonModule, MatCheckboxModule, MatSidenavModule, MatToolbarModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTabsModule, MatDividerModule, MatGridListModule],
+  exports: [DragDropModule, MatDialogModule, MatSnackBarModule, MatChipsModule, MatSlideToggleModule, MatListModule, MatButtonModule, MatCheckboxModule, MatSidenavModule, MatToolbarModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTabsModule, MatDividerModule, MatGridListModule],
 })
 export class MyOwnCustomMaterialModule { }
