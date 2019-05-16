@@ -400,6 +400,21 @@ def upgrade_spending(current_user, spending_id):
     db.session.commit()
     return jsonify({'server_message': 'This spending has been changed'})
 
+@app.route('/category', methods=['GET'])
+@token_required
+def get_all_categories(current_user):
+    spendings = Spendings.query.filter_by(user_id=current_user.public_id).all()
+    print(spendings)
+    output = []
+    for spending in spendings:
+        spending_list = {}
+        spending_list['id'] = spending.id
+        spending_list['date'] = spending.date
+        spending_list['amount'] = spending.amount
+        spending_list['category'] = spending.category_id
+        output.append(spending_list)
+    return jsonify(output)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
