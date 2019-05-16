@@ -20,6 +20,7 @@
 
         </div>
       </div>
+      <button mat-fab [disabled]="incomes.length>3" (click)="openDialog(['Income',{fieldName:'name',required:true},{fieldName:'amount',required:false}],incomes)"><mat-icon>add</mat-icon> </button>
 
     </div>
   </div>
@@ -50,7 +51,7 @@
           </div>
         </div>
       </div>
-      <button mat-fab [disabled]="accounts.length>3" (click)="openDialog()"><mat-icon>add</mat-icon> </button>
+      <button mat-fab [disabled]="accounts.length>3" (click)="openDialog(['Account',{fieldName:'name',required:true},{fieldName:'amount',required:false},{fieldName:'description',required:false}],accounts)"><mat-icon>add</mat-icon> </button>
     </div>
   </div>
 

@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
 
   constructor(private dashboardService:DashboardService, public dialog: MatDialog) {
-this.dashboardService.getAll("income").subscribe((res : Income[])=>{
+    this.dashboardService.getAll("income").subscribe((res : Income[])=>{
       this.incomes = res;
     });
     this.dashboardService.getAll("account").subscribe((res : Account[])=>{
@@ -38,14 +38,13 @@ this.dashboardService.getAll("income").subscribe((res : Income[])=>{
     });
   }
 
-  openDialog() {
+  openDialog(keys:Array<any>, toArray) {
     const dialogRef = this.dialog.open(DialogWindowComponent, {
       width: '250px',
-      data: {name: '' ,amount: ''}
+      data: keys
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log("This comes from dialog",result);
-      if(result != undefined && result.name !== "" && result.amount != "")this.add(result);
+      if(result != undefined)this.add(result,toArray);
     });
   }
   drop(event: CdkDragDrop<any>) {
@@ -55,21 +54,27 @@ this.dashboardService.getAll("income").subscribe((res : Income[])=>{
   }
 
   // add Chip on UI
-  add(tempObject): void {
-    // Add our account
-    let new_name = tempObject.name.toString().trim();
-    let new_amount = tempObject.amount.toString().trim();
-    this.accounts.push({
-      id:1,
-      amount:new_amount,
-      date:"",
-      name:new_name
-    });
-    let newAccount: Account = { amount: new_amount,
-      id: 2,
-      date:"",
-      name:new_name}
-    this.dashboardService.createAccount(newAccount)
+  add(item: any, toArray:Array<any>): void {
+    if (item as Account) {
+      let newItem: Account = {
+        amount: item.amount || 0,
+        name:item.name,
+        description:item.description}
+      this.dashboardService.createAccount(newItem)
+      toArray.push(newItem);
+    }else if(item as Income){
+      let newItem: Income = {
+        name: item.name};
+      this.dashboardService.createIncome(newItem)
+      toArray.push(newItem);
+    }
+    else if(item as Spending){
+      //this.dashboardService.deleteSpending(item);
+    }else if(item as Category){
+      this.dashboardService.deleteCategory(item);
+    }
+
+
 
   }
 
