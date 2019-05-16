@@ -21,16 +21,20 @@ import {DialogData} from '../../models/dialog';
 export class DashboardComponent implements OnInit {
   private accounts : Account[] = [];
   private incomes : Income[] = [];
+  private categories : Category[] = [];
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
 
   constructor(private dashboardService:DashboardService, public dialog: MatDialog) {
-
+this.dashboardService.getAll("income").subscribe((res : Income[])=>{
+      this.incomes = res;
+    });
     this.dashboardService.getAll("account").subscribe((res : Account[])=>{
       this.accounts = res;
     });
-    this.dashboardService.getAll("income").subscribe((res : Income[])=>{
-      this.incomes = res;
+
+    this.dashboardService.getAll("category").subscribe((res : Category[])=>{
+      this.categories = res;
     });
   }
 
@@ -53,7 +57,6 @@ export class DashboardComponent implements OnInit {
   // add Chip on UI
   add(tempObject): void {
     // Add our account
-
     let new_name = tempObject.name.toString().trim();
     let new_amount = tempObject.amount.toString().trim();
     this.accounts.push({

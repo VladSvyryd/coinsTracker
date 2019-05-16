@@ -1,6 +1,9 @@
 <app-placeholder *ngIf="false"></app-placeholder>
 <div class="placeholder">
-    <div class="wrapper">
+
+
+
+  <div class="wrapper">
     <div class="title">
       <div class="titleCol">
         <h3 class="titleDate">Incomes</h3>
@@ -13,7 +16,7 @@
     <div class="boxWithCircles">
       <div cdkDropList id="list-two" *ngIf="incomes" [cdkDropListConnectedTo]="['list-one']" cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" >
         <div class="example-box" *ngFor="let income of incomes" cdkDrag  >
-                    <button mat-fab>  {{income.name}}  <mat-icon (click)="remove(income, incomes)">close</mat-icon></button>
+          <button mat-fab>  {{income.name}}  <mat-icon (click)="remove(income, incomes)">close</mat-icon></button>
 
         </div>
       </div>
@@ -48,6 +51,26 @@
         </div>
       </div>
       <button mat-fab [disabled]="accounts.length>3" (click)="openDialog()"><mat-icon>add</mat-icon> </button>
+    </div>
+  </div>
+
+
+  <div class="wrapper">
+    <div class="title">
+      <div class="titleCol">
+        <h3 class="titleDate">Categories</h3>
+        <h4 class="titleDate">Date</h4>
+      </div>
+      <div class="titleCol">
+        <h3 class="titleDate" class="rightTop">$</h3>
+      </div>
+    </div>
+    <div class="boxWithCircles">
+      <div cdkDropList id="list-three" *ngIf="categories" [cdkDropListConnectedTo]="['list-two']" cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)" >
+        <div class="example-box" *ngFor="let category of categories" cdkDrag  >
+          <button mat-fab>  {{category.name}}  <mat-icon (click)="remove(category, categories)">close</mat-icon></button>
+        </div>
+      </div>
     </div>
   </div>
 
