@@ -344,7 +344,7 @@ def delete_account(current_user, account_id):
 
     return jsonify({'server_message': 'The account has been deleted!'})
 
-@app.route('/spending', methods=['GET'])
+@app.route('/spending.ts', methods=['GET'])
 @token_required
 def get_all_spendings(current_user):
     spendings = Spendings.query.filter_by(user_id=current_user.public_id).all()
@@ -355,11 +355,11 @@ def get_all_spendings(current_user):
         spending_list['id'] = spending.id
         spending_list['date'] = spending.date
         spending_list['amount'] = spending.amount
-        spending_list['category'] = spending.category_id
+        spending_list['category.ts'] = spending.category_id
         output.append(spending_list)
     return jsonify(output)
 
-@app.route('/spending', methods=['POST'])
+@app.route('/spending.ts', methods=['POST'])
 @token_required
 def create_spending(current_user):
 
@@ -369,9 +369,9 @@ def create_spending(current_user):
     new_spending = Spendings(amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id, category_id=data['category_id'])
     db.session.add(new_spending)
     db.session.commit()
-    return jsonify({'server_message': 'new spending is added'})
+    return jsonify({'server_message': 'new spending.ts is added'})
 
-@app.route('/spending/<spending_id>', methods=['DELETE'])
+@app.route('/spending.ts/<spending_id>', methods=['DELETE'])
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
 def delete_spending(current_user, spending_id):
@@ -383,10 +383,10 @@ def delete_spending(current_user, spending_id):
     db.session.delete(spending)
     db.session.commit()
 
-    #we should also roll back all values in the account and the categorie this spending was referring to
-    return jsonify({'server_message': 'The spending has been deleted!'})
+    #we should also roll back all values in the account and the categorie this spending.ts was referring to
+    return jsonify({'server_message': 'The spending.ts has been deleted!'})
 
-@app.route('/spending/<spending_id>', methods=['PUT'])
+@app.route('/spending.ts/<spending_id>', methods=['PUT'])
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
 def upgrade_spending(current_user, spending_id):
@@ -394,11 +394,11 @@ def upgrade_spending(current_user, spending_id):
     data = request.get_json()
     spending = Spendings.query.filter_by(user_id=current_user.public_id).filter_by(id=spending_id).first()
     if not spending:
-        return jsonify({'server_message': 'No spending found'})
+        return jsonify({'server_message': 'No spending.ts found'})
 
     spending.amount = data['amount']
     db.session.commit()
-    return jsonify({'server_message': 'This spending has been changed'})
+    return jsonify({'server_message': 'This spending.ts has been changed'})
 
 
 if __name__ == '__main__':

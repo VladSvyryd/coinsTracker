@@ -4,6 +4,7 @@ import {throwError} from "rxjs";
 import {Account} from "../models/account";
 import {catchError} from "rxjs/operators";
 import {Income} from "../models/income";
+import {Category} from "../models/category";
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,15 @@ export class DashboardService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllAccounts() {
-    return this.httpClient.get(this.server_path + "/account");
+
+  //*************************ALL************************/
+
+   getAll(path:string) {
+    return this.httpClient.get(this.server_path + "/" + path);
   }
+
+
+////*****************ACOUNTS**********************/
 
 
   createAccount(account:Account) {
@@ -33,9 +40,8 @@ export class DashboardService {
     ).subscribe();
   }
 
- getAllIncomes() {
-    return this.httpClient.get(this.server_path + "/income");
-  }
+  //**************************INCOMES****************************/
+
 
 
 createIncome(income:Income) {
@@ -49,6 +55,62 @@ deleteIncome(income:Income) {
       catchError(this.handleError)
     ).subscribe();
   }
+
+
+
+  //*****************************CATEGORIES******************************/
+
+
+createCategory(category:Category) {
+   // let new_CAtegory:Category = {name: category.name, amount: category.amount};
+   // this.httpClient.post(this.server_path+"/category", new_category).pipe(
+    //  catchError(this.handleError)
+   // ).subscribe();
+  }
+deleteCategory(category:Category) {
+    //this.httpClient.delete(this.server_path+"/category/"+ category.id).pipe(
+    //  catchError(this.handleError)
+    //).subscribe();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

@@ -6,11 +6,13 @@ import {MatDialog} from '@angular/material';
 import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 import {Income} from "../../models/income";
+import {Spending} from '../../models/spending';
+import {Category} from '../../models/category';
+import {DialogData} from '../../models/dialog';
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
+
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -24,18 +26,14 @@ export class DashboardComponent implements OnInit {
 
   constructor(private dashboardService:DashboardService, public dialog: MatDialog) {
 
-    this.dashboardService.getAllAccounts().subscribe((res : Account[])=>{
+    this.dashboardService.getAll("account").subscribe((res : Account[])=>{
       this.accounts = res;
     });
-    this.dashboardService.getAllIncomes().subscribe((res : Income[])=>{
+    this.dashboardService.getAll("income").subscribe((res : Income[])=>{
       this.incomes = res;
-      console.log(res)
     });
   }
-  sleep(delay) {
-    let start = new Date().getTime();
-    while (new Date().getTime() < start + delay);
-  }
+
   openDialog() {
     const dialogRef = this.dialog.open(DialogWindowComponent, {
       width: '250px',
@@ -77,8 +75,17 @@ export class DashboardComponent implements OnInit {
     const index = from.indexOf(item);
     if (index >= 0) {
       from.splice(index, 1);
-//      this.dashboardService.deleteAccount(item)
-      this.dashboardService.deleteIncome(item)
+      if (item as Account) {
+        this.dashboardService.deleteAccount(item);
+
+      }else if(item as Income){
+        this.dashboardService.deleteIncome(item);
+      }
+      else if(item as Spending){
+        //this.dashboardService.deleteSpending(item);
+      }else if(item as Category){
+        this.dashboardService.deleteCategory(item);
+      }
     }
   }
   ngOnInit() {

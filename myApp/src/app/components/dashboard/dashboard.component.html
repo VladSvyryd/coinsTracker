@@ -36,7 +36,7 @@
     <div class="boxWithCircles">
       <div cdkDropList id="list-one" [cdkDropListConnectedTo]="['list-two']" cdkDropListOrientation="horizontal" class="example-list" *ngIf="accounts" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let account of accounts" cdkDrag  >
-          <button mat-fab>  {{account.name}}  <mat-icon (click)="remove(account)">close</mat-icon></button>
+          <button mat-fab>  {{account.name}}  <mat-icon (click)="remove(account,accounts)">close</mat-icon></button>
           <div *cdkDragPreview  >
             <p>
               {{account.name}}

@@ -2523,9 +2523,9 @@ var NgLocalization = /** @class */ (function () {
     return NgLocalization;
 }());
 /**
- * Returns the plural category for a given value.
+ * Returns the plural category.ts for a given value.
  * - "=value" when the case exists,
- * - the plural category otherwise
+ * - the plural category.ts otherwise
  */
 function getPluralCategory(value, cases, ngLocalization, locale) {
     var key = "=" + value;
@@ -4073,15 +4073,15 @@ var NgSwitchDefault = /** @class */ (function () {
  * Adds / removes DOM sub-trees based on a numeric value. Tailored for pluralization.
  *
  * Displays DOM sub-trees that match the switch expression value, or failing that, DOM sub-trees
- * that match the switch expression's pluralization category.
+ * that match the switch expression's pluralization category.ts.
  *
  * To use this directive you must provide a container element that sets the `[ngPlural]` attribute
  * to a switch expression. Inner elements with a `[ngPluralCase]` will display based on their
  * expression:
  * - if `[ngPluralCase]` is set to a value starting with `=`, it will only display if the value
  *   matches the switch expression exactly,
- * - otherwise, the view will be treated as a "category match", and will only display if exact
- *   value matches aren't found and the value maps to its category for the defined locale.
+ * - otherwise, the view will be treated as a "category.ts match", and will only display if exact
+ *   value matches aren't found and the value maps to its category.ts for the defined locale.
  *
  * See http://cldr.unicode.org/index/cldr-spec/plural-rules
  *
