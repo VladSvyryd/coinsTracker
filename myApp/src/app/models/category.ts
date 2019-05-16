@@ -4,5 +4,6 @@ export interface Category {
   wanted_limit:  number;
   description?:  string;
   spent_amount?: number;
+  date?:         string; //???
 
 }
