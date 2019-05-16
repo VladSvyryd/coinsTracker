@@ -344,65 +344,9 @@ def delete_account(current_user, account_id):
 
     return jsonify({'server_message': 'The account has been deleted!'})
 
-@app.route('/spending.ts', methods=['GET'])
+@app.route('/spending', methods=['GET'])
 @token_required
 def get_all_spendings(current_user):
-    spendings = Spendings.query.filter_by(user_id=current_user.public_id).all()
-    print(spendings)
-    output = []
-    for spending in spendings:
-        spending_list = {}
-        spending_list['id'] = spending.id
-        spending_list['date'] = spending.date
-        spending_list['amount'] = spending.amount
-        spending_list['category.ts'] = spending.category_id
-        output.append(spending_list)
-    return jsonify(output)
-
-@app.route('/spending.ts', methods=['POST'])
-@token_required
-def create_spending(current_user):
-
-    # get data
-    data = request.get_json()
-
-    new_spending = Spendings(amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id, category_id=data['category_id'])
-    db.session.add(new_spending)
-    db.session.commit()
-    return jsonify({'server_message': 'new spending.ts is added'})
-
-@app.route('/spending.ts/<spending_id>', methods=['DELETE'])
-# this is a decorator to make this route opened to authenticated users with token
-@token_required
-def delete_spending(current_user, spending_id):
-    # create a query to filter table for this specific user
-    spending = Spendings.query.filter_by(user_id=current_user.public_id).filter_by(id=spending_id).first()
-    if not spending:
-        return jsonify({'server_message': 'No spendings found'})
-
-    db.session.delete(spending)
-    db.session.commit()
-
-    #we should also roll back all values in the account and the categorie this spending.ts was referring to
-    return jsonify({'server_message': 'The spending.ts has been deleted!'})
-
-@app.route('/spending.ts/<spending_id>', methods=['PUT'])
-# this is a decorator to make this route opened to authenticated users with token
-@token_required
-def upgrade_spending(current_user, spending_id):
-
-    data = request.get_json()
-    spending = Spendings.query.filter_by(user_id=current_user.public_id).filter_by(id=spending_id).first()
-    if not spending:
-        return jsonify({'server_message': 'No spending.ts found'})
-
-    spending.amount = data['amount']
-    db.session.commit()
-    return jsonify({'server_message': 'This spending.ts has been changed'})
-
-@app.route('/category', methods=['GET'])
-@token_required
-def get_all_categories(current_user):
     spendings = Spendings.query.filter_by(user_id=current_user.public_id).all()
     print(spendings)
     output = []
@@ -415,6 +359,105 @@ def get_all_categories(current_user):
         output.append(spending_list)
     return jsonify(output)
 
+@app.route('/spending', methods=['POST'])
+@token_required
+def create_spending(current_user):
+
+    # get data
+    data = request.get_json()
+
+    new_spending = Spendings(amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id,
+                             category_id=data['category_id'], account_id=data['account_id'])
+    db.session.add(new_spending)
+    db.session.commit()
+    return jsonify({'server_message': 'new spending is added'})
+
+@app.route('/spending/<spending_id>', methods=['DELETE'])
+# this is a decorator to make this route opened to authenticated users with token
+@token_required
+def delete_spending(current_user, spending_id):
+    # create a query to filter table for this specific user
+    spending = Spendings.query.filter_by(user_id=current_user.public_id).filter_by(id=spending_id).first()
+    if not spending:
+        return jsonify({'server_message': 'No such spending found'})
+
+    db.session.delete(spending)
+    db.session.commit()
+
+    #we should also roll back all values in the account and the categorie this spending was referring to
+    return jsonify({'server_message': 'The spending has been deleted!'})
+
+@app.route('/spending/<spending_id>', methods=['PUT'])
+# this is a decorator to make this route opened to authenticated users with token
+@token_required
+def upgrade_spending(current_user, spending_id):
+
+    data = request.get_json()
+    spending = Spendings.query.filter_by(user_id=current_user.public_id).filter_by(id=spending_id).first()
+    if not spending:
+        return jsonify({'server_message': 'No spending found'})
+
+    spending.amount = data['amount']
+    db.session.commit()
+    return jsonify({'server_message': 'This spending has been changed'})
+
+@app.route('/category', methods=['GET'])
+@token_required
+def get_all_categories(current_user):
+    categories = Categories.query.filter_by(user_id=current_user.public_id).all()
+    print(categories)
+    output = []
+    for category in categories:
+        category_list = {}
+        category_list['id'] = category.id
+        category_list['name'] = category.name
+        category_list['wanted_limit'] = category.wanted_limit
+        category_list['spent_amount'] = category.spent_amount
+        output.append(category_list)
+    return jsonify(output)
+
+@app.route('/category', methods=['POST'])
+@token_required
+def create_category(current_user):
+
+    # get data
+    data = request.get_json()
+
+    new_category = Categories(id=data['category_id'], name=data['name'], date=datetime.datetime.utcnow(),
+                              user_id=current_user.public_id, wanted_limit=data['wanted_limit'])
+    db.session.add(new_category)
+    db.session.commit()
+    return jsonify({'server_message': 'new category is added'})
+
+@app.route('/category/<category_id>', methods=['DELETE'])
+# this is a decorator to make this route opened to authenticated users with token
+@token_required
+def delete_category(current_user, category_id):
+    # create a query to filter table for this specific user
+    category = Categories.query.filter_by(user_id=current_user.public_id).filter_by(id=category_id).first()
+    if not category:
+        return jsonify({'server_message': 'No such category found'})
+
+    db.session.delete(category)
+    db.session.commit()
+
+    #we should also roll back all values in the account and the spendings this category was referring to
+    return jsonify({'server_message': 'The spending has been deleted!'})
+
+@app.route('/category/<category_id>', methods=['PUT'])
+# this is a decorator to make this route opened to authenticated users with token
+@token_required
+def upgrade_category(current_user, category_id):
+
+    data = request.get_json()
+    category = Categories.query.filter_by(user_id=current_user.public_id).filter_by(id=category_id).first()
+    if not category:
+        return jsonify({'server_message': 'No such category found'})
+
+    category.name = data['name']
+    category.wanted_limit = data['wanted_limit']
+    db.session.commit()
+    return jsonify({'server_message': 'This category has been changed'})
 
 if __name__ == '__main__':
     app.run(debug=True)
