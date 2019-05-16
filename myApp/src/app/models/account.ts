@@ -1,8 +1,7 @@
 export interface Account {
-  id?:          number;
+  id:           number;
   name:         string;
   description?: string;
-  user_id?:     number;
   amount?:      number;
   date?:        string;
 

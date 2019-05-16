@@ -1,9 +1,8 @@
 export interface Income {
-  id?:            number;
+  id:             number;
   wanted_income:  number;
   amount:         number;
-  date?:          string;
-  user_id?:       number;
+  date?:          string; //???
   name:           string;
-  paycheck_date:     any; //???
+  paycheck_date?:    any; //???
 }
