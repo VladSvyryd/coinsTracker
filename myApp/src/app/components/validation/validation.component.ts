@@ -27,7 +27,6 @@ export class ValidationComponent implements OnInit {
     password: this.password,
     name: this.name
   });
-  console.log(this.authService.isTokenExpired());
     if(!this.authService.isTokenExpired()){
       this.router.navigate(['/dashboard'])
     }
@@ -55,7 +54,7 @@ export class ValidationComponent implements OnInit {
   }
   tryLogin(){
     this.authService.login(this.options.value.email,this.options.value.password);
-    this.router.navigate(['/dashboard'])
+    this.router.navigate(['/dashboard']);
 
   }
 

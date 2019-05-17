@@ -218,13 +218,11 @@ def get_one_income(current_user, income_id):
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
 def create_income(current_user):
-    # check if the user that asks a request is as Admin: true  in DB
-    if not current_user.admin:
-        return jsonify({'server_message': 'Cannot perform that function!'})
+
     # get data
     data = request.get_json()
 
-    new_income = Incomes(amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id)
+    new_income = Incomes(name=data['name'], amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id)
     db.session.add(new_income)
     db.session.commit()
     return jsonify({'server_message': 'new income is added'})
@@ -234,9 +232,7 @@ def create_income(current_user):
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
 def upgrade_income(current_user, income_id):
-    # check if the user that asks a request is as Admin: true  in DB
-    if not current_user.admin:
-        return jsonify({'server_message': 'Cannot perform that function!'})
+
     data = request.get_json()
     income = Incomes.query.filter_by(user_id=current_user.public_id).filter_by(id=income_id).first()
     if not income:

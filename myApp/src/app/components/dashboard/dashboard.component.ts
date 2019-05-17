@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
   constructor(private dashboardService:DashboardService, public dialog: MatDialog) {
     this.dashboardService.getAll("income").subscribe((res : Income[])=>{
       this.incomes = res;
+      console.log(this.incomes);
     });
     this.dashboardService.getAll("account").subscribe((res : Account[])=>{
       this.accounts = res;
@@ -38,13 +39,13 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  openDialog(keys:Array<any>, toArray) {
+  openDialog(ofType,keys:Array<any>, toArray) {
     const dialogRef = this.dialog.open(DialogWindowComponent, {
       width: '250px',
       data: keys
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result != undefined)this.add(result,toArray);
+      if(result != undefined)this.add(ofType,result,toArray);
     });
   }
   drop(event: CdkDragDrop<any>) {
@@ -54,23 +55,26 @@ export class DashboardComponent implements OnInit {
   }
 
   // add Chip on UI
-  add(item: any, toArray:Array<any>): void {
-    if (item as Account) {
+  add(type,item, toArray:Array<any>): void {
+    console.log(type);
+    if (type  === "Account") {
       let newItem: Account = {
         amount: item.amount || 0,
         name:item.name,
         description:item.description}
       this.dashboardService.createAccount(newItem)
       toArray.push(newItem);
-    }else if(item as Income){
+    }else if(type  ===  "Income"){
       let newItem: Income = {
-        name: item.name};
+        name: item.name,
+        amount: item.amount
+      };
       this.dashboardService.createIncome(newItem)
       toArray.push(newItem);
     }
-    else if(item as Spending){
+    else if(type  === "Spending" ){
       //this.dashboardService.deleteSpending(item);
-    }else if(item as Category){
+    }else if(type  ===  "Category"){
       this.dashboardService.deleteCategory(item);
     }
 
@@ -79,19 +83,25 @@ export class DashboardComponent implements OnInit {
   }
 
   // remove chip from UI
-  remove(item:any, from: Array<any>): void {
+  remove(type,item, from: Array<any>): void {
     const index = from.indexOf(item);
     if (index >= 0) {
       from.splice(index, 1);
-      if (item as Account) {
+              console.log(item);
+
+      if (type ===  "Account") {
+                      console.log("Account",item);
+
         this.dashboardService.deleteAccount(item);
 
-      }else if(item as Income){
+      }else if(type=== "Income"){
+                      console.log("Income",item);
+
         this.dashboardService.deleteIncome(item);
       }
-      else if(item as Spending){
+      else if(type === "Spending"){
         //this.dashboardService.deleteSpending(item);
-      }else if(item as Category){
+      }else if(type === "Category"){
         this.dashboardService.deleteCategory(item);
       }
     }

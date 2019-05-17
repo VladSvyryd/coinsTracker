@@ -19,7 +19,6 @@ class Categories(db.Model):
     user_id = db.Column(db.Integer)
     wanted_limit = db.Column(db.Integer, default=0)
     spent_amount = db.Column(db.Integer, default=0)
-    date = db.Column(db.TIMESTAMP)
 
 
 class Incomes(db.Model):

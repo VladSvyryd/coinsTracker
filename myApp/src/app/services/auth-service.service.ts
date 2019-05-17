@@ -49,12 +49,14 @@ export class AuthServiceService {
     return date;
   }
    isTokenExpired(token?: string): boolean {
+    console.log("token from storage", this.getToken())
     if(!token) token = this.getToken();
     if(!token) return true;
 
     const date = this.getTokenExpirationDate(token);
     if(date === undefined) return false;
-    console.log(date)
+    console.log(date.valueOf())
+    console.log(new Date().valueOf())
     return !(date.valueOf() > new Date().valueOf());
   }
 

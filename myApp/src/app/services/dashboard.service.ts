@@ -27,7 +27,6 @@ export class DashboardService {
 
 
   createAccount(account:Account) {
-    // let new_account:Account = {name: name, amount: amount, date: "",description: ""};
     let new_account:Account = {id: account.id, name: account.name, amount: account.amount};
     this.httpClient.post(this.server_path+"/account", new_account).pipe(
       catchError(this.handleError)
