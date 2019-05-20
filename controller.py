@@ -271,7 +271,9 @@ def create_account(current_user):
     new_account = Accounts(name=data['name'], user_id=current_user.public_id, amount=(int)(data['amount']), date=datetime.datetime.utcnow())
     db.session.add(new_account)
     db.session.commit()
-    return jsonify({'server_message': 'new account is added'})
+    # on clientside we need id of newly created element / this will get last element id
+    addedItem_id = db.session.query(Accounts).order_by(Accounts.id.desc()).first().id
+    return jsonify({'last_added_id': addedItem_id})
 
 
 @app.route('/account', methods=['GET'])
@@ -366,7 +368,9 @@ def create_spending(current_user):
                              category_id=data['category_id'], account_id=data['account_id'])
     db.session.add(new_spending)
     db.session.commit()
-    return jsonify({'server_message': 'new spending is added'})
+    # on clientside we need id of newly created element / this will get last element id
+    addedItem_id = db.session.query(Spendings).order_by(Spendings.id.desc()).first().id
+    return jsonify({'last_added_id': addedItem_id})
 
 @app.route('/spending/<spending_id>', methods=['DELETE'])
 # this is a decorator to make this route opened to authenticated users with token
@@ -419,11 +423,13 @@ def create_category(current_user):
     # get data
     data = request.get_json()
 
-    new_category = Categories(id=data['category_id'], name=data['name'], date=datetime.datetime.utcnow(),
+    new_category = Categories(name=data['name'],
                               user_id=current_user.public_id, wanted_limit=data['wanted_limit'])
     db.session.add(new_category)
     db.session.commit()
-    return jsonify({'server_message': 'new category is added'})
+    # on clientside we need id of newly created element / this will get last element id
+    addedItem_id = db.session.query(Categories).order_by(Categories.id.desc()).first().id
+    return jsonify({'last_added_id': addedItem_id})
 
 @app.route('/category/<category_id>', methods=['DELETE'])
 # this is a decorator to make this route opened to authenticated users with token

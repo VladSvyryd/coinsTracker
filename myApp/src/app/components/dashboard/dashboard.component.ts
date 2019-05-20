@@ -49,11 +49,30 @@ export class DashboardComponent implements OnInit {
     });
   }
   drop(event: CdkDragDrop<any>) {
-    console.log(event);
     moveItemInArray(this.accounts, event.previousIndex, event.currentIndex);
 
   }
+  onDragEnded(event) {
+    let element = event.source.getRootElement();
+    let boundingClientRect = element.getBoundingClientRect();
+    console.log(boundingClientRect);
+    let parentPosition = this.getPosition(document.querySelector("html"));
+    let  x = (boundingClientRect.x - parentPosition.left);
+    let y = (boundingClientRect.y - parentPosition.top);
+    console.log('x: ' + x, 'y: ' + y);
 
+   console.log(document.elementFromPoint(x  , y ));
+  }
+  getPosition(el) {
+    let x = 0;
+    let y = 0;
+    while(el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+      x += el.offsetLeft - el.scrollLeft;
+      y += el.offsetTop - el.scrollTop;
+      el = el.offsetParent;
+    }
+    return { top: y, left: x };
+  }
   // add Chip on UI
   add(type,item, toArray:Array<any>): void {
     console.log(type);
@@ -62,20 +81,29 @@ export class DashboardComponent implements OnInit {
         amount: item.amount || 0,
         name:item.name,
         description:item.description}
-      this.dashboardService.createAccount(newItem)
-      toArray.push(newItem);
+      this.dashboardService.createAccount(newItem).subscribe((res: any)=>{
+        newItem.id = res.last_added_id;
+        toArray.push(newItem);
+      });
     }else if(type  ===  "Income"){
       let newItem: Income = {
         name: item.name,
         amount: item.amount
       };
-      this.dashboardService.createIncome(newItem)
-      toArray.push(newItem);
+      this.dashboardService.createIncome(newItem).subscribe((res : any)=>{
+        newItem.id = res.last_added_id;
+        toArray.push(newItem);
+      });
     }
-    else if(type  === "Spending" ){
-      //this.dashboardService.deleteSpending(item);
-    }else if(type  ===  "Category"){
-      this.dashboardService.deleteCategory(item);
+    else if(type  ===  "Category"){
+      let newItem: Category = {
+        name: item.name,
+        description: item.description || "",
+      };
+      this.dashboardService.createCategory(item).subscribe((res : any)=>{
+        newItem.id = res.last_added_id;
+        toArray.push(newItem);
+      });
     }
 
 
@@ -87,15 +115,15 @@ export class DashboardComponent implements OnInit {
     const index = from.indexOf(item);
     if (index >= 0) {
       from.splice(index, 1);
-              console.log(item);
+      console.log(item);
 
       if (type ===  "Account") {
-                      console.log("Account",item);
+        console.log("Account",item);
 
         this.dashboardService.deleteAccount(item);
 
       }else if(type=== "Income"){
-                      console.log("Income",item);
+        console.log("Income",item);
 
         this.dashboardService.deleteIncome(item);
       }

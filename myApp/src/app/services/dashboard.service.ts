@@ -27,10 +27,10 @@ export class DashboardService {
 
 
   createAccount(account:Account) {
-    let new_account:Account = {id: account.id, name: account.name, amount: account.amount};
-    this.httpClient.post(this.server_path+"/account", new_account).pipe(
+    let new_account:Account = { name: account.name, amount: account.amount};
+    return this.httpClient.post(this.server_path+"/account", new_account).pipe(
       catchError(this.handleError)
-    ).subscribe();
+    );
   }
 
   deleteAccount(account:Account) {
@@ -44,10 +44,10 @@ export class DashboardService {
 
 
 createIncome(income:Income) {
-    let new_income:Income = {id: income.id, name: income.name, wanted_income: income.wanted_income, amount: income.amount};
-    this.httpClient.post(this.server_path+"/income", new_income).pipe(
+    let new_income:Income = { name: income.name, wanted_income: income.wanted_income, amount: income.amount};
+   return this.httpClient.post(this.server_path+"/income", new_income).pipe(
       catchError(this.handleError)
-    ).subscribe();
+    );
   }
 deleteIncome(income:Income) {
     this.httpClient.delete(this.server_path+"/income/"+ income.id).pipe(
@@ -61,15 +61,15 @@ deleteIncome(income:Income) {
 
 
 createCategory(category:Category) {
-   // let new_CAtegory:Category = {name: category.name, amount: category.amount};
-   // this.httpClient.post(this.server_path+"/category", new_category).pipe(
-    //  catchError(this.handleError)
-   // ).subscribe();
+    let new_category:Category = {name: category.name, description: category.description, wanted_limit: category.wanted_limit || 0};
+    return this.httpClient.post(this.server_path+"/category", new_category).pipe(
+      catchError(this.handleError)
+    )
   }
 deleteCategory(category:Category) {
-    //this.httpClient.delete(this.server_path+"/category/"+ category.id).pipe(
-    //  catchError(this.handleError)
-    //).subscribe();
+    this.httpClient.delete(this.server_path+"/category/"+ category.id).pipe(
+      catchError(this.handleError)
+    ).subscribe();
   }
 
 
