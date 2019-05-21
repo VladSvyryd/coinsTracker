@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 import uuid  # to generate random public id
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt  # json web token (you need to install PyJWT if ou get an error while trying to get a token)
@@ -186,17 +187,26 @@ def get_all_incomes(current_user):
 
     incomes = Incomes.query.filter_by(user_id=current_user.public_id).all()
     output = []
+    summ = Incomes.query.with_entities(func.sum(Incomes.amount)).filter_by(
+        user_id=current_user.public_id
+    ).first()
+    print(summ)
     for income in incomes:
         income_list = {}
         income_list['name'] = income.name
         income_list['id'] = income.id
         income_list['amount'] = income.amount
         income_list['date'] = income.date
-
         output.append(income_list)
     return jsonify(output)
 
-    # user = Incomes.query.filter_by
+@app.route('/income_sum', methods=['GET'])
+@token_required
+def get_incomes_sum(current_user):
+    sum = Incomes.query.with_entities(func.sum(Incomes.amount)).filter_by(
+        user_id=current_user.public_id
+    ).first()
+    return jsonify(sum)
 
 
 @app.route('/income/<income_id>', methods=['GET'])
@@ -293,6 +303,14 @@ def get_all_accounts(current_user):
         account_list['date'] = account.date
         output.append(account_list)
     return jsonify(output)
+
+@app.route('/account_sum', methods=['GET'])
+@token_required
+def get_accounts_sum(current_user):
+    sum = Accounts.query.with_entities(func.sum(Accounts.amount)).filter_by(
+        user_id=current_user.public_id
+    ).first()
+    return jsonify(sum)
 
 
 @app.route('/account/<account_id>', methods=['GET'])

@@ -22,6 +22,9 @@ export class DashboardService {
     return this.httpClient.get(this.server_path + "/" + path);
   }
 
+  getSum(path:string){
+    return this.httpClient.get(this.server_path + "/" + path + '_sum');
+  }
 
 ////*****************ACOUNTS**********************/
 

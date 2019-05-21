@@ -10,6 +10,7 @@ import {DialogData} from "../../models/dialog";
 })
 export class DialogWindowComponent implements OnInit {
   form: FormGroup;
+
   name = new FormControl('', [Validators.required]);
   amount = new FormControl('', [Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.minLength(1)]); // regex for money value
   inputFields:DialogData[];

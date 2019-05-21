@@ -5,4 +5,5 @@ export interface Income {
   date?:          string; //???
   name:           string;
   paycheck_date?:    any; //???
+  total?: number;
 }

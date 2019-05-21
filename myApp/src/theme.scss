@@ -11,21 +11,21 @@
 // hue. Available color palettes: https://material.io/design/color/
 
 
-$coinKeeper-tomato: (
-    50 : #ffece9,
-    100 : #ffd0c8,
-    200 : #ffb1a3,
-    300 : #ff927e,
-    400 : #ff7a63,
-    500 : #ff6347,
-    600 : #ff5b40,
-    700 : #ff5137,
-    800 : #ff472f,
-    900 : #ff3520,
-    A100 : #ffffff,
-    A200 : #ffffff,
-    A400 : #ffd3cf,
-    A700 : #ffbcb6,
+$md-blue: (
+    50 : #edf3f8,
+    100 : #d3e0ee,
+    200 : #b6cce3,
+    300 : #98b7d7,
+    400 : #82a7cf,
+    500 : #6c98c6,
+    600 : #6490c0,
+    700 : #5985b9,
+    800 : #4f7bb1,
+    900 : #3d6aa4,
+    A100 : #f5f9ff,
+    A200 : #c2dbff,
+    A400 : #8fbeff,
+    A700 : #75afff,
     contrast: (
         50 : #000000,
         100 : #000000,
@@ -34,7 +34,7 @@ $coinKeeper-tomato: (
         400 : #000000,
         500 : #000000,
         600 : #000000,
-        700 : #000000,
+        700 : #ffffff,
         800 : #ffffff,
         900 : #ffffff,
         A100 : #000000,
@@ -44,17 +44,52 @@ $coinKeeper-tomato: (
     )
 );
 
-$coinKeeper-white: (
-    50 : #ffffff,
-    100 : #ffffff,
-    200 : #ffffff,
-    300 : #ffffff,
-    400 : #ffffff,
-    500 : #ffffff,
-    600 : #ffffff,
-    700 : #ffffff,
-    800 : #ffffff,
-    900 : #ffffff,
+$md-hell-blue: (
+    50 : #f3f6fa,
+    100 : #e0e9f3,
+    200 : #ccdbeb,
+    300 : #b7cde3,
+    400 : #a7c2dd,
+    500 : #98b7d7,
+    600 : #90b0d3,
+    700 : #85a7cd,
+    800 : #7b9fc7,
+    900 : #6a90be,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #cde3ff,
+    A700 : #b3d5ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+
+$md-white: (
+    50 : #fefefe,
+    100 : #fbfbfb,
+    200 : #f9f9f9,
+    300 : #f7f7f7,
+    400 : #f5f5f5,
+    500 : #f3f3f3,
+    600 : #f1f1f1,
+    700 : #efefef,
+    800 : #ededed,
+    900 : #eaeaea,
     A100 : #ffffff,
     A200 : #ffffff,
     A400 : #ffffff,
@@ -76,11 +111,54 @@ $coinKeeper-white: (
         A700 : #000000,
     )
 );
-$coinKeeper-app-primary: mat-palette($coinKeeper-tomato);
-$coinKeeper-app-accent:  mat-palette($coinKeeper-white, A200, A100, A400);
-// Create the theme object (a Sass map containing all of the palettes).
-$coinKeeper-app-theme: mat-light-theme($coinKeeper-app-primary, $coinKeeper-app-accent);
 
+$md-warning: (
+    50 : #fdeee7,
+    100 : #fad5c4,
+    200 : #f7b99c,
+    300 : #f49c74,
+    400 : #f18757,
+    500 : #ef7239,
+    600 : #ed6a33,
+    700 : #eb5f2c,
+    800 : #e85524,
+    900 : #e44217,
+    A100 : #ffffff,
+    A200 : #ffe7e2,
+    A400 : #ffbdaf,
+    A700 : #ffa896,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+
+$coinKeeper-app-primary: mat-palette($md-blue, 500);
+$coinKeeper-app-accent:  mat-palette($md-hell-blue, 500);
+$coinKeeper-app-warning:  mat-palette($md-warning, 500);
+$background-color: map_get($md-white, 500);
+// Create the theme object (a Sass map containing all of the palettes).
+$coinKeeper-app-theme: mat-light-theme($coinKeeper-app-primary, $coinKeeper-app-accent,$coinKeeper-app-warning);
+
+
+// Insert custom background color
+$background: map-get($coinKeeper-app-theme, background);
+$background: map_merge($background, (background: $background-color));
+$theme: map_merge($coinKeeper-app-theme, (background: $background));
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.

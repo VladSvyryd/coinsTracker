@@ -1,16 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {DashboardService} from "../../services/dashboard.service";
-import { Account } from "../../models/account";
+import {Component, OnInit} from '@angular/core';
+import {DashboardService} from '../../services/dashboard.service';
+import {Account} from '../../models/account';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatDialog} from '@angular/material';
-import {DialogWindowComponent} from "../dialog-window/dialog-window.component";
-import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
-import {Income} from "../../models/income";
+import {DialogWindowComponent} from '../dialog-window/dialog-window.component';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {Income} from '../../models/income';
 import {Spending} from '../../models/spending';
 import {Category} from '../../models/category';
-import {DialogData} from '../../models/dialog';
-
-
 
 
 @Component({
@@ -21,6 +18,10 @@ import {DialogData} from '../../models/dialog';
 export class DashboardComponent implements OnInit {
   private accounts : Account[] = [];
   private incomes : Income[] = [];
+  private sums = {
+    income_sum : 0 as any,
+    account_sum : 0 as any
+  };
   private categories : Category[] = [];
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -37,6 +38,9 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getAll("category").subscribe((res : Category[])=>{
       this.categories = res;
     });
+    this.dashboardService.getSum('income').subscribe((res)=> this.sums.income_sum = res as number);
+    this.dashboardService.getSum('account').subscribe((res)=> this.sums.account_sum = res as number);
+
   }
 
   openDialog(ofType,keys:Array<any>, toArray) {
@@ -61,7 +65,7 @@ export class DashboardComponent implements OnInit {
     let y = (boundingClientRect.y - parentPosition.top);
     console.log('x: ' + x, 'y: ' + y);
 
-   console.log(document.elementFromPoint(x  , y ));
+    console.log(document.elementFromPoint(x  , y ));
   }
   getPosition(el) {
     let x = 0;
@@ -85,6 +89,7 @@ export class DashboardComponent implements OnInit {
         newItem.id = res.last_added_id;
         toArray.push(newItem);
       });
+      this.sums.account_sum= parseInt(this.sums.account_sum) + parseInt(item.amount);
     }else if(type  ===  "Income"){
       let newItem: Income = {
         name: item.name,
@@ -94,6 +99,7 @@ export class DashboardComponent implements OnInit {
         newItem.id = res.last_added_id;
         toArray.push(newItem);
       });
+      this.sums.income_sum= parseInt(this.sums.income_sum) + parseInt(item.amount);
     }
     else if(type  ===  "Category"){
       let newItem: Category = {
@@ -118,12 +124,13 @@ export class DashboardComponent implements OnInit {
       console.log(item);
 
       if (type ===  "Account") {
-        console.log("Account",item);
+        this.sums['account_sum'] -= item.amount;
 
         this.dashboardService.deleteAccount(item);
 
       }else if(type=== "Income"){
         console.log("Income",item);
+        this.sums['income_sum'] -= item.amount;
 
         this.dashboardService.deleteIncome(item);
       }
@@ -133,6 +140,7 @@ export class DashboardComponent implements OnInit {
         this.dashboardService.deleteCategory(item);
       }
     }
+
   }
   ngOnInit() {
   }
