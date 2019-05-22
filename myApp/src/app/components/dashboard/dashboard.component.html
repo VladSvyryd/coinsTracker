@@ -12,7 +12,9 @@
     </div>
     <div class="grid">
       <div cdkDropList class="list">
-        <div (cdkDragEnded)="onDragEnded($event)" *ngFor="let income of incomes" cdkDrag cdkDragBoundary=".mainA"
+        <div  (cdkDragMoved)="onDragEnded($event,income)" id={{income.id}} *ngFor="let income of incomes"
+             cdkDrag
+             cdkDragBoundary=".mainA"
              class="box">
           <div class="example-custom-placeholder" *cdkDragPlaceholder>
             <div class="holder"></div>
@@ -23,6 +25,10 @@
           <div class="infoBox">{{income.amount || 0}}</div>
 
         </div>
+        <div class="trial">
+          <div class="left"></div>
+          <div class="center">New</div>
+          <div class="right"></div></div>
       </div>
       <div class="buttonHolder">
         <button mat-fab [disabled]="incomes.length>3"
@@ -44,11 +50,9 @@
       </div>
     </div>
     <div class="grid">
-      <div cdkDropList cdkDropListOrientation="horizontal" class="list" *ngIf="accounts"
-           (cdkDropListDropped)="drop($event)"
-      >
-        <div class="box" *ngFor="let account of accounts" cdkDragBoundary=".mainA"
-             (cdkDragEnded)="onDragEnded($event)" cdkDrag>
+      <div cdkDropList cdkDropListOrientation="horizontal" class="list" *ngIf="accounts">
+        <div class="box" id={{account.id}} #account.id *ngFor="let account of accounts" cdkDragBoundary=".mainA"
+             cdkDrag>
           <button mat-fab>  {{account.name}}
           </button>
           <div class="example-custom-placeholder" *cdkDragPlaceholder>

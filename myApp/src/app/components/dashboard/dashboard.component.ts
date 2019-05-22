@@ -56,17 +56,24 @@ export class DashboardComponent implements OnInit {
     moveItemInArray(this.accounts, event.previousIndex, event.currentIndex);
 
   }
-  onDragEnded(event) {
-    let element = event.source.getRootElement();
-    let boundingClientRect = element.getBoundingClientRect();
-    console.log(boundingClientRect);
-    let parentPosition = this.getPosition(document.querySelector("html"));
-    let  x = (boundingClientRect.x - parentPosition.left);
-    let y = (boundingClientRect.y - parentPosition.top);
-    console.log('x: ' + x, 'y: ' + y);
+  onDragEnded(event,item) {
+    let element = event.source._dragRef._pointerPositionAtLastDirectionChange;
+    let x = element.x;
+    let y = element.y;
+    let underElement = document.elementFromPoint(x  , y );
+    if(underElement.classList.contains("trial") && !underElement.classList.contains("active")){
+      console.log(underElement)
+      underElement.classList.add("active");
+    }
 
-    console.log(document.elementFromPoint(x  , y ));
+
+    this.transitionBegin(item,false)
   }
+  transitionBegin(fromData,toData){
+  //console.log(fromData);
+
+  return true;
+}
   getPosition(el) {
     let x = 0;
     let y = 0;
