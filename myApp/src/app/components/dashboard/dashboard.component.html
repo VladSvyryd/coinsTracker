@@ -1,38 +1,36 @@
 <app-placeholder *ngIf="false"></app-placeholder>
 <div class="placeholder">
   <div class="wrapper">
-    <div class="title">
-      <div class="titleCol">
-        <h3 class="titleDate">Incomes</h3>
-        <h4 class="titleDate">Date</h4>
+    <div class="headerSection">
+      <app-counter [title]="'Income'"  [amount]="income_sum$ | async"></app-counter>
+      <div class="line">
+        <h4>Date</h4>
       </div>
-      <div class="titleCol">
-        <h3 class="titleDate" class="rightTop">{{sums.income_sum || 0}} €</h3>
-      </div>
+
     </div>
-    <div class="grid">
-      <div cdkDropList class="list">
+    <div class="grid" *ngIf="incomes$ | async as incomes">
+      <div cdkDropList class="list" >
         <div  (cdkDragMoved)="onDragEnded($event,income)" id={{income.id}} *ngFor="let income of incomes"
-             cdkDrag
-             cdkDragBoundary=".mainA"
-             class="box">
+              cdkDrag
+              cdkDragBoundary=".mainA"
+              class="box">
           <div class="example-custom-placeholder" *cdkDragPlaceholder>
             <div class="holder"></div>
           </div>
-          <button mat-fab>  {{income.name}}</button>
+          <button mat-fab (click)="openDialogToEditOld({title:'Income',item:income})">  {{income.name}}</button>
 
           <mat-icon (click)="remove('Income',income, incomes)">close</mat-icon>
           <div class="infoBox">{{income.amount || 0}}</div>
 
         </div>
-        <div class="trial">
+        <div class="trial" *ngIf="false">
           <div class="left"></div>
           <div class="center">New</div>
           <div class="right"></div></div>
       </div>
       <div class="buttonHolder">
         <button mat-fab [disabled]="incomes.length>3"
-                (click)="openDialog('Income',['Income',{fieldName:'name',required:true},{fieldName:'amount',required:false}],incomes)">
+                (click)="openDialogToAddNew('Income',['Income',{fieldName:'name',required:true},{fieldName:'amount',required:false}],incomes)">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -46,12 +44,12 @@
       </div>
 
       <div class="titleCol">
-        <h3 class="titleDate" class="rightTop">  {{sums.account_sum || 0}} €</h3>
+        <h3 class="titleDate" class="rightTop">  {{(account_sum$ | async) || 0}} €</h3>
       </div>
     </div>
-    <div class="grid">
-      <div cdkDropList cdkDropListOrientation="horizontal" class="list" *ngIf="accounts">
-        <div class="box" id={{account.id}} #account.id *ngFor="let account of accounts" cdkDragBoundary=".mainA"
+    <div class="grid" *ngIf="accounts$ | async as accounts">
+      <div cdkDropList cdkDropListOrientation="horizontal" class="list" >
+        <div class="box" id={{account.id}}  *ngFor="let account of accounts" cdkDragBoundary=".mainA"
              cdkDrag>
           <button mat-fab>  {{account.name}}
           </button>
@@ -65,7 +63,7 @@
       </div>
       <div class="buttonHolder">
         <button mat-fab [disabled]="accounts.length>3"
-                (click)="openDialog('Account',['Account',{fieldName:'name',required:true},{fieldName:'amount',required:false},{fieldName:'description',required:false}],accounts)">
+                (click)="openDialogToAddNew('Account',['Account',{fieldName:'name',required:true},{fieldName:'amount',required:false},{fieldName:'description',required:false}],accounts)">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -81,9 +79,9 @@
         <h3 class="titleDate" class="rightTop">$</h3>
       </div>
     </div>
-    <div class="grid">
-      <div cdkDropList *ngIf="categories" cdkDropListOrientation="horizontal" class="list"
-           (cdkDropListDropped)="drop($event)">
+    <div class="grid" *ngIf="categories$ | async as categories">
+      <div cdkDropList  cdkDropListOrientation="horizontal" class="list"
+      >
         <div class="box" *ngFor="let category of categories" cdkDrag>
           <button mat-fab>  {{category.name}}
           </button>
@@ -96,8 +94,8 @@
         </div>
       </div>
       <div class="buttonHolder">
-        <button mat-fab [disabled]="accounts.length>3"
-                (click)="openDialog('Category',['Category',{fieldName:'name',required:true},{fieldName:'description',required:false}],categories)">
+        <button mat-fab
+                (click)="openDialogToAddNew('Category',['Category',{fieldName:'name',required:true},{fieldName:'description',required:false}],categories)">
           <mat-icon>add</mat-icon>
         </button>
       </div>

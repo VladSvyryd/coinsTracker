@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {throwError} from "rxjs";
+import {Observable, throwError} from 'rxjs';
 import {Account} from "../models/account";
 import {catchError} from "rxjs/operators";
 import {Income} from "../models/income";
@@ -18,12 +18,12 @@ export class DashboardService {
 
   //*************************ALL************************/
 
-   getAll(path:string) {
-    return this.httpClient.get(this.server_path + "/" + path);
+   getAll(path:string):Observable<any[]> {
+    return this.httpClient.get<any[]>(this.server_path + "/" + path);
   }
 
-  getSum(path:string){
-    return this.httpClient.get(this.server_path + "/" + path + '_sum');
+  getSum(path:string): Observable<number>{
+    return this.httpClient.get<number>(this.server_path + "/" + path + '_sum');
   }
 
 ////*****************ACOUNTS**********************/
@@ -37,9 +37,9 @@ export class DashboardService {
   }
 
   deleteAccount(account:Account) {
-    this.httpClient.delete(this.server_path+"/account/"+ account.id).pipe(
+    return this.httpClient.delete(this.server_path+"/account/"+ account.id).pipe(
       catchError(this.handleError)
-    ).subscribe();
+    );
   }
 
   //**************************INCOMES****************************/
@@ -53,11 +53,16 @@ createIncome(income:Income) {
     );
   }
 deleteIncome(income:Income) {
-    this.httpClient.delete(this.server_path+"/income/"+ income.id).pipe(
+   return this.httpClient.delete(this.server_path+"/income/"+ income.id).pipe(
       catchError(this.handleError)
-    ).subscribe();
+    );
   }
-
+upgradeIncome(income:Income){
+    let upgraded_income:Income = { name: income.name, amount: income.amount};
+    return this.httpClient.put(this.server_path+"/income/"+ income.id, upgraded_income).pipe(
+      catchError(this.handleError)
+    )
+}
 
 
   //*****************************CATEGORIES******************************/

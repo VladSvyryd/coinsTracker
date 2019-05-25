@@ -4,7 +4,8 @@
 
 .placeholder {
   max-width: 400px;
-  margin-left: 50px;
+  margin: 25px auto;
+  padding: 0 15px;
 }
 
 mat-divider {
@@ -53,6 +54,7 @@ mat-grid-list {
 .wrapper {
   width: 100%;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, .36);
+  margin: 13px 0;
 
 }
 
@@ -174,7 +176,7 @@ $size: 56px;
     margin-right: auto;
     &.active{
       width: 0;
-          transition: width .5s ease-in-out;
+      transition: width .5s ease-in-out;
     }
   }
   .right {
@@ -184,9 +186,24 @@ $size: 56px;
     margin-left: auto;
     &.active{
       width: 0;
-          transition: width .5s ease-in-out;
+      transition: width .5s ease-in-out;
     }
   }
 
+}
+
+
+.headerSection{
+  background-color: #f1f1f2;
+  padding: 10px 0;
+  .line{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px;
+    h3,h4{
+      margin: 5px 0;
+    }
+  }
 }
 

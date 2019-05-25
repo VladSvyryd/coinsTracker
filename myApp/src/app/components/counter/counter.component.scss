@@ -1,0 +1,10 @@
+.line{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 10px;
+  h3,h4{
+    margin: 5px 0;
+  }
+}
+

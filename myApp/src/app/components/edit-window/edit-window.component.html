@@ -1,0 +1,14 @@
+<div mat-dialog-content>
+  <p>Edit {{data.title}}</p>
+  <form [formGroup]="form">
+    <mat-form-field *ngFor="let item of objectKeys(inputs)">
+      <input matInput  placeholder="Enter {{item}}" [formControlName]=item >
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button type="submit"  (click)="sendData()"
+          cdkFocusInitial>
+    Ok</button>
+</div>

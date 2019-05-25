@@ -15,6 +15,8 @@ import { PlaceholderComponent } from './components/placeholder/placeholder.compo
 import { DialogWindowComponent } from './components/dialog-window/dialog-window.component';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material";
 import { UpsComponent } from './components/ups/ups.component';
+import { EditWindowComponent } from './components/edit-window/edit-window.component';
+import { CounterComponent } from './components/counter/counter.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { UpsComponent } from './components/ups/ups.component';
     DashboardComponent,
     PlaceholderComponent,
     DialogWindowComponent,
-    UpsComponent
+    UpsComponent,
+    EditWindowComponent,
+    CounterComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,7 @@ import { UpsComponent } from './components/ups/ups.component';
     FormsModule
   ],
    entryComponents: [
-    DialogWindowComponent
+    DialogWindowComponent,EditWindowComponent
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

@@ -159,7 +159,6 @@ def delete_user(current_user, public_id):
 @app.route('/login')
 def login():
     auth = request.headers
-    print(auth)
     if not auth or not auth['email'] or not auth['password']:
         # send a response with error type and header type of error
         return make_response('Could not verify any data', 401, {'WWW-Authenticate': 'Basic realm="Login required!!!"'})
@@ -190,7 +189,6 @@ def get_all_incomes(current_user):
     summ = Incomes.query.with_entities(func.sum(Incomes.amount)).filter_by(
         user_id=current_user.public_id
     ).first()
-    print(summ)
     for income in incomes:
         income_list = {}
         income_list['name'] = income.name
@@ -206,6 +204,7 @@ def get_incomes_sum(current_user):
     sum = Incomes.query.with_entities(func.sum(Incomes.amount)).filter_by(
         user_id=current_user.public_id
     ).first()
+    print(sum)
     return jsonify(sum)
 
 
@@ -235,7 +234,9 @@ def create_income(current_user):
     new_income = Incomes(name=data['name'], amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id)
     db.session.add(new_income)
     db.session.commit()
-    return jsonify({'server_message': 'new income is added'})
+    # on clientside we need id of newly created element / this will get last element id
+    addedItem_id = db.session.query(Incomes).order_by(Incomes.id.desc()).first().id
+    return jsonify({'last_added_id': addedItem_id})
 
 
 @app.route('/income/<income_id>', methods=['PUT'])
@@ -249,6 +250,7 @@ def upgrade_income(current_user, income_id):
         return jsonify({'server_message': 'No income found'})
 
     income.amount = data['amount']
+    income.name = data['name']
     income.date = datetime.datetime.utcnow()
     db.session.commit()
     return jsonify({'server_message': 'This income has been changed'})
@@ -260,7 +262,7 @@ def upgrade_income(current_user, income_id):
 def delete_income(current_user, income_id):
 
     # create a query to filter table for this specific user
-    income = Incomes.query.filter_by(id=income_id).first()
+    income = Incomes.query.filter_by(user_id=current_user.public_id).filter_by(id=income_id).first()
     if not income:
         return jsonify({'server_message': 'No Income found'})
 
@@ -292,7 +294,6 @@ def create_account(current_user):
 def get_all_accounts(current_user):
 
     accounts = Accounts.query.filter_by(user_id=current_user.public_id).all()
-    print(accounts)
     output = []
     for account in accounts:
         account_list = {}
