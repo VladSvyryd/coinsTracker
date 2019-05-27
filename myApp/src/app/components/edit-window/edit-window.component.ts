@@ -13,23 +13,24 @@ export interface EditData {
   styleUrls: ['./edit-window.component.scss']
 })
 export class EditWindowComponent implements OnInit {
-form: FormGroup;
+  form: FormGroup;
 
-  name = new FormControl('', [Validators.required]);
-  amount = new FormControl('', [Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.minLength(1)]); // regex for money value
+ // name = new FormControl('', [Validators.required]);
+ // amount = new FormControl('', [Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.minLength(1)]); // regex for money value
   description = new FormControl();
-  objectKeys= Object.keys;
   data: EditData;
   inputs;
+  max;
+  value;
   constructor(public dialogRef: MatDialogRef<EditWindowComponent>,
               @Inject(MAT_DIALOG_DATA) public recievedData: EditData, fb: FormBuilder) {
     this.data = recievedData;
-     // separate fields of Object
+    // separate fields of Object
     const { date, id, ...shortObject } = this.data.item;
     this.inputs = shortObject;
     this.form = fb.group({
       name: new FormControl('' + this.data.item.name,[Validators.required]),
-      amount: new FormControl('' + this.data.item.amount,[Validators.required]),
+      amount: new FormControl('' + this.data.item.amount,[Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.minLength(1)]),
     });
 
   }
@@ -37,12 +38,33 @@ form: FormGroup;
     this.dialogRef.close();
 
   }
-sendData(){
+  checkIfAmount(str:string){
+    if(str == "amount"){
+      return true
+    }
+    return false;
+  }
+  sendData(){
     this.data.item.name = this.form.value.name;
     this.data.item.amount = this.form.value.amount;
     this.dialogRef.close(this.data.item);
-}
-  ngOnInit() {
   }
+  ngOnInit() {
+    this.setMaximum()
 
+  }
+  setMaximum(){
+    return this.max = parseInt(this.form.value.amount )+ 1000;
+  }
+  formatLabel(value: number | null) {
+    if (!value) {
+      return 0;
+    }
+
+    if (value >= 5000) {
+      return Math.round(value / 1000) + 'k';
+    }
+
+    return value;
+  }
 }

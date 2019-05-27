@@ -1,3 +1,4 @@
+@import '../../../variables';
 .example-chip-list {
   width: 60%;
 }
@@ -55,6 +56,7 @@ mat-grid-list {
   width: 100%;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, .36);
   margin: 13px 0;
+  background-color: $hell-blue;
 
 }
 
@@ -95,6 +97,9 @@ mat-grid-list {
       flex-basis: 0;
       position: relative;
       margin: 0 10px;
+      mat-icon{
+        color: white;
+      }
       &.active{
         background-color: black;
       }
@@ -103,9 +108,14 @@ mat-grid-list {
         bottom: -20px;
         left: 50%;
         transform: translateX(-50%);
+        color: white;
       }
       mat-icon{
-        position: absolute!important; top: -10px; right: 0px; font-size: 16px;    height: 16px;
+        position: absolute!important;
+        top: -10px;
+        right: 0px;
+        font-size: 16px;
+        height: 16px;
         width: 16px;
       }
     }
@@ -134,8 +144,8 @@ mat-grid-list {
 
 .example-custom-placeholder {
   .holder{
-    background: #ccc;
-    border: dotted 3px #999;
+    background: mat-color($md-accent, 300);
+    border: dotted 3px mat-color($md-accent, 100);
     height: 50px;
     width: 50px;
     border-radius: 50%;
@@ -194,7 +204,6 @@ $size: 56px;
 
 
 .headerSection{
-  background-color: #f1f1f2;
   padding: 10px 0;
   .line{
     display: flex;

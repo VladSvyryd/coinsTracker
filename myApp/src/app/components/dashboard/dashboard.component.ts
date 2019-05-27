@@ -11,35 +11,38 @@ import {Category} from '../../models/category';
 import {EditWindowComponent} from '../edit-window/edit-window.component';
 import {consoleTestResultHandler} from 'tslint/lib/test';
 import {Observable} from 'rxjs';
-
+import {SharedService} from '../../services/shared.service';
+import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { bounce,fadeIn } from 'ng-animate';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [
+    trigger('fadeIn', [transition('void  => *', useAnimation(fadeIn))])
+  ]
 })
 export class DashboardComponent implements OnInit {
   private accounts$ : Observable<Account[]>;
   private incomes$ : Observable<Income[]>;
-  private income_sum$: Observable<number>;
-  private account_sum$: Observable<number>;
   private categories$ :  Observable<Category[]>;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+bounce: any;
+  isMobile: Observable<BreakpointState>;
 
-
-  constructor(private dashboardService:DashboardService, public dialog: MatDialog) {
+  constructor(private dashboardService:DashboardService, public dialog: MatDialog, private sharedService: SharedService,private breakpointObserver: BreakpointObserver) {
   }
   ngOnInit() {
     this.incomes$ = this.dashboardService.getAll("income");
     this.accounts$ = this.dashboardService.getAll("account");
     this.categories$ = this.dashboardService.getAll("category");
-    this.income_sum$ = this.dashboardService.getSum('income');
-    this.account_sum$ = this.dashboardService.getSum('account');
-
+    this.isMobile = this.breakpointObserver.observe(Breakpoints.Handset);
   }
   openDialogToAddNew(ofType, keys:Array<any>, toArray) {
     const dialogRef = this.dialog.open(DialogWindowComponent, {
-      width: '250px',
+      width: '300px',
       data: keys
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -48,7 +51,7 @@ export class DashboardComponent implements OnInit {
   }
   openDialogToEditOld(item){
     const dialogRef = this.dialog.open(EditWindowComponent,{
-      width: '250px',
+      width: '300px',
       data: item
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -94,11 +97,10 @@ export class DashboardComponent implements OnInit {
 
   upgrade(item){
     this.dashboardService.upgradeIncome(item).subscribe(()=>
-      this.income_sum$ = this.dashboardService.getSum('income')
+            this.sharedService.emitChange('income')
+
     );
   }
-
-
   // add Coin on UI
   add(type,item, toArray:Array<any>): void {
     console.log(type);
@@ -106,11 +108,13 @@ export class DashboardComponent implements OnInit {
       let newItem: Account = {
         amount: item.amount || 0,
         name:item.name,
-        description:item.description}
+        description:item.description};
       this.dashboardService.createAccount(newItem).subscribe((res: any)=>{
         newItem.id = res.last_added_id;
         toArray.push(newItem);
-        this.account_sum$ = this.dashboardService.getSum('account');
+        this.sharedService.emitChange('account');
+
+
       });
     }else if(type  ===  "Income"){
       let newItem: Income = {
@@ -120,7 +124,7 @@ export class DashboardComponent implements OnInit {
       this.dashboardService.createIncome(newItem).subscribe((res : any)=>{
         newItem.id = res.last_added_id;
         toArray.push(newItem);
-        this.income_sum$ = this.dashboardService.getSum('income');
+        this.sharedService.emitChange('income');
       });
 
     }
@@ -149,14 +153,14 @@ export class DashboardComponent implements OnInit {
       if (type ===  "Account") {
         this.dashboardService.deleteAccount(item).subscribe(
           ()=>{
-            this.account_sum$ = this.dashboardService.getSum('account');
+            this.sharedService.emitChange('account');
           }
         );
 
       }else if(type=== "Income"){
         this.dashboardService.deleteIncome(item).subscribe(
           ()=>{
-            this.income_sum$ = this.dashboardService.getSum('income');
+            this.sharedService.emitChange('income');
           }
         );
 

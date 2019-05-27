@@ -7,6 +7,9 @@
 }
 .header{
   grid-area: header;
+  button{
+    padding: 0;
+  }
 }
 
 .main{
@@ -23,4 +26,10 @@ mat-slide-toggle{
 }
 .right-spacer{
   flex: 1 1 auto;
+}
+
+.counters{
+  display: flex;
+  flex-direction: row;
+
 }

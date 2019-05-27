@@ -1,10 +1,24 @@
+$mobile: "only screen and (max-width : 600px)";
+
+
 .line{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 0 10px;
-  h3,h4{
+  h3{
     margin: 5px 0;
+  }
+  @media #{$mobile} {
+    flex-direction: column;
+    h3{
+      margin: 1px 0;
+      &.amount{
+        text-align: center;
+        line-height: 11px;
+        font-size: 11px;
+      }
+    }
   }
 }
 

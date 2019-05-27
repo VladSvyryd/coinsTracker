@@ -1,10 +1,16 @@
 <div class="wrapper " [ngClass]="{}"
 >
   <mat-toolbar class="header">{{title}}
-    <app-counter></app-counter>
-    <span class="right-spacer"></span>
-    <button mat-button (click)="tryLogout()">
+        <span class="right-spacer"></span>
 
+    <div class="counters" *ngIf="(isMobile | async)?.matches">
+    <app-counter  data="income" [title]="'Income'"></app-counter>
+    <app-counter  data="account" [title]="'Account'"></app-counter>
+
+
+    </div>
+    <span class="right-spacer"></span>
+    <button mat-icon-button (click)="tryLogout()">
       <mat-icon  aria-hidden="false" aria-label="Log Out">exit_to_app</mat-icon>
     </button>
   </mat-toolbar>
@@ -17,12 +23,12 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="mainA">
-     <!--
-     <button mat-fab color="accent" id="toggleMenu"(click)="sidenav.toggle()"><img src="../assets/img/lapa.png" alt=""></button>
-      -->
+      <!--
+      <button mat-fab color="accent" id="toggleMenu"(click)="sidenav.toggle()"><img src="../assets/img/lapa.png" alt=""></button>
+       -->
+
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
-
-
 </div>
+

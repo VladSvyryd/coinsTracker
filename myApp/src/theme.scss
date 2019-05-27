@@ -12,20 +12,20 @@
 
 
 $md-blue: (
-    50 : #edf3f8,
-    100 : #d3e0ee,
-    200 : #b6cce3,
-    300 : #98b7d7,
-    400 : #82a7cf,
-    500 : #6c98c6,
-    600 : #6490c0,
-    700 : #5985b9,
-    800 : #4f7bb1,
-    900 : #3d6aa4,
-    A100 : #f5f9ff,
-    A200 : #c2dbff,
-    A400 : #8fbeff,
-    A700 : #75afff,
+  50 : #e6f6ed,
+    100 : #bfe9d2,
+    200 : #95dab4,
+    300 : #6bcb96,
+    400 : #4bbf80,
+    500 : #2bb469,
+    600 : #26ad61,
+    700 : #20a456,
+    800 : #1a9c4c,
+    900 : #108c3b,
+    A100 : #beffd2,
+    A200 : #8bffae,
+    A400 : #58ff8a,
+    A700 : #3fff79,
     contrast: (
         50 : #000000,
         100 : #000000,
@@ -33,7 +33,7 @@ $md-blue: (
         300 : #000000,
         400 : #000000,
         500 : #000000,
-        600 : #000000,
+        600 : #ffffff,
         700 : #ffffff,
         800 : #ffffff,
         900 : #ffffff,
@@ -44,32 +44,32 @@ $md-blue: (
     )
 );
 
-$md-hell-blue: (
-    50 : #f3f6fa,
-    100 : #e0e9f3,
-    200 : #ccdbeb,
-    300 : #b7cde3,
-    400 : #a7c2dd,
-    500 : #98b7d7,
-    600 : #90b0d3,
-    700 : #85a7cd,
-    800 : #7b9fc7,
-    900 : #6a90be,
+$md-accent: (
+    50 : #fde4eb,
+    100 : #fabbcd,
+    200 : #f78dac,
+    300 : #f35f8b,
+    400 : #f13d72,
+    500 : #ee1b59,
+    600 : #ec1851,
+    700 : #e91448,
+    800 : #e7103e,
+    900 : #e2082e,
     A100 : #ffffff,
-    A200 : #ffffff,
-    A400 : #cde3ff,
-    A700 : #b3d5ff,
+    A200 : #ffd8dd,
+    A400 : #ffa5b1,
+    A700 : #ff8b9b,
     contrast: (
         50 : #000000,
         100 : #000000,
         200 : #000000,
         300 : #000000,
-        400 : #000000,
-        500 : #000000,
-        600 : #000000,
-        700 : #000000,
-        800 : #000000,
-        900 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
         A100 : #000000,
         A200 : #000000,
         A400 : #000000,
@@ -113,20 +113,20 @@ $md-white: (
 );
 
 $md-warning: (
-    50 : #fdeee7,
-    100 : #fad5c4,
-    200 : #f7b99c,
-    300 : #f49c74,
-    400 : #f18757,
-    500 : #ef7239,
-    600 : #ed6a33,
-    700 : #eb5f2c,
-    800 : #e85524,
-    900 : #e44217,
+       50 : #feebe8,
+    100 : #fccec6,
+    200 : #fbada0,
+    300 : #f98c7a,
+    400 : #f7735e,
+    500 : #f65a41,
+    600 : #f5523b,
+    700 : #f34832,
+    800 : #f23f2a,
+    900 : #ef2e1c,
     A100 : #ffffff,
-    A200 : #ffe7e2,
-    A400 : #ffbdaf,
-    A700 : #ffa896,
+    A200 : #fff1f1,
+    A400 : #ffc2be,
+    A700 : #ffaaa4,
     contrast: (
         50 : #000000,
         100 : #000000,
@@ -135,7 +135,7 @@ $md-warning: (
         400 : #000000,
         500 : #000000,
         600 : #000000,
-        700 : #000000,
+        700 : #ffffff,
         800 : #ffffff,
         900 : #ffffff,
         A100 : #000000,
@@ -144,15 +144,59 @@ $md-warning: (
         A700 : #000000,
     )
 );
+$my-dark-theme-background: (
+  status-bar: #242b51,
+  app-bar:    #222646,
+  background: #222646,
+  hover:      rgba(white, 0.04),
+  card:       map_get($mat-red, 800),
+  dialog:     #242b51,
+  disabled-button: $white-12-opacity,
+  raised-button: map-get($mat-grey, 800),
+  focused-button: $white-6-opacity,
+  selected-button: map_get($mat-grey, 900),
+  selected-disabled-button: map_get($mat-grey, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map_get($mat-grey, 700),
+  disabled-list-option: black,
+  icon: white
+);
 
+$my-dark-theme-foreground: (
+  base:              #242b51,
+  divider:           $white-12-opacity,
+  dividers:          $white-12-opacity,
+  disabled:          rgba(white, 0.3),
+  disabled-button:   rgba(white, 0.3),
+  disabled-text:     rgba(white, 0.3),
+  hint-text:         rgba(white, 0.3),
+  secondary-text:    rgba(white, 0.7),
+  icon:              white,
+  icons:             white,
+  text:              white,
+  slider-min:        white,
+  slider-off:        rgba(white, 0.3),
+  slider-off-active: rgba(white, 0.3),
+);
+// instead of creating a theme with mat-light-theme like a sane person, we will create our own theme-creating function that lets us apply our own foreground and background palettes.
+@function create-wonky-theme($primary, $accent, $warn) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: false,
+    foreground: $my-dark-theme-foreground,
+    background: $my-dark-theme-background,
+  );
+}
 
 
 $coinKeeper-app-primary: mat-palette($md-blue, 500);
-$coinKeeper-app-accent:  mat-palette($md-hell-blue, 500);
+$coinKeeper-app-accent:  mat-palette($md-accent, 500, 900, A100);
 $coinKeeper-app-warning:  mat-palette($md-warning, 500);
 $background-color: map_get($md-white, 500);
 // Create the theme object (a Sass map containing all of the palettes).
-$coinKeeper-app-theme: mat-light-theme($coinKeeper-app-primary, $coinKeeper-app-accent,$coinKeeper-app-warning);
+$coinKeeper-app-theme: create-wonky-theme($coinKeeper-app-primary, $coinKeeper-app-accent,$coinKeeper-app-warning);
 
 
 // Insert custom background color
