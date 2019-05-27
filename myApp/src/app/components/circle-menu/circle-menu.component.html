@@ -1,0 +1,20 @@
+<div id="circularMenu" class="circular-menu">
+
+  <button mat-fab class="floating-btn" #toggleButton (click)="toggleMenu()">     <mat-icon>menu</mat-icon>
+  </button>
+
+  <menu class="items-wrapper">
+    <button mat-icon-button (click)="tryLogout()"  class="menu-item">
+      <mat-icon  aria-hidden="false" aria-label="Log Out">exit_to_app</mat-icon>
+    </button>
+    <button mat-icon-button   class="menu-item">
+      <mat-icon  aria-hidden="false" aria-label="settings">settings</mat-icon>
+    </button>
+    <a routerLink="pie-chart" mat-icon-button  (click)="toggleMenu()"  class="menu-item">
+    <mat-icon  aria-hidden="false" aria-label="pie_chart">pie_chart</mat-icon>
+  </a> <button mat-icon-button   class="menu-item">
+    <mat-icon  aria-hidden="false" aria-label="line_chart">show_chart</mat-icon>
+  </button>
+  </menu>
+
+</div>

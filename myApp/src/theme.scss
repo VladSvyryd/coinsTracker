@@ -11,7 +11,7 @@
 // hue. Available color palettes: https://material.io/design/color/
 
 
-$md-blue: (
+$md-primary: (
   50 : #e6f6ed,
     100 : #bfe9d2,
     200 : #95dab4,
@@ -153,7 +153,7 @@ $my-dark-theme-background: (
   dialog:     #242b51,
   disabled-button: $white-12-opacity,
   raised-button: map-get($mat-grey, 800),
-  focused-button: $white-6-opacity,
+  focused-button: map_get($md-accent, 500),
   selected-button: map_get($mat-grey, 900),
   selected-disabled-button: map_get($mat-grey, 800),
   disabled-button-toggle: black,
@@ -168,6 +168,7 @@ $my-dark-theme-foreground: (
   dividers:          $white-12-opacity,
   disabled:          rgba(white, 0.3),
   disabled-button:   rgba(white, 0.3),
+   focused-button: map_get($md-accent, 500),
   disabled-text:     rgba(white, 0.3),
   hint-text:         rgba(white, 0.3),
   secondary-text:    rgba(white, 0.7),
@@ -191,7 +192,7 @@ $my-dark-theme-foreground: (
 }
 
 
-$coinKeeper-app-primary: mat-palette($md-blue, 500);
+$coinKeeper-app-primary: mat-palette($md-primary, 500);
 $coinKeeper-app-accent:  mat-palette($md-accent, 500, 900, A100);
 $coinKeeper-app-warning:  mat-palette($md-warning, 500);
 $background-color: map_get($md-white, 500);

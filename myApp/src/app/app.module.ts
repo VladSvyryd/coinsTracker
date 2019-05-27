@@ -17,7 +17,9 @@ import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material";
 import { UpsComponent } from './components/ups/ups.component';
 import { EditWindowComponent } from './components/edit-window/edit-window.component';
 import { CounterComponent } from './components/counter/counter.component';
-
+import { CircleMenuComponent } from './components/circle-menu/circle-menu.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { CounterComponent } from './components/counter/counter.component';
     DialogWindowComponent,
     UpsComponent,
     EditWindowComponent,
-    CounterComponent
+    CounterComponent,
+    CircleMenuComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,8 @@ import { CounterComponent } from './components/counter/counter.component';
     BrowserAnimationsModule,
     MyOwnCustomMaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
   ],
    entryComponents: [
     DialogWindowComponent,EditWindowComponent

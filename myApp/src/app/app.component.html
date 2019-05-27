@@ -1,6 +1,6 @@
 <div class="wrapper " [ngClass]="{}"
 >
-  <mat-toolbar class="header">{{title}}
+  <mat-toolbar class="header">
         <span class="right-spacer"></span>
 
     <div class="counters" *ngIf="(isMobile | async)?.matches">
@@ -10,9 +10,7 @@
 
     </div>
     <span class="right-spacer"></span>
-    <button mat-icon-button (click)="tryLogout()">
-      <mat-icon  aria-hidden="false" aria-label="Log Out">exit_to_app</mat-icon>
-    </button>
+
   </mat-toolbar>
 
   <mat-sidenav-container class="sidebar ">
@@ -28,6 +26,7 @@
        -->
 
       <router-outlet></router-outlet>
+      <app-circle-menu *ngIf="(isMobile | async)?.matches"></app-circle-menu>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

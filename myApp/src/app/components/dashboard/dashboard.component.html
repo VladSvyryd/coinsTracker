@@ -21,7 +21,8 @@
             {{income.name}}</button>
 
           <mat-icon (click)="remove('Income',income, incomes)">close</mat-icon>
-          <div class="infoBox">{{income.amount || 0}}</div>
+
+          <div class="infoBox">{{currency}}&nbsp;{{income.amount || 0}}</div>
 
         </div>
         <div *ngIf="false" class="trial">
@@ -56,7 +57,7 @@
             <div class="holder"></div>
           </div>
           <mat-icon (click)="remove('Account',account,accounts)">close</mat-icon>
-          <div class="infoBox">{{account.amount || 0}}</div>
+          <div class="infoBox"> {{currency}}&nbsp;{{account.amount || 0}}</div>
 
         </div>
       </div>
@@ -87,7 +88,7 @@
             <div class="holder"></div>
           </div>
           <mat-icon (click)="remove('Category',category, categories)">close</mat-icon>
-          <div *ngIf='category' class="infoBox">{{category.amount || 0}}</div>
+          <div *ngIf='category' class="infoBox"> {{currency}}&nbsp;{{category.amount || 0}}</div>
 
         </div>
       </div>

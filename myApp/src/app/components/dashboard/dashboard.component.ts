@@ -13,15 +13,16 @@ import {consoleTestResultHandler} from 'tslint/lib/test';
 import {Observable} from 'rxjs';
 import {SharedService} from '../../services/shared.service';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
-import { trigger, transition, useAnimation } from '@angular/animations';
-import { bounce,fadeIn } from 'ng-animate';
+import {trigger, transition, useAnimation, style} from '@angular/animations';
+import { bounce,fadeIn, fadeOut, hinge } from 'ng-animate';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   animations: [
-    trigger('fadeIn', [transition('void  => *', useAnimation(fadeIn))])
+    trigger('fadeIn', [transition('void  => *', useAnimation(fadeIn)),transition('*  => void', useAnimation(hinge))]),
+
   ]
 })
 export class DashboardComponent implements OnInit {
@@ -29,7 +30,8 @@ export class DashboardComponent implements OnInit {
   private incomes$ : Observable<Income[]>;
   private categories$ :  Observable<Category[]>;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-bounce: any;
+  bounce: any;
+  currency = '€';
   isMobile: Observable<BreakpointState>;
 
   constructor(private dashboardService:DashboardService, public dialog: MatDialog, private sharedService: SharedService,private breakpointObserver: BreakpointObserver) {
