@@ -1,11 +1,11 @@
 <div class="wrapper " [ngClass]="{}"
 >
   <mat-toolbar class="header">
-        <span class="right-spacer"></span>
+    <span class="right-spacer"></span>
 
     <div class="counters" *ngIf="(isMobile | async)?.matches">
-    <app-counter  data="income" [title]="'Income'"></app-counter>
-    <app-counter  data="account" [title]="'Account'"></app-counter>
+      <app-counter  data="income" [title]="'Income'"></app-counter>
+      <app-counter  data="account" [title]="'Account'"></app-counter>
 
 
     </div>
@@ -27,6 +27,9 @@
 
       <router-outlet></router-outlet>
       <app-circle-menu *ngIf="(isMobile | async)?.matches"></app-circle-menu>
+      <div class="fix">
+        <button mat-fab cdkDrag *ngIf="(isMobile | async)?.matches" (click)="goBack()"><mat-icon>reply</mat-icon></button>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

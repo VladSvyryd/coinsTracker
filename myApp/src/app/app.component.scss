@@ -33,3 +33,10 @@ mat-slide-toggle{
   flex-direction: row;
 
 }
+
+.fix{
+  position: fixed;
+  bottom: 1em;
+  right: 5em;
+  z-index: 2;
+}
