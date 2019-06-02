@@ -1,6 +1,6 @@
 .wrapper{
   display: grid;
-  grid-template-areas: "header" "mainA";
+  grid-template-areas: "header" "mainA" "fixedNav";
   flex-direction: column;
   height: 100%;
   grid-template-rows: fit-content(100%) 1fr;
@@ -14,6 +14,10 @@
 
 .main{
   grid-area: mainA;
+}
+
+.bottomNavicon {
+  grid-area: fixedNav;
 }
 
 mat-slide-toggle{

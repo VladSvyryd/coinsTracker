@@ -32,5 +32,25 @@
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
+
+  <!--trying to do fixed navbar bottom-->
+  <!--
+<div class="bottomNavicon">
+    <mat-toolbar>
+      <mat-toolbar-row>
+
+        <mat-icon class="example-icon" aria-hidden="false">toggle</mat-icon>
+        <mat-icon class="example-icon" aria-hidden="false">undo</mat-icon>
+        <mat-icon class="example-icon" aria-hidden="false">menu</mat-icon>
+
+           <app-circle-menu *ngIf="(isMobile | async)?.matches"></app-circle-menu>
+           <div class="fix">
+              <button mat-fab cdkDrag *ngIf="(isMobile | async)?.matches" (click)="goBack()"><mat-icon>reply</mat-icon></button>
+           </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+</div>
+-->
+
 </div>
 
