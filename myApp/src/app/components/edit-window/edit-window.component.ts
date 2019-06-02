@@ -31,6 +31,7 @@ export class EditWindowComponent implements OnInit {
     this.form = fb.group({
       name: new FormControl('' + this.data.item.name,[Validators.required]),
       amount: new FormControl('' + this.data.item.amount,[Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.minLength(1)]),
+      description: new FormControl(String(this.data.item.description) || '')
     });
 
   }
@@ -47,6 +48,7 @@ export class EditWindowComponent implements OnInit {
   sendData(){
     this.data.item.name = this.form.value.name;
     this.data.item.amount = this.form.value.amount;
+    this.data.item.description = this.form.value.description;
     this.dialogRef.close(this.data.item);
   }
   ngOnInit() {

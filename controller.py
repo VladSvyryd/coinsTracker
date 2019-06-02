@@ -332,7 +332,7 @@ def get_one_account(current_user, account_id):
 @app.route('/account/<account_id>', methods=['PUT'])
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
-def update_account(current_user, account_id):
+def upgrade_account(current_user, account_id):
 
     data = request.get_json()
     account = Accounts.query.filter_by(user_id=current_user.public_id).filter_by(id=account_id).first()
@@ -340,9 +340,9 @@ def update_account(current_user, account_id):
         return jsonify({'server_message': 'No income found'})
 
     account.name = data['name']
-    # account.description = data['description'] or account.description
-    # account.amount = data['amount']
-    # account.date = datetime.datetime.utcnow()
+    account.description = data['description'] or account.description
+    account.amount = data['amount']
+    account.date = datetime.datetime.utcnow()
     db.session.commit()
     return jsonify({'server_message': 'This acount has been changed'})
 
@@ -382,11 +382,11 @@ def create_spending(current_user):
 
     # get data
     data = request.get_json()
-
     new_spending = Spendings(amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id,
                              category_id=data['category_id'], account_id=data['account_id'])
     db.session.add(new_spending)
     db.session.commit()
+    makeTransaction(data['account_id'], data['amount'], data['category_id'])
     # on clientside we need id of newly created element / this will get last element id
     addedItem_id = db.session.query(Spendings).order_by(Spendings.id.desc()).first().id
     return jsonify({'last_added_id': addedItem_id})
@@ -479,6 +479,15 @@ def upgrade_category(current_user, category_id):
     category.wanted_limit = data['wanted_limit']
     db.session.commit()
     return jsonify({'server_message': 'This category has been changed'})
+
+
+def makeTransaction(account_id, amount, category_id):
+    category = Categories.query.filter_by(id=category_id).first()
+    category.spent_amount += amount
+    account = Accounts.query.filter_by(id = account_id).first()
+    account.amount -= amount
+    db.session.commit()
+
 
 if __name__ == '__main__':
     app.run(debug=True)
