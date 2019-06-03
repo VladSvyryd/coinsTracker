@@ -1,4 +1,4 @@
-export interface Category {
+export interface Expense {
   id?:            number;
   name:          string;
   wanted_limit?:  number;

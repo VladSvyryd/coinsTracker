@@ -146,7 +146,7 @@
           <div *cdkDragPlaceholder class="example-custom-placeholder">
             <div class="holder"></div>
           </div>
-          <mat-icon (click)="remove('Category', category, categories)"
+          <mat-icon (click)="remove('Expense', category, categories)"
             >close</mat-icon
           >
           <div *ngIf="category" class="infoBox">
@@ -158,9 +158,9 @@
         <button
           (click)="
             openDialogToAddNew(
-              'Category',
+              'Expense',
               [
-                'Category',
+                'Expense',
                 { fieldName: 'name', required: true },
                 { fieldName: 'description', required: false }
               ],
