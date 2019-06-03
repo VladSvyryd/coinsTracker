@@ -23,6 +23,7 @@ import { ChartsModule } from 'ng2-charts';
 import { TesterComponent } from './tester/tester.component';
 import { CoinComponent } from './components/coin/coin.component';
 import { TransactionDialogComponent } from './components/transaction-dialog/transaction-dialog.component';
+import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { TransactionDialogComponent } from './components/transaction-dialog/tran
     PieChartComponent,
     TesterComponent,
     CoinComponent,
-    TransactionDialogComponent
+    TransactionDialogComponent,
+    BottomSheetComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,7 @@ import { TransactionDialogComponent } from './components/transaction-dialog/tran
     ChartsModule
   ],
    entryComponents: [
-    DialogWindowComponent,EditWindowComponent,TransactionDialogComponent
+    DialogWindowComponent,EditWindowComponent,TransactionDialogComponent,BottomSheetComponent
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

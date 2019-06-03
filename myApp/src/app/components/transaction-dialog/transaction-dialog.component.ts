@@ -15,7 +15,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 export class TransactionDialogComponent implements OnInit {
   data: any;
   form: FormGroup;
-
+  amount = new FormControl('', [Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.minLength(1)]);
   // regex for money value
   constructor(
     public dialogRef: MatDialogRef<TransactionDialogComponent>,
@@ -23,16 +23,16 @@ export class TransactionDialogComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.data = received_data;
-
+    this.form = new FormGroup({
+      amount: this.amount
+    });
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
   onNoClick(): void {
     this.dialogRef.close();
   }
-   sendData(){
-    this.dialogRef.close();
+  sendData() {
+    this.dialogRef.close(this.form.value);
   }
 }

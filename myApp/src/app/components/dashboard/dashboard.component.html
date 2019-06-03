@@ -85,10 +85,7 @@
             (cdkDragMoved)="detectCollision($event)"
             (cdkDragReleased)="makeTransaction_ResetPosition($event, acc)"
             id="{{ account.id }}"
-            (click)="
-              $event.stopPropagation();
-              openDialogToEditOld({ title: 'Account', item: account })
-            "
+
           >
             <!-- (click)="openDialogToEditOld({ title: 'Account', item: account })"-->
             {{ account.name }}
@@ -177,4 +174,5 @@
       </div>
     </div>
   </div>
+  <button #transaction style="display: none;" (click)="tryMakeTransaction({})"></button>
 </div>

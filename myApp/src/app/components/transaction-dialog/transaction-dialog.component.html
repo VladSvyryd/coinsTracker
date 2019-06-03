@@ -1,10 +1,15 @@
  <form [formGroup]="form">
-    <mat-form-field *ngFor="let item of inputFields">
+    <mat-form-field >
       <input
         matInput
-        placeholder="Enter {{ item.fieldName }}"
-        [formControlName]="item.fieldName"
-        [required]="item.required"
+        placeholder="Enter sum"
+        formControlName="amount"
+        cdkFocusInitial
+        required
       />
     </mat-form-field>
+   <div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [disabled]="!(amount.valid)" (click)="sendData()" >Ok</button>
+</div>
   </form>
