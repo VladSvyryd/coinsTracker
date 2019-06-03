@@ -9,5 +9,8 @@
       <auth-required>false</auth-required>
       <introspection-schemas>*:@</introspection-schemas>
     </data-source>
+    <data-source name="coins" uuid="aad32f7b-2863-476a-9f4d-411a14a48644">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="SQLITE" exact-version="0" />
+    </data-source>
   </component>
 </project>

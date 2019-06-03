@@ -1,16 +1,25 @@
 <div mat-dialog-content>
-  <p>Edit {{data.title}}</p>
+  <p>Edit {{ data.title }}</p>
   <form [formGroup]="form">
     <div class="flexForm">
       <div>
-        <mat-form-field *ngFor="let item of inputs | keyvalue" >
-          <span *ngIf="item.key == 'amount'" matPrefix >€&nbsp;</span>
-          <input matInput  placeholder="Enter {{item.key}}"
-                 *ngIf="!checkIfAmount(item.key); else amountInput"
-                 [formControlName]="item.key" required>
+        <mat-form-field *ngFor="let item of inputs | keyvalue">
+          <span *ngIf="item.key == 'amount'" matPrefix>€&nbsp;</span>
+          <input
+            matInput
+            placeholder="Enter {{ item.key }}"
+            *ngIf="!checkIfAmount(item.key); else amountInput"
+            [formControlName]="item.key"
+            required
+          />
           <ng-template #amountInput>
-            <input matInput   placeholder="Enter {{item.key}}"
-                   [formControlName]="item.key" [value]="slider.value" required>
+            <input
+              matInput
+              placeholder="Enter {{ item.key }}"
+              [formControlName]="item.key"
+              [value]="slider.value"
+              required
+            />
           </ng-template>
         </mat-form-field>
       </div>
@@ -32,8 +41,13 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button type="submit" [disabled]="!(form.valid)" (click)="sendData()"
-          cdkFocusInitial>
-    Ok</button>
+  <button
+    mat-button
+    type="submit"
+    [disabled]="!form.valid"
+    (click)="sendData()"
+    cdkFocusInitial
+  >
+    Ok
+  </button>
 </div>
-

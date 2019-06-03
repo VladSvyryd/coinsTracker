@@ -6,69 +6,117 @@
       <div class="line">
         <h4>Date</h4>
       </div>
-
     </div>
     <div *ngIf="incomes$ | async as incomes" class="grid">
-      <div cdkDropList (cdkDropListDropped)="drop($event)" class="list">
-        <div (cdkDragMoved)="onDragEnded($event,income)" [cdkDragData]="income" *ngFor="let income of incomes" cdkDrag
-             [@fadeIn]="bounce"
-             cdkDragBoundary=".mainA"
-             class="box"
-
-             id="{{'income_' + income.id}}">
+      <div class="list">
+        <div class="box " *ngFor="let income of incomes">
           <div *cdkDragPlaceholder class="example-custom-placeholder">
             <div class="holder"></div>
           </div>
-          <button   (click)="openDialogToEditOld({title:'Income',item:income})" class="blaTest" mat-fab>
-            {{income.name}}</button>
-
-          <mat-icon (click)="remove('Income',income, incomes)">close</mat-icon>
-
-          <div class="infoBox">{{currency}}&nbsp;{{income.amount || 0}}</div>
-
+          <button
+            class="blaTest"
+            mat-fab
+            [cdkDragData]="income"
+            (cdkDragMoved)="detectCollision($event)"
+            (cdkDragReleased)="makeTransaction_ResetPosition($event, inc)"
+            cdkDrag
+            #inc
+            [@fadeIn]="bounce"
+            cdkDragBoundary=".mainA"
+            class="inc"
+            id="{{ income.id }}"
+            (click)="
+              $event.stopPropagation();
+              openDialogToEditOld({ title: 'Income', item: income })
+            "
+          >
+            <!-- (click)="openDialogToEditOld({ title: 'Income', item: income })"-->
+            {{ income.name }}
+            <mat-icon (click)="remove('Income', income, incomes)"
+              >close</mat-icon
+            >
+            <div class="infoBox">
+              {{ currency }}&nbsp;{{ income.amount || 0 }}
+            </div>
+          </button>
         </div>
       </div>
-      <div class="buttonHolder" >
-        <button class="buttonToOpenDialog" (click)="openDialogToAddNew('Income',['Income',{fieldName:'name',required:true},{fieldName:'amount',required:false}],incomes)" [disabled]="incomes.length>3"
-                mat-fab>
-          <mat-icon class="iconToOpenDialog">add</mat-icon>
+      <div class="buttonHolder">
+        <button
+          (click)="
+            openDialogToAddNew(
+              'Income',
+              [
+                'Income',
+                { fieldName: 'name', required: true },
+                { fieldName: 'amount', required: false }
+              ],
+              incomes
+            )
+          "
+          [disabled]="incomes.length > 3"
+          mat-fab
+        >
+          <mat-icon>add</mat-icon>
         </button>
       </div>
     </div>
   </div>
   <div class="wrapper">
     <div class="headerSection" *ngIf="!(isMobile | async)?.matches">
-      <app-counter data="account"  [title]="'Account'"></app-counter>
+      <app-counter data="account" [title]="'Account'"></app-counter>
       <div class="line">
         <h4>Date</h4>
       </div>
-
     </div>
     <div *ngIf="accounts$ | async as accounts" class="grid">
-      <div cdkDropList class="list" id="accountList">
-        <div *ngFor="let account of accounts" cdkDrag cdkDragBoundary=".mainA" class="box"
-             id={{account.id}}>
-          <div *cdkDragPlaceholder class="example-custom-placeholder">
+      <div class="list" id="accountList">
+        <div *ngFor="let account of accounts" class="box ">
+          <div  class="example-custom-placeholder">
             <div class="holder"></div>
           </div>
-          <button  (click)="openDialogToEditOld({title:'Account',item:account})" mat-fab>
-            {{account.name}}</button>
+          <button
+            mat-fab
+            cdkDrag
+            cdkDragBoundary=".mainA"
+            #acc
+            class="acc"
+            [cdkDragData]="account"
+            (cdkDragMoved)="detectCollision($event)"
+            (cdkDragReleased)="makeTransaction_ResetPosition($event, acc)"
+            id="{{ account.id }}"
 
-          <mat-icon (click)="remove('Account',account,accounts)">close</mat-icon>
-          <div class="infoBox"> {{currency}}&nbsp;{{account.amount || 0}}</div>
+          >
+            <!-- (click)="openDialogToEditOld({ title: 'Account', item: account })"-->
+            {{ account.name }}
+          </button>
 
+          <mat-icon (click)="remove('Account', account, accounts)"
+            >close</mat-icon
+          >
+          <div class="infoBox">
+            {{ currency }}&nbsp;{{ account.amount || 0 }}
+          </div>
         </div>
       </div>
       <div class="buttonHolder">
-        <button class="buttonToOpenDialog"
-          (click)="openDialogToAddNew('Account',['Account',{fieldName:'name',required:true},{fieldName:'amount',required:false},{fieldName:'description',required:false}],accounts)" [disabled]="accounts.length>3"
-<<<<<<< HEAD
-                mat-fab>
-          <mat-icon class="iconToOpenDialog">add</mat-icon>
-=======
-          mat-fab>
+        <button
+          (click)="
+            openDialogToAddNew(
+              'Account',
+              [
+                'Account',
+                { fieldName: 'name', required: true },
+                { fieldName: 'amount', required: false },
+                { fieldName: 'description', required: false }
+              ],
+              accounts
+            )
+          "
+          [disabled]="accounts.length > 3"
+          mat-fab
+        >
           <mat-icon>add</mat-icon>
->>>>>>> 58081284705eb102316299450b0cd3c6514f1efc
         </button>
       </div>
     </div>
@@ -79,34 +127,52 @@
       <div class="line">
         <h4>Date</h4>
       </div>
-
     </div>
     <div *ngIf="categories$ | async as categories" class="grid">
-      <div cdkDropList cdkDropListOrientation="horizontal" class="list"
-      >
-        <div *ngFor="let category of categories" cdkDrag class="box">
-          <button mat-fab  [@shake]="clickedState" (click)="changeState()">  {{category.name}}
+      <div class="list">
+        <div class="box" *ngFor="let category of categories">
+          <button
+            mat-fab
+            cdkDrag
+            [cdkDragData]="category"
+            [cdkDragDisabled]="true"
+            #cat
+            [@shake]="clickedState"
+            (click)="changeState()"
+            id="{{category.id}}"
+          >
+            {{ category.name }}
           </button>
           <div *cdkDragPlaceholder class="example-custom-placeholder">
             <div class="holder"></div>
           </div>
-          <mat-icon (click)="remove('Category',category, categories)">close</mat-icon>
-          <div *ngIf='category' class="infoBox"> {{currency}}&nbsp;{{category.spent_amount || 0}}</div>
-
+          <mat-icon (click)="remove('Expense', category, categories)"
+            >close</mat-icon
+          >
+          <div *ngIf="category" class="infoBox">
+            {{ currency }}&nbsp;{{ category.spent_amount || 0 }}
+          </div>
         </div>
       </div>
       <div class="buttonHolder">
-        <button class="buttonToOpenDialog" (click)="openDialogToAddNew('Category',['Category',{fieldName:'name',required:true},{fieldName:'description',required:false}],categories)"
-                mat-fab>
-<<<<<<< HEAD
-          <mat-icon class="iconToOpenDialog">add</mat-icon>
-=======
-
+        <button
+          (click)="
+            openDialogToAddNew(
+              'Expense',
+              [
+                'Expense',
+                { fieldName: 'name', required: true },
+                { fieldName: 'description', required: false }
+              ],
+              categories
+            )
+          "
+          mat-fab
+        >
           <mat-icon>add</mat-icon>
->>>>>>> 58081284705eb102316299450b0cd3c6514f1efc
         </button>
       </div>
     </div>
   </div>
+  <button #transaction style="display: none;" (click)="tryMakeTransaction()"></button>
 </div>
-

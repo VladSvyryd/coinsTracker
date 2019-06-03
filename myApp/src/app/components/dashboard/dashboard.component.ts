@@ -1,225 +1,277 @@
-import {Component, ElementRef, EventEmitter, OnInit, QueryList} from '@angular/core';
+import {Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {DashboardService} from '../../services/dashboard.service';
 import {Account} from '../../models/account';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatDialog} from '@angular/material';
 import {DialogWindowComponent} from '../dialog-window/dialog-window.component';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDrag} from '@angular/cdk/drag-drop';
 import {Income} from '../../models/income';
 import {Spending} from '../../models/spending';
-import {Category} from '../../models/category';
+import {Expense} from '../../models/expense';
 import {EditWindowComponent} from '../edit-window/edit-window.component';
-import {consoleTestResultHandler} from 'tslint/lib/test';
 import {Observable} from 'rxjs';
 import {SharedService} from '../../services/shared.service';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
-import {trigger, transition, useAnimation, style} from '@angular/animations';
-import { bounce,fadeIn, fadeOut, hinge, shake } from 'ng-animate';
+import {transition, trigger, useAnimation} from '@angular/animations';
+import {fadeIn, hinge, shake} from 'ng-animate';
+import {TransactionDialogComponent} from '../transaction-dialog/transaction-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   animations: [
-    trigger('fadeIn', [transition('void  => *', useAnimation(fadeIn)),transition('*  => void', useAnimation(hinge))]),
-    trigger('shake', [transition('notClicked  <=> clicked', useAnimation(shake))]),
+    trigger('fadeIn', [
+      transition('void  => *', useAnimation(fadeIn)),
+      transition('*  => void', useAnimation(hinge))
+    ]),
+    trigger('shake', [
+      transition('notClicked  <=> clicked', useAnimation(shake))
+    ])
   ]
 })
 export class DashboardComponent implements OnInit {
-  private accounts$ : Observable<Account[]>;
-  private incomes$ : Observable<Income[]>;
-  private categories$ :  Observable<Category[]>;
-  private spending$ :  Observable<Spending[]>;
+  private accounts$: Observable<Account[]>;
+  private incomes$: Observable<Income[]>;
+  private categories$: Observable<Expense[]>;
+  private spending$: Observable<Spending[]>;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   bounce: any;
   currency = '€';
   isMobile: Observable<BreakpointState>;
-  clickedState = "notClicked";
-  constructor(private dashboardService:DashboardService, public dialog: MatDialog, private sharedService: SharedService,private breakpointObserver: BreakpointObserver) {
+  clickedState = 'notClicked';
+  @ViewChildren('acc', {read: CdkDrag}) cdkAccChildren: QueryList<CdkDrag>;
+  @ViewChildren('cat', {read: CdkDrag}) cdkCatChildren: QueryList<CdkDrag>;
+  @ViewChild('transaction') bs;
+  private last_transaction;
+
+  constructor(
+    private dashboardService: DashboardService,
+    public dialog: MatDialog,
+    private sharedService: SharedService,
+    private breakpointObserver: BreakpointObserver
+  ) {
   }
+
   ngOnInit() {
-    this.incomes$ = this.dashboardService.getAll("income");
-    this.accounts$ = this.dashboardService.getAll("account");
-    this.categories$ = this.dashboardService.getAll("category");
+    this.incomes$ = this.dashboardService.getAll('income');
+    this.accounts$ = this.dashboardService.getAll('account');
+    this.categories$ = this.dashboardService.getAll('expense');
     this.isMobile = this.breakpointObserver.observe(Breakpoints.Handset);
   }
 
-   changeState() {
-    this.clickedState = (this.clickedState === 'clicked' ? 'notClicked' : 'clicked');
+  ngAfterInit() {
   }
 
-  openDialogToAddNew(ofType, keys:Array<any>, toArray) {
+  changeState() {
+    this.clickedState =
+      this.clickedState === 'clicked' ? 'notClicked' : 'clicked';
+  }
+
+  detectCollision(e) {
+    // html element, to get colliderBox
+    let draggableElementRef = e.event.target;
+    // cdk object to interact with its data
+    let cdkDrag = e.source;
+    let list;
+    // html elements should have either inc or acc class
+    if (cdkDrag.getRootElement().classList.contains('inc')) {
+      list = this.cdkAccChildren;
+    } else if (cdkDrag.getRootElement().classList.contains('acc')) {
+      list = this.cdkCatChildren
+        .toArray()
+        .concat(this.cdkAccChildren.toArray());
+    }
+    list.forEach(cdkDrop => {
+      let droppableElementRef = cdkDrop.getRootElement();
+      if (this.isCollide(draggableElementRef, droppableElementRef)) {
+        console.log('sd');
+        //if (this.coveredState !== "covered") this.changeState();
+      }
+    });
+  }
+
+  private tryMakeTransaction() {
+    const dialogRef = this.dialog.open(TransactionDialogComponent, {
+      width: '400px',
+      data: {
+        from: this.last_transaction.cdkDrag.data.name,
+        to: this.last_transaction.cdkDrop.data.name
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result != undefined) {
+        this.transitionBegin(
+          this.last_transaction.cdkDrag,
+          this.last_transaction.cdkDrop,
+          parseInt(result.amount)
+        );
+      }
+    });
+  }
+
+  makeTransaction_ResetPosition(e, dragRef) {
+    // html button
+    let draggableElementRef = e.source.getRootElement();
+    // cdkDrag object with data in it
+    let cdkDrag = e.source;
+    // create a list to iterate only through needed elements
+    let list;
+    let acc_to_acc_transaction;
+    // draggable knows on which element it could be dropped
+    if (draggableElementRef.classList.contains('inc')) {
+      acc_to_acc_transaction = false;
+      list = this.cdkAccChildren;
+    } else if (draggableElementRef.classList.contains('acc')) {
+      // account coins are allowed to be send to another accounts
+      list = this.cdkCatChildren
+        .toArray()
+        .concat(this.cdkAccChildren.toArray());
+      acc_to_acc_transaction = true;
+    }
+    list.forEach(cdkDrop => {
+      let droppableElementRef = cdkDrop.getRootElement();
+      // collision detection goes through all accounts, and could be done on the same element, fixed bug
+      if (
+        this.isCollide(draggableElementRef, droppableElementRef) &&
+        droppableElementRef.id !== draggableElementRef.id
+      ) {
+        console.log('MakeTransaktion');
+        this.last_transaction = {
+          acc_to_acc_transaction: acc_to_acc_transaction,
+          cdkDrag,
+          cdkDrop
+        };
+        this.bs.nativeElement.click();
+      }
+    });
+    e.source.reset();
+    // this.changeState();
+  }
+
+  openDialogToAddNew(ofType, keys: Array<any>, toArray) {
     const dialogRef = this.dialog.open(DialogWindowComponent, {
       width: '300px',
       data: keys
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result != undefined)this.add(ofType,result,toArray);
+      if (result != undefined) {
+        this.add(ofType, result, toArray);
+      }
     });
   }
-  openDialogToEditOld(item){
-    const dialogRef = this.dialog.open(EditWindowComponent,{
+
+  openDialogToEditOld(item) {
+    const dialogRef = this.dialog.open(EditWindowComponent, {
       width: '300px',
       data: item
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result != undefined)this.upgrade(result,item.title);
+      if (result != undefined) {
+        this.upgrade(result, item.title);
+      }
     });
   }
 
-  //drop(event: CdkDragDrop<any>) {
-  //  moveItemInArray(this.accounts$, event.previousIndex, event.currentIndex);
-  // }
-  onDragEnded(event,item) {
-    let element = event.source._dragRef;
-    console.log(element)
-
-    //let x = element.x;
-    //let y = element.y;
-    //let colider = document.elementFromPoint(x  , y );
-    //if(underElement.classList.contains("box") && !underElement.classList.contains("active")){
-    //  console.log(underElement);
-    //  underElement.classList.add("active");
-    //}
-    //new EventEmitter();
-    //console.log(colider)
-    let elements = document.querySelectorAll('#accountList button');
-
-     elements.forEach((i)=>
-     {
-      // console.log(i.getBoundingClientRect());
-       //console.log(this.isCollide(i,element))
-       }
-     );
+  transitionBegin(fromData, toData, amount) {
+    console.log(fromData, toData);
+    let newSpending: Spending = {
+      description: '',
+      amount: amount,
+      account_id: fromData.data.id,
+      expense_id: toData.data.id
+    };
+    this.dashboardService.createSpending(newSpending).subscribe((res: any) => {
+      newSpending.id = res.last_added_id;
+      this.sharedService.emitChange('account');
+    });
   }
-  drop(event){
-    //console.log(event.item.element.nativeElement.getBoundingClientRect());
-  }
-  transitionBegin(fromData,toData){
-    console.log("try Transaktion");
-       let newSpending: Spending = {
-            description:'',
-            amount:40,
-            category_id:1,
-            account_id:11,
-      };
-    this.dashboardService.createSpending(newSpending).subscribe((res: any)=>{
-        newSpending.id = res.last_added_id;
-        this.sharedService.emitChange('account');
-      });
-  }
-  getPosition(el) {
-    let x = 0;
-    let y = 0;
-    while(el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-      x += el.offsetLeft - el.scrollLeft;
-      y += el.offsetTop - el.scrollTop;
-      el = el.offsetParent;
-    }
-    return { top: y, left: x };
-  }
-
 
   //upgrade Coin
 
-  upgrade(item,itemType){
-
-    if (itemType ===  "Account") {
-      this.dashboardService.upgradeAccount(item).subscribe(()=>
-        this.sharedService.emitChange('account')
-      );
-    }else if(itemType=== "Income"){
-
-      this.dashboardService.upgradeIncome(item).subscribe(()=>
-        this.sharedService.emitChange('income')
-
-      );
+  upgrade(item, itemType) {
+    if (itemType === 'Account') {
+      this.dashboardService
+        .upgradeAccount(item)
+        .subscribe(() => this.sharedService.emitChange('account'));
+    } else if (itemType === 'Income') {
+      this.dashboardService
+        .upgradeIncome(item)
+        .subscribe(() => this.sharedService.emitChange('income'));
     }
-
   }
+
   // add Coin on UI
-  add(type,item, toArray:Array<any>): void {
+  add(type, item, toArray: Array<any>): void {
     console.log(type);
-    if (type  === "Account") {
+    if (type === 'Account') {
       let newItem: Account = {
         amount: item.amount || 0,
-        name:item.name,
-        description:item.description};
-      this.dashboardService.createAccount(newItem).subscribe((res: any)=>{
+        name: item.name,
+        description: item.description
+      };
+      this.dashboardService.createAccount(newItem).subscribe((res: any) => {
         newItem.id = res.last_added_id;
         toArray.push(newItem);
         this.sharedService.emitChange('account');
-
-
       });
-    }else if(type  ===  "Income"){
+    } else if (type === 'Income') {
       let newItem: Income = {
         name: item.name,
         amount: item.amount
       };
-      this.dashboardService.createIncome(newItem).subscribe((res : any)=>{
+      this.dashboardService.createIncome(newItem).subscribe((res: any) => {
         newItem.id = res.last_added_id;
         toArray.push(newItem);
         this.sharedService.emitChange('income');
       });
-
-    }
-    else if(type  ===  "Category"){
-      let newItem: Category = {
+    } else if (type === 'Expense') {
+      let newItem: Expense = {
         name: item.name,
-        description: item.description || "",
+        description: item.description || ''
       };
-      this.dashboardService.createCategory(item).subscribe((res : any)=>{
+      this.dashboardService.createCategory(item).subscribe((res: any) => {
         newItem.id = res.last_added_id;
         toArray.push(newItem);
       });
     }
-
-
-
   }
 
   // remove chip from UI
-  remove(type,item, from: Array<any>){
+  remove(type, item, from: Array<any>) {
     const index = from.indexOf(item);
     if (index >= 0) {
       from.splice(index, 1);
       console.log(item);
 
-      if (type ===  "Account") {
-        this.dashboardService.deleteAccount(item).subscribe(
-          ()=>{
-            this.sharedService.emitChange('account');
-          }
-        );
-
-      }else if(type=== "Income"){
-        this.dashboardService.deleteIncome(item).subscribe(
-          ()=>{
-            this.sharedService.emitChange('income');
-          }
-        );
-
-      }
-      else if(type === "Spending"){
+      if (type === 'Account') {
+        this.dashboardService.deleteAccount(item).subscribe(() => {
+          this.sharedService.emitChange('account');
+        });
+      } else if (type === 'Income') {
+        this.dashboardService.deleteIncome(item).subscribe(() => {
+          this.sharedService.emitChange('income');
+        });
+      } else if (type === 'Spending') {
         //this.dashboardService.deleteSpending(item);
-      }else if(type === "Category"){
+      } else if (type === 'Expense') {
         this.dashboardService.deleteCategory(item);
       }
     }
-
   }
 
-  isCollide(a, b){
+  isCollide(a, b) {
     var aRect = a.getBoundingClientRect();
     var bRect = b.getBoundingClientRect();
 
     return !(
-      ((aRect.top + aRect.height) < (bRect.top)) ||
-      (aRect.top > (bRect.top + bRect.height)) ||
-      ((aRect.left + aRect.width) < bRect.left) ||
-      (aRect.left > (bRect.left + bRect.width))
+      aRect.top + aRect.height < bRect.top ||
+      aRect.top > bRect.top + bRect.height ||
+      aRect.left + aRect.width < bRect.left ||
+      aRect.left > bRect.left + bRect.width
     );
   }
-
 }
+
+// :TODO - Update on frontEnd Income,Account,Expanses

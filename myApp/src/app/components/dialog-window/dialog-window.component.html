@@ -1,14 +1,25 @@
 <div mat-dialog-content>
-  <p>New {{title}}</p>
+  <p>New {{ title }}</p>
   <form [formGroup]="form">
     <mat-form-field *ngFor="let item of inputFields">
-      <input matInput  placeholder="Enter {{item.fieldName}}" [formControlName]=item.fieldName [required]="item.required">
+      <input
+        matInput
+        placeholder="Enter {{ item.fieldName }}"
+        [formControlName]="item.fieldName"
+        [required]="item.required"
+      />
     </mat-form-field>
   </form>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button type="submit" [disabled]="!(name.valid && amount.valid)" [mat-dialog-close]="form.value" cdkFocusInitial>Ok</button>
+  <button
+    mat-button
+    type="submit"
+    [disabled]="!(name.valid && amount.valid)"
+    [mat-dialog-close]="form.value"
+    cdkFocusInitial
+  >
+    Ok
+  </button>
 </div>
-
-
