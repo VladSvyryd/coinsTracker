@@ -482,6 +482,7 @@ def upgrade_category(current_user, category_id):
 
 
 def make_transaction(account_id, amount, category_id):
+    print(account_id,amount,category_id)
     category = Categories.query.filter_by(id=category_id).first()
     category.spent_amount += amount
     account = Accounts.query.filter_by(id=account_id).first()
