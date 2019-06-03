@@ -20,6 +20,8 @@ import { CounterComponent } from './components/counter/counter.component';
 import { CircleMenuComponent } from './components/circle-menu/circle-menu.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { ChartsModule } from 'ng2-charts';
+import { TesterComponent } from './tester/tester.component';
+import { CoinComponent } from './components/coin/coin.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ChartsModule } from 'ng2-charts';
     EditWindowComponent,
     CounterComponent,
     CircleMenuComponent,
-    PieChartComponent
+    PieChartComponent,
+    TesterComponent,
+    CoinComponent
   ],
   imports: [
     BrowserModule,

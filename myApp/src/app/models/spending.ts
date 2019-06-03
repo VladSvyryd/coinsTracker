@@ -1,8 +1,8 @@
 export interface Spending {
-  id:            number;
+  id?:            number;
   amount:        number;
-  date:          string; //???
+  date?:          string; //???
   description?:  string;
   account_id:    number;
-
+  category_id: number;
 }

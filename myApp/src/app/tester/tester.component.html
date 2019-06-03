@@ -1,0 +1,93 @@
+<div id="incomes" class="">
+  <button
+    cdkDrag
+    #inc
+    [cdkDragData]="income"
+    (cdkDragMoved)="detectCollision($event)"
+    (cdkDragReleased)="makeTransaction_ResetPosition($event, inc)"
+    class="inc"
+    mat-fab
+  >
+    {{ income.name }}
+  </button>
+  <button
+    cdkDrag
+    #inc
+    [cdkDragData]="income"
+    (cdkDragMoved)="detectCollision($event)"
+    (cdkDragReleased)="makeTransaction_ResetPosition($event, inc)"
+    class="inc"
+    mat-fab
+  >
+    {{ income.name }}
+  </button>
+</div>
+
+<div id="account" class="grid">
+  <div>
+    <button
+      cdkDrag
+      #acc
+      [cdkDragData]="'account1'"
+      (cdkDragMoved)="detectCollision($event)"
+      (cdkDragReleased)="makeTransaction_ResetPosition($event, acc)"
+      class="acc"
+      mat-fab
+    >
+      <div *cdkDragPlaceholder class="example-custom-placeholder">
+        <div class="holder"></div>
+      </div>
+
+      {{ account.name }}
+    </button>
+  </div>
+  <button
+    cdkDrag
+    #acc
+    [cdkDragData]="'account2'"
+    (cdkDragMoved)="detectCollision($event)"
+    (cdkDragReleased)="makeTransaction_ResetPosition($event, acc)"
+    class="acc"
+    mat-fab
+  >
+    {{ account.name }}
+  </button>
+  <button
+    cdkDrag
+    #acc
+    [cdkDragData]="'account3'"
+    (cdkDragMoved)="detectCollision($event)"
+    (cdkDragReleased)="makeTransaction_ResetPosition($event, acc)"
+    class="acc"
+    mat-fab
+  >
+    {{ account.name }}
+  </button>
+</div>
+
+<div id="category" class="grid">
+  <div>
+    <button
+      cdkDrag
+      #cat
+      [cdkDragData]="'cat1'"
+      [cdkDragDisabled]="true"
+      class="cat"
+      mat-fab
+    >
+      {{ cat.name }}dwwa
+    </button>
+  </div>
+  <div>
+    <button
+      cdkDrag
+      #cat
+      [cdkDragData]="'cat2'"
+      [cdkDragDisabled]="true"
+      class="cat"
+      mat-fab
+    >
+      {{ cat.name }}dawd
+    </button>
+  </div>
+</div>
