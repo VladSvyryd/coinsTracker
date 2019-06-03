@@ -4,5 +4,5 @@ export interface Spending {
   date?:          string; //???
   description?:  string;
   account_id:    number;
-  category_id: number;
+  expense_id: number;
 }

@@ -4,7 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {Account} from "../models/account";
 import {catchError} from "rxjs/operators";
 import {Income} from "../models/income";
-import {Category} from "../models/category";
+import {Expense} from "../models/expense";
 import {Spending} from '../models/spending';
 
 @Injectable({
@@ -27,8 +27,8 @@ export class DashboardService {
     return this.httpClient.get<number>(this.server_path + "/" + path + '_sum');
   }
 
-////*****************ACOUNTS**********************/
 
+//*****************ACCOUNTS**********************/
 
   createAccount(account:Account) {
     let new_account:Account = { name: account.name, amount: account.amount};
@@ -42,15 +42,16 @@ export class DashboardService {
       catchError(this.handleError)
     );
   }
+
   upgradeAccount(account:Account){
     let upgraded_account:Account = { name: account.name, amount: account.amount, description:account.description};
     return this.httpClient.put(this.server_path+"/account/"+ account.id, upgraded_account).pipe(
       catchError(this.handleError)
     )
   }
+
+
   //**************************INCOMES****************************/
-
-
 
   createIncome(income:Income) {
     let new_income:Income = { name: income.name, wanted_income: income.wanted_income, amount: income.amount};
@@ -58,11 +59,13 @@ export class DashboardService {
       catchError(this.handleError)
     );
   }
+
   deleteIncome(income:Income) {
     return this.httpClient.delete(this.server_path+"/income/"+ income.id).pipe(
       catchError(this.handleError)
     );
   }
+
   upgradeIncome(income:Income){
     let upgraded_income:Income = { name: income.name, amount: income.amount};
     return this.httpClient.put(this.server_path+"/income/"+ income.id, upgraded_income).pipe(
@@ -71,24 +74,23 @@ export class DashboardService {
   }
 
 
-  //*****************************CATEGORIES******************************/
+  //*****************************EXPENSES******************************/
 
-
-  createCategory(category:Category) {
-    let new_category:Category = {name: category.name, description: category.description, wanted_limit: category.wanted_limit || 0};
+  createCategory(category:Expense) {
+    let new_category:Expense = {name: category.name, description: category.description, wanted_limit: category.wanted_limit || 0};
     return this.httpClient.post(this.server_path+"/category", new_category).pipe(
       catchError(this.handleError)
     )
   }
-  deleteCategory(category:Category) {
+
+  deleteCategory(category:Expense) {
     this.httpClient.delete(this.server_path+"/category/"+ category.id).pipe(
       catchError(this.handleError)
     ).subscribe();
   }
 
-
   createSpending(spending:Spending){
-    let new_spending:Spending = {account_id:spending.account_id, amount: spending.amount, category_id:spending.category_id, description:spending.description};
+    let new_spending:Spending = {account_id:spending.account_id, amount: spending.amount, expense_id:spending.expense_id, description:spending.description};
     return this.httpClient.post(this.server_path+"/spending", new_spending).pipe(
       catchError(this.handleError)
     )

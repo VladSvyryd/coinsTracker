@@ -10,9 +10,11 @@ class User(db.Model):
     email = db.Column(db.String(50))
     password = db.Column(db.String(80))
     admin = db.Column(db.Boolean)
+    wanted_refresh_day = db.Column(db.Integer, default=1)
+    last_refresh_month = db.Column(db.INTEGER)
 
 
-class Categories(db.Model):
+class Expenses(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
     description = db.Column(db.String(250))
@@ -36,7 +38,7 @@ class Spendings(db.Model):
     amount = db.Column(db.Integer)
     date = db.Column(db.TIMESTAMP)
     user_id = db.Column(db.Integer)
-    category_id = db.Column(db.Integer)
+    expense_id = db.Column(db.Integer)
     account_id = db.Column(db.INTEGER)
     description = db.Column(db.String(50))
 

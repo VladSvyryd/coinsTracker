@@ -10,6 +10,8 @@ from flask_cors import CORS
 
 import os
 from models import db
+# connect to db
+from models import User, Incomes, Accounts, Expenses, Spendings
 
 app = Flask(__name__)
 CORS(app)
@@ -22,9 +24,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 # config that path to get access to db (in the main directory of project, database file is in db dictionary)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db\\temp_coins.db')
-
-# connect to db
-from models import User, Incomes, Accounts, Categories, Spendings
 
 
 def token_required(f):
@@ -56,7 +55,6 @@ def token_required(f):
 @token_required
 def get_all_users(current_user):
 
-
     # create a query to get all users
     users = User.query.all()
     # create array to build with its help an Object to send it as json to FrontEnd
@@ -77,7 +75,6 @@ def get_all_users(current_user):
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
 def get_one_user(current_user, public_id):
-
 
     # create a query to filter table for this specific user
     user = User.query.filter_by(public_id=public_id).first()
@@ -174,6 +171,7 @@ def login():
                             'exp': datetime.datetime.utcnow() +
                                    datetime.timedelta(days=30)},
                            app.config['SECRET_KEY'])
+        check_refresh_financial_period()
         return jsonify({'token': token.decode('UTF-8')})
 
     return make_response('Could not verify password', 401, {'WWW-Authenticate': 'Basic realm="Login required!!!"'})
@@ -197,6 +195,7 @@ def get_all_incomes(current_user):
         income_list['date'] = income.date
         output.append(income_list)
     return jsonify(output)
+
 
 @app.route('/income_sum', methods=['GET'])
 @token_required
@@ -305,6 +304,7 @@ def get_all_accounts(current_user):
         output.append(account_list)
     return jsonify(output)
 
+
 @app.route('/account_sum', methods=['GET'])
 @token_required
 def get_accounts_sum(current_user):
@@ -361,6 +361,7 @@ def delete_account(current_user, account_id):
 
     return jsonify({'server_message': 'The account has been deleted!'})
 
+
 @app.route('/spending', methods=['GET'])
 @token_required
 def get_all_spendings(current_user):
@@ -372,9 +373,10 @@ def get_all_spendings(current_user):
         spending_list['id'] = spending.id
         spending_list['date'] = spending.date
         spending_list['amount'] = spending.amount
-        spending_list['category'] = spending.category_id
+        spending_list['expense'] = spending.expense_id
         output.append(spending_list)
     return jsonify(output)
+
 
 @app.route('/spending', methods=['POST'])
 @token_required
@@ -383,13 +385,14 @@ def create_spending(current_user):
     # get data
     data = request.get_json()
     new_spending = Spendings(amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id,
-                             category_id=data['category_id'], account_id=data['account_id'])
+                             expense_id=data['expense_id'], account_id=data['account_id'])
     db.session.add(new_spending)
     db.session.commit()
-    make_transaction(data['account_id'], data['amount'], data['category_id'])
+    make_transaction(data['account_id'], data['amount'], data['expense_id'])
     # on clientside we need id of newly created element / this will get last element id
     addedItem_id = db.session.query(Spendings).order_by(Spendings.id.desc()).first().id
     return jsonify({'last_added_id': addedItem_id})
+
 
 @app.route('/spending/<spending_id>', methods=['DELETE'])
 # this is a decorator to make this route opened to authenticated users with token
@@ -403,8 +406,9 @@ def delete_spending(current_user, spending_id):
     db.session.delete(spending)
     db.session.commit()
 
-    #we should also roll back all values in the account and the categorie this spending was referring to
+    # we should also roll back all values in the account and the expense this spending was referring to
     return jsonify({'server_message': 'The spending has been deleted!'})
+
 
 @app.route('/spending/<spending_id>', methods=['PUT'])
 # this is a decorator to make this route opened to authenticated users with token
@@ -420,73 +424,101 @@ def upgrade_spending(current_user, spending_id):
     db.session.commit()
     return jsonify({'server_message': 'This spending has been changed'})
 
-@app.route('/category', methods=['GET'])
+
+@app.route('/expense', methods=['GET'])
 @token_required
-def get_all_categories(current_user):
-    categories = Categories.query.filter_by(user_id=current_user.public_id).all()
-    print(categories)
+def get_all_expenses(current_user):
+    expenses = Expenses.query.filter_by(user_id=current_user.public_id).all()
+    print(expenses)
     output = []
-    for category in categories:
-        category_list = {}
-        category_list['id'] = category.id
-        category_list['name'] = category.name
-        category_list['wanted_limit'] = category.wanted_limit
-        category_list['spent_amount'] = category.spent_amount
-        output.append(category_list)
+    for expense in expenses:
+        expenses_list = {}
+        expenses_list['id'] = expense.id
+        expenses_list['name'] = expense.name
+        expenses_list['wanted_limit'] = expense.wanted_limit
+        expenses_list['spent_amount'] = expense.spent_amount
+        output.append(expenses_list)
     return jsonify(output)
 
-@app.route('/category', methods=['POST'])
+
+@app.route('/expense', methods=['POST'])
 @token_required
-def create_category(current_user):
+def create_expense(current_user):
 
     # get data
     data = request.get_json()
 
-    new_category = Categories(name=data['name'],
-                              user_id=current_user.public_id, wanted_limit=data['wanted_limit'])
-    db.session.add(new_category)
+    new_expense = Expenses(name=data['name'],
+                            user_id=current_user.public_id, wanted_limit=data['wanted_limit'])
+    db.session.add(new_expense)
     db.session.commit()
-    # on clientside we need id of newly created element / this will get last element id
-    addedItem_id = db.session.query(Categories).order_by(Categories.id.desc()).first().id
-    return jsonify({'last_added_id': addedItem_id})
+    # on client side we need id of newly created element / this will get last element id
+    added_item_id = db.session.query(Expenses).order_by(Expenses.id.desc()).first().id
+    return jsonify({'last_added_id': added_item_id})
 
-@app.route('/category/<category_id>', methods=['DELETE'])
+
+@app.route('/expense/<expense_id>', methods=['DELETE'])
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
-def delete_category(current_user, category_id):
+def delete_expense(current_user, expense_id):
     # create a query to filter table for this specific user
-    category = Categories.query.filter_by(user_id=current_user.public_id).filter_by(id=category_id).first()
-    if not category:
-        return jsonify({'server_message': 'No such category found'})
+    expense = Expenses.query.filter_by(user_id=current_user.public_id).filter_by(id=expense_id).first()
+    if not expense:
+        return jsonify({'server_message': 'No such expense found'})
 
-    db.session.delete(category)
+    db.session.delete(expense)
     db.session.commit()
 
-    #we should also roll back all values in the account and the spendings this category was referring to
+    # we should also roll back all values in the account and the spendings this expense was referring to
     return jsonify({'server_message': 'The spending has been deleted!'})
 
-@app.route('/category/<category_id>', methods=['PUT'])
+
+@app.route('/expense/<expense_id>', methods=['PUT'])
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
-def upgrade_category(current_user, category_id):
+def upgrade_expense(current_user, expense_id):
 
     data = request.get_json()
-    category = Categories.query.filter_by(user_id=current_user.public_id).filter_by(id=category_id).first()
-    if not category:
-        return jsonify({'server_message': 'No such category found'})
+    expense = Expenses.query.filter_by(user_id=current_user.public_id).filter_by(id=expense_id).first()
+    if not expense:
+        return jsonify({'server_message': 'No such expense found'})
 
-    category.name = data['name']
-    category.wanted_limit = data['wanted_limit']
+    expense.name = data['name']
+    expense.wanted_limit = data['wanted_limit']
     db.session.commit()
-    return jsonify({'server_message': 'This category has been changed'})
+    return jsonify({'server_message': 'This expense has been changed'})
 
 
-def make_transaction(account_id, amount, category_id):
-    category = Categories.query.filter_by(id=category_id).first()
-    category.spent_amount += amount
+def make_transaction(account_id, amount, expense_id):
+    expense = Expenses.query.filter_by(id=expense_id).first()
+    expense.spent_amount += amount
     account = Accounts.query.filter_by(id=account_id).first()
     account.amount -= amount
     db.session.commit()
+
+
+def reset_expenses(account_id):
+    expenses = Expenses.query.filter_by(user_id=account_id).all()
+    for expense in expenses:
+        expense['spent_amount'] = 0
+
+    db.session.commit()
+
+
+@app.route('/refresh_spending', methods=['POST'])
+@token_required
+def check_refresh_financial_period(current_user):
+    current_date = datetime.datetime.now()
+    current_month = current_date.month
+    current_day = current_date.day
+    wanted_refresh_day = current_user.wanted_refresh_day
+
+    if not wanted_refresh_day:
+        return
+    else:
+        if current_day == wanted_refresh_day and current_user.last_refresh_month < current_month:
+            reset_expenses()
+            current_user.last_refresh_month = current_month
 
 
 if __name__ == '__main__':

@@ -7,7 +7,7 @@ import {DialogWindowComponent} from '../dialog-window/dialog-window.component';
 import {CdkDrag, CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Income} from '../../models/income';
 import {Spending} from '../../models/spending';
-import {Category} from '../../models/category';
+import {Expense} from '../../models/expense';
 import {EditWindowComponent} from '../edit-window/edit-window.component';
 import {consoleTestResultHandler} from 'tslint/lib/test';
 import {Observable} from 'rxjs';
@@ -29,7 +29,7 @@ import {TransactionDialogComponent} from '../transaction-dialog/transaction-dial
 export class DashboardComponent implements OnInit {
   private accounts$ : Observable<Account[]>;
   private incomes$ : Observable<Income[]>;
-  private categories$ :  Observable<Category[]>;
+  private categories$ :  Observable<Expense[]>;
   private spending$ :  Observable<Spending[]>;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   bounce: any;
@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.incomes$ = this.dashboardService.getAll("income");
     this.accounts$ = this.dashboardService.getAll("account");
-    this.categories$ = this.dashboardService.getAll("category");
+    this.categories$ = this.dashboardService.getAll("expense");
     this.isMobile = this.breakpointObserver.observe(Breakpoints.Handset);
   }
   ngAfterInit(){
@@ -150,7 +150,7 @@ export class DashboardComponent implements OnInit {
             description:'',
             amount:amount,
             account_id:toData.id,
-            category_id:fromData.id,
+            expense_id:fromData.id,
       };
     this.dashboardService.createSpending(newSpending).subscribe((res: any)=>{
         newSpending.id = res.last_added_id;
@@ -201,8 +201,8 @@ export class DashboardComponent implements OnInit {
       });
 
     }
-    else if(type  ===  "Category"){
-      let newItem: Category = {
+    else if(type  ===  "Expense"){
+      let newItem: Expense = {
         name: item.name,
         description: item.description || "",
       };
@@ -240,7 +240,7 @@ export class DashboardComponent implements OnInit {
       }
       else if(type === "Spending"){
         //this.dashboardService.deleteSpending(item);
-      }else if(type === "Category"){
+      }else if(type === "Expense"){
         this.dashboardService.deleteCategory(item);
       }
     }
