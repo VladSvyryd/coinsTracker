@@ -384,6 +384,7 @@ def create_spending(current_user):
 
     # get data
     data = request.get_json()
+    print(data)
     new_spending = Spendings(amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id,
                              expense_id=data['expense_id'], account_id=data['account_id'])
     db.session.add(new_spending)
@@ -490,6 +491,7 @@ def upgrade_expense(current_user, expense_id):
 
 
 def make_transaction(account_id, amount, expense_id):
+    print(account_id,amount,expense_id)
     expense = Expenses.query.filter_by(id=expense_id).first()
     expense.spent_amount += amount
     account = Accounts.query.filter_by(id=account_id).first()
