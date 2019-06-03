@@ -386,7 +386,7 @@ def create_spending(current_user):
                              category_id=data['category_id'], account_id=data['account_id'])
     db.session.add(new_spending)
     db.session.commit()
-    makeTransaction(data['account_id'], data['amount'], data['category_id'])
+    make_transaction(data['account_id'], data['amount'], data['category_id'])
     # on clientside we need id of newly created element / this will get last element id
     addedItem_id = db.session.query(Spendings).order_by(Spendings.id.desc()).first().id
     return jsonify({'last_added_id': addedItem_id})
@@ -481,10 +481,10 @@ def upgrade_category(current_user, category_id):
     return jsonify({'server_message': 'This category has been changed'})
 
 
-def makeTransaction(account_id, amount, category_id):
+def make_transaction(account_id, amount, category_id):
     category = Categories.query.filter_by(id=category_id).first()
     category.spent_amount += amount
-    account = Accounts.query.filter_by(id = account_id).first()
+    account = Accounts.query.filter_by(id=account_id).first()
     account.amount -= amount
     db.session.commit()
 

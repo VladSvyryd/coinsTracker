@@ -22,6 +22,7 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { TesterComponent } from './tester/tester.component';
 import { CoinComponent } from './components/coin/coin.component';
+import { TransactionDialogComponent } from './components/transaction-dialog/transaction-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CoinComponent } from './components/coin/coin.component';
     CircleMenuComponent,
     PieChartComponent,
     TesterComponent,
-    CoinComponent
+    CoinComponent,
+    TransactionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,7 @@ import { CoinComponent } from './components/coin/coin.component';
     ChartsModule
   ],
    entryComponents: [
-    DialogWindowComponent,EditWindowComponent
+    DialogWindowComponent,EditWindowComponent,TransactionDialogComponent
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

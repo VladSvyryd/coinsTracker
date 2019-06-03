@@ -33,6 +33,7 @@
       (cdkDragReleased)="makeTransaction_ResetPosition($event, acc)"
       class="acc"
       mat-fab
+      id="1"
     >
       <div *cdkDragPlaceholder class="example-custom-placeholder">
         <div class="holder"></div>
@@ -48,6 +49,7 @@
     (cdkDragMoved)="detectCollision($event)"
     (cdkDragReleased)="makeTransaction_ResetPosition($event, acc)"
     class="acc"
+    id="2"
     mat-fab
   >
     {{ account.name }}

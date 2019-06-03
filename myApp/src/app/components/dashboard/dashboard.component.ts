@@ -1,10 +1,10 @@
-import {Component, ElementRef, EventEmitter, OnInit, QueryList} from '@angular/core';
+import {Component, ElementRef, EventEmitter, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {DashboardService} from '../../services/dashboard.service';
 import {Account} from '../../models/account';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatDialog} from '@angular/material';
 import {DialogWindowComponent} from '../dialog-window/dialog-window.component';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Income} from '../../models/income';
 import {Spending} from '../../models/spending';
 import {Category} from '../../models/category';
@@ -15,6 +15,7 @@ import {SharedService} from '../../services/shared.service';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 import {trigger, transition, useAnimation, style} from '@angular/animations';
 import { bounce,fadeIn, fadeOut, hinge, shake } from 'ng-animate';
+import {TransactionDialogComponent} from '../transaction-dialog/transaction-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,6 +36,8 @@ export class DashboardComponent implements OnInit {
   currency = '€';
   isMobile: Observable<BreakpointState>;
   clickedState = "notClicked";
+  @ViewChildren("acc", { read: CdkDrag }) cdkAccChildren: QueryList<CdkDrag>;
+  @ViewChildren("cat", { read: CdkDrag }) cdkCatChildren: QueryList<CdkDrag>;
   constructor(private dashboardService:DashboardService, public dialog: MatDialog, private sharedService: SharedService,private breakpointObserver: BreakpointObserver) {
   }
   ngOnInit() {
@@ -43,9 +46,82 @@ export class DashboardComponent implements OnInit {
     this.categories$ = this.dashboardService.getAll("category");
     this.isMobile = this.breakpointObserver.observe(Breakpoints.Handset);
   }
+  ngAfterInit(){
 
+  }
    changeState() {
     this.clickedState = (this.clickedState === 'clicked' ? 'notClicked' : 'clicked');
+  }
+
+  detectCollision(e) {
+    // html element, to get colliderBox
+    let draggableElementRef = e.event.target;
+    // cdk object to interact with its data
+    let cdkDrag = e.source;
+    let list;
+    // html elements should have either inc or acc class
+    if (cdkDrag.getRootElement().classList.contains("inc")) {
+      list = this.cdkAccChildren;
+    } else if (cdkDrag.getRootElement().classList.contains("acc")) {
+      list = this.cdkCatChildren
+        .toArray()
+        .concat(this.cdkAccChildren.toArray());
+    }
+    list.forEach(cdkDrop => {
+      let droppableElementRef = cdkDrop.getRootElement();
+      if (this.isCollide(draggableElementRef, droppableElementRef)) {
+        console.log("sd");
+        //if (this.coveredState !== "covered") this.changeState();
+      }
+    });
+  }
+
+  private tryMakeTransaction(obj: any) {
+      const dialogRef = this.dialog.open(TransactionDialogComponent, {
+      width: '400px',
+      data: {from:"acc",to:"cat"}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+          //this.transitionBegin(obj.cdkDrop.data,obj.cdkDrag.data,result);
+    });
+  }
+
+  makeTransaction_ResetPosition(e, dragRef) {
+    // html button
+    let draggableElementRef = e.source.getRootElement();
+    // cdkDrag object with data in it
+    let cdkDrag = e.source;
+    // create a list to iterate only through needed elements
+    let list;
+    let acc_to_acc_transaction;
+    // draggable knows on which element it could be dropped
+    if (draggableElementRef.classList.contains("inc")) {
+      acc_to_acc_transaction = false;
+      list = this.cdkAccChildren;
+    } else if (draggableElementRef.classList.contains("acc")) {
+      // account coins are allowed to be send to another accounts
+      list = this.cdkCatChildren
+        .toArray()
+        .concat(this.cdkAccChildren.toArray());
+      acc_to_acc_transaction = true;
+    }
+    list.forEach(cdkDrop => {
+      let droppableElementRef = cdkDrop.getRootElement();
+      // collision detection goes through all accounts, and could be done on the same element, fixed bug
+      if (this.isCollide(draggableElementRef, droppableElementRef )&& droppableElementRef.id !== draggableElementRef.id ) {
+        console.log("MakeTransaktion");
+        this.tryMakeTransaction({
+          acc_to_acc_transaction: acc_to_acc_transaction,
+          cdkDrag,
+          cdkDrop
+        });
+      }else{
+
+      }
+    });
+    e.source.reset();
+   // this.changeState();
   }
 
   openDialogToAddNew(ofType, keys:Array<any>, toArray) {
@@ -67,59 +143,20 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  //drop(event: CdkDragDrop<any>) {
-  //  moveItemInArray(this.accounts$, event.previousIndex, event.currentIndex);
-  // }
-  onDragEnded(event,item) {
-    let element = event.source._dragRef;
-    console.log(element)
 
-    //let x = element.x;
-    //let y = element.y;
-    //let colider = document.elementFromPoint(x  , y );
-    //if(underElement.classList.contains("box") && !underElement.classList.contains("active")){
-    //  console.log(underElement);
-    //  underElement.classList.add("active");
-    //}
-    //new EventEmitter();
-    //console.log(colider)
-    let elements = document.querySelectorAll('#accountList button');
-
-     elements.forEach((i)=>
-     {
-      // console.log(i.getBoundingClientRect());
-       //console.log(this.isCollide(i,element))
-       }
-     );
-  }
-  drop(event){
-    //console.log(event.item.element.nativeElement.getBoundingClientRect());
-  }
-  transitionBegin(fromData,toData){
+  transitionBegin(fromData,toData,amount){
     console.log("try Transaktion");
        let newSpending: Spending = {
             description:'',
-            amount:40,
-            category_id:1,
-            account_id:11,
+            amount:amount,
+            account_id:toData.id,
+            category_id:fromData.id,
       };
     this.dashboardService.createSpending(newSpending).subscribe((res: any)=>{
         newSpending.id = res.last_added_id;
         this.sharedService.emitChange('account');
       });
   }
-  getPosition(el) {
-    let x = 0;
-    let y = 0;
-    while(el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-      x += el.offsetLeft - el.scrollLeft;
-      y += el.offsetTop - el.scrollTop;
-      el = el.offsetParent;
-    }
-    return { top: y, left: x };
-  }
-
-
   //upgrade Coin
 
   upgrade(item,itemType){

@@ -54,7 +54,7 @@ export class TesterComponent implements OnInit {
       let droppableElementRef = cdkDrop.getRootElement();
       if (this.isCollide(draggableElementRef, droppableElementRef)) {
         console.log("sd");
-        if (this.coveredState !== "covered") this.changeState();
+        //if (this.coveredState !== "covered") this.changeState();
       }
     });
   }
@@ -84,7 +84,9 @@ export class TesterComponent implements OnInit {
     }
     list.forEach(cdkDrop => {
       let droppableElementRef = cdkDrop.getRootElement();
-      if (this.isCollide(draggableElementRef, droppableElementRef)) {
+      console.log(droppableElementRef.id, draggableElementRef.id);
+      // collision detection goes through all accounts, and could be done on the same element, fixed bug
+      if (this.isCollide(draggableElementRef, droppableElementRef )&& droppableElementRef.id !== draggableElementRef.id ) {
         console.log("MakeTransaktion");
         this.tryMakeTrasaktion({
           acc_to_acc_transaction: acc_to_acc_transaction,
@@ -94,7 +96,7 @@ export class TesterComponent implements OnInit {
       }
     });
     e.source.reset();
-    this.changeState();
+   // this.changeState();
   }
   isCollide(a, b) {
     var aRect = a.getBoundingClientRect();

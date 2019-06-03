@@ -1,0 +1,10 @@
+ <form [formGroup]="form">
+    <mat-form-field *ngFor="let item of inputFields">
+      <input
+        matInput
+        placeholder="Enter {{ item.fieldName }}"
+        [formControlName]="item.fieldName"
+        [required]="item.required"
+      />
+    </mat-form-field>
+  </form>

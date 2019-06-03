@@ -11,8 +11,8 @@ import {DialogData} from "../../models/dialog";
 export class DialogWindowComponent implements OnInit {
   form: FormGroup;
 
-  name = new FormControl('', [Validators.required]);
   amount = new FormControl('', [Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.minLength(1)]); // regex for money value
+  name = new FormControl('', [Validators.required]);
   description = new FormControl();
 
   inputFields:DialogData[];
@@ -30,7 +30,6 @@ export class DialogWindowComponent implements OnInit {
   }
   onNoClick(): void {
     this.dialogRef.close();
-
   }
 
 
