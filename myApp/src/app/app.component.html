@@ -1,4 +1,4 @@
-<div class="wrapper " [ngClass]="{}"
+<div class="wrapper" [class.unicorn-dark-theme]="otherTheme"
 >
   <mat-toolbar class="header">
     <span class="right-spacer"></span>
@@ -13,7 +13,7 @@
 
   </mat-toolbar>
 
-  <mat-sidenav-container class="sidebar ">
+  <mat-sidenav-container class="sidebar">
     <mat-sidenav #sidenav mode="side" opened="false" class="example-sidenav"
                  [fixedInViewport]="options.fixed" [fixedTopGap]="options.top"
                  [fixedBottomGap]="options.bottom">
@@ -26,31 +26,25 @@
        -->
 
       <router-outlet></router-outlet>
-      <app-circle-menu *ngIf="(isMobile | async)?.matches"></app-circle-menu>
+     <!-- <app-circle-menu *ngIf="(isMobile | async)?.matches"></app-circle-menu>
       <div class="fix">
         <button mat-fab cdkDrag *ngIf="(isMobile | async)?.matches" (click)="goBack()"><mat-icon>reply</mat-icon></button>
-      </div>
+      </div> -->
     </mat-sidenav-content>
   </mat-sidenav-container>
 
-  <!--trying to do fixed navbar bottom-->
-  <!--
-<div class="bottomNavicon">
-    <mat-toolbar>
-      <mat-toolbar-row>
+<app-navigation-bottom class="bottomNavigation">
 
-        <mat-icon class="example-icon" aria-hidden="false">toggle</mat-icon>
-        <mat-icon class="example-icon" aria-hidden="false">undo</mat-icon>
-        <mat-icon class="example-icon" aria-hidden="false">menu</mat-icon>
+</app-navigation-bottom>
+       <section class="example-section">
+              <mat-slide-toggle
+                  class="example-margin"
+                  [color]="color"
+                  (click)="changeTheme()"
+              >
+              </mat-slide-toggle>
+       </section>
 
-           <app-circle-menu *ngIf="(isMobile | async)?.matches"></app-circle-menu>
-           <div class="fix">
-              <button mat-fab cdkDrag *ngIf="(isMobile | async)?.matches" (click)="goBack()"><mat-icon>reply</mat-icon></button>
-           </div>
-      </mat-toolbar-row>
-    </mat-toolbar>
-</div>
--->
 
 </div>
 

@@ -1,0 +1,59 @@
+
+$my-dark-theme-background: (
+  status-bar:  map_get($md-violet, 500),
+  app-bar:   map_get($md-violet, 500),
+  //background: linear-gradient(#4E4068, #272034),
+  background: map_get($md-violet, 500),
+  hover:      rgba(white, 0.04),
+  card:       map_get($mat-red, 800),
+  dialog:     #fff,
+  disabled-button: $white-12-opacity,
+  raised-button: map-get($mat-grey, 800),
+  focused-button: map_get($md-accent, 500),
+  selected-button: map_get($mat-grey, 900),
+  selected-disabled-button: map_get($mat-grey, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map_get($mat-grey, 700),
+  disabled-list-option: black,
+  icon: white
+);
+
+$my-dark-theme-foreground: (
+  base:              #625376,
+  divider:           $white-12-opacity,
+  dividers:          $white-12-opacity,
+  disabled:          rgba(white, 0.3),
+  disabled-button:   rgba(white, 0.3),
+  focused-button: map_get($md-accent, 500),
+  disabled-text:     rgba(white, 0.3),
+  hint-text:         rgba(white, 0.3),
+  secondary-text:    rgba(white, 0.7),
+  icon:              white,
+  icons:             white,
+  text:              white,
+  slider-min:        white,
+  slider-off:        rgba(white, 0.3),
+  slider-off-active: rgba(white, 0.3),
+);
+// instead of creating a theme with mat-light-theme like a sane person, we will create our own theme-creating function that lets us apply our own foreground and background palettes.
+@function create-wonky-theme($primary, $accent, $warn) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: false,
+    foreground: $my-dark-theme-foreground,
+    background: $my-dark-theme-background,
+  );
+}
+
+$background-color: map_get($md-violet, 500);
+
+// Insert custom background color
+$background: map-get($dark-coinKeeper-theme, background);
+$background: map_merge($background, (background: $background-color));
+$theme: map_merge($dark-coinKeeper-theme, (background: $background));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.

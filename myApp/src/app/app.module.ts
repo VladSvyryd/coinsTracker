@@ -24,6 +24,7 @@ import { TesterComponent } from './tester/tester.component';
 import { CoinComponent } from './components/coin/coin.component';
 import { TransactionDialogComponent } from './components/transaction-dialog/transaction-dialog.component';
 import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.component';
+import { NavigationBottomComponent } from './components/navigation-bottom/navigation-bottom.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.com
     TesterComponent,
     CoinComponent,
     TransactionDialogComponent,
-    BottomSheetComponent
+    BottomSheetComponent,
+    NavigationBottomComponent
   ],
   imports: [
     BrowserModule,

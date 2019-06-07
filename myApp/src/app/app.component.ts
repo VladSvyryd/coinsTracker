@@ -21,13 +21,17 @@ export class AppComponent {
   users: JSON;
   readonly ROOT_URL = 'http://127.0.0.1:5000/';
   isMobile: Observable<BreakpointState>;
-  constructor(overlayContainer: OverlayContainer, public router: Router,private breakpointObserver: BreakpointObserver,private _location: Location) {
-    // overlayContainer.getContainerElement().classList.add('unicorn-dark-theme');
-    this.isMobile = this.breakpointObserver.observe(Breakpoints.Handset);
+  color = 'accent';
+  otherTheme: boolean = false;
+
+  changeTheme() {
+    console.log("toggle")
+    this.otherTheme = !this.otherTheme;
   }
 
-  goBack(){
-     this._location.back();
+  constructor(overlayContainer: OverlayContainer, public router: Router,private breakpointObserver: BreakpointObserver,private _location: Location) {
+    overlayContainer.getContainerElement().classList.add('unicorn-dark-theme');
+    this.isMobile = this.breakpointObserver.observe(Breakpoints.Handset);
   }
 
 }

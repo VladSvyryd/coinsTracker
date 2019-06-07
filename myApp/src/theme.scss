@@ -11,147 +11,344 @@
 // hue. Available color palettes: https://material.io/design/color/
 
 
+// new +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 $md-primary: (
-    50 : #eff4f1,
-    100 : #d8e4dd,
-    200 : #bed3c7,
-    300 : #a4c1b0,
-    400 : #91b39f,
-    500 : #7da68e,
-    600 : #759e86,
-    700 : #6a957b,
-    800 : #608b71,
-    900 : #4d7b5f,
-    A100 : #dcffe9,
-    A200 : #a9ffca,
-    A400 : #76ffab,
-    A700 : #5dff9b,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #000000,
-        500 : #000000,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #000000,
-        A700 : #000000,
-    )
+  50 : #f0f1f7,
+  100 : #daddeb,
+  200 : #c2c6dd,
+  300 : #aaafcf,
+  400 : #979ec5,
+  500 : #858dbb,
+  600 : #7d85b5,
+  700 : #727aac,
+  800 : #6870a4,
+  900 : #555d96,
+  A100 : #fcfcff,
+  A200 : #c9cfff,
+  A400 : #96a2ff,
+  A700 : #7c8bff,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
 );
 
 $md-accent: (
-    50 : #f7ebf6,
-    100 : #eacce9,
-    200 : #ddabda,
-    300 : #cf89cb,
-    400 : #c46fbf,
-    500 : #ba56b4,
-    600 : #b34fad,
-    700 : #ab45a4,
-    800 : #a33c9c,
-    900 : #942b8c,
-    A100 : #ffd8fc,
-    A200 : #ffa5f8,
-    A400 : #ff72f4,
-    A700 : #ff58f2,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #ffffff,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #000000,
-        A700 : #000000,
-    )
+  50 : #f6f0f6,
+  100 : #ead9e8,
+  200 : #dcbfd8,
+  300 : #cda5c8,
+  400 : #c392bd,
+  500 : #b87fb1,
+  600 : #b177aa,
+  700 : #a86ca1,
+  800 : #a06298,
+  900 : #914f88,
+  A100 : #fff2fd,
+  A200 : #ffbff6,
+  A400 : #ff8cee,
+  A700 : #ff73eb,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
 );
 
-
-
-$md-white: (
-    50 : #fefefe,
-    100 : #fbfbfb,
-    200 : #f9f9f9,
-    300 : #f7f7f7,
-    400 : #f5f5f5,
-    500 : #f3f3f3,
-    600 : #f1f1f1,
-    700 : #efefef,
-    800 : #ededed,
-    900 : #eaeaea,
-    A100 : #ffffff,
-    A200 : #ffffff,
-    A400 : #ffffff,
-    A700 : #ffffff,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #000000,
-        500 : #000000,
-        600 : #000000,
-        700 : #000000,
-        800 : #000000,
-        900 : #000000,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #000000,
-        A700 : #000000,
-    )
+$md-light-grey:  (
+  50 : #fefefe,
+  100 : #fcfcfc,
+  200 : #fbfbfa,
+  300 : #f9f9f7,
+  400 : #f7f7f6,
+  500 : #f6f6f4,
+  600 : #f5f5f3,
+  700 : #f3f3f1,
+  800 : #f2f2ef,
+  900 : #efefec,
+  A100 : #ffffff,
+  A200 : #ffffff,
+  A400 : #ffffff,
+  A700 : #ffffff,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #000000,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
 );
 
 $md-warning: (
-       50 : #feebe8,
-    100 : #fccec6,
-    200 : #fbada0,
-    300 : #f98c7a,
-    400 : #f7735e,
-    500 : #f65a41,
-    600 : #f5523b,
-    700 : #f34832,
-    800 : #f23f2a,
-    900 : #ef2e1c,
-    A100 : #ffffff,
-    A200 : #fff1f1,
-    A400 : #ffc2be,
-    A700 : #ffaaa4,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #000000,
-        500 : #000000,
-        600 : #000000,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #000000,
-        A700 : #000000,
-    )
+  50 : #feebe8,
+  100 : #fccec6,
+  200 : #fbada0,
+  300 : #f98c7a,
+  400 : #f7735e,
+  500 : #f65a41,
+  600 : #f5523b,
+  700 : #f34832,
+  800 : #f23f2a,
+  900 : #ef2e1c,
+  A100 : #ffffff,
+  A200 : #fff1f1,
+  A400 : #ffc2be,
+  A700 : #ffaaa4,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$my-light-theme-background: (
+  status-bar:  map_get($md-light-grey, 500),
+  app-bar:   map_get($md-light-grey, 500),
+  background: map_get($md-light-grey, 500),
+  hover:      rgba(white, 0.04),
+  card:       map_get($md-light-grey, A100),
+  dialog:    map_get($md-light-grey, 800)!important,
+  disabled-button: $white-12-opacity,
+  raised-button: map-get($mat-grey, 800),
+  focused-button: map_get($md-accent, 500),
+  selected-button: map_get($mat-grey, 900),
+  selected-disabled-button: map_get($mat-grey, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map_get($mat-grey, 700),
+  disabled-list-option: black,
+  icon: black
+);
+
+$my-light-theme-foreground: (
+  base:              #F6F6F4,
+  divider:           $white-12-opacity,
+  dividers:          $white-12-opacity,
+  disabled:          rgba(white, 0.3),
+  disabled-button:   rgba(white, 0.3),
+  focused-button: map_get($md-accent, 500),
+  disabled-text:     rgba(white, 0.3),
+  hint-text:         rgba(white, 0.3),
+  secondary-text:    rgba(white, 0.7),
+  icon:              black,
+  icons:             black,
+  text:              white,
+  slider-min:        white,
+  slider-off:        rgba(white, 0.3),
+  slider-off-active: rgba(white, 0.3),
+);
+// instead of creating a theme with mat-light-theme like a sane person, we will create our own theme-creating function that lets us apply our own foreground and background palettes.
+@function create-wonky-theme($primary, $accent, $warn) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: true,
+    foreground: $my-light-theme-foreground,
+    background: $my-light-theme-background,
+  );
+}
+
+$coinKeeper-app-primary: mat-palette($md-primary, 500);
+$coinKeeper-app-accent:  mat-palette($md-accent, 500, 900, A100);
+$coinKeeper-app-warning:  mat-palette($md-warning, 500);
+$background-color: map_get($md-light-grey, 500);
+// Create the theme object (a Sass map containing all of the palettes).
+$light-coinKeeper-theme: create-wonky-theme($coinKeeper-app-primary, $coinKeeper-app-accent, $coinKeeper-app-warning);
+
+
+// Insert custom background color
+$background: map-get($light-coinKeeper-theme, background);
+$background: map_merge($background, (background: $background-color));
+$theme: map_merge($light-coinKeeper-theme, (background: $background));
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($light-coinKeeper-theme);
+
+
+$md-accent-dark: (
+  50 : #eff4f1,
+  100 : #d8e4dd,
+  200 : #bed3c7,
+  300 : #a4c1b0,
+  400 : #91b39f,
+  500 : #7da68e,
+  600 : #759e86,
+  700 : #6a957b,
+  800 : #608b71,
+  900 : #4d7b5f,
+  A100 : #dcffe9,
+  A200 : #a9ffca,
+  A400 : #76ffab,
+  A700 : #5dff9b,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$md-primary-dark: (
+  50 : #f7ebf6,
+  100 : #eacce9,
+  200 : #ddabda,
+  300 : #cf89cb,
+  400 : #c46fbf,
+  500 : #ba56b4,
+  600 : #b34fad,
+  700 : #ab45a4,
+  800 : #a33c9c,
+  900 : #942b8c,
+  A100 : #ffd8fc,
+  A200 : #ffa5f8,
+  A400 : #ff72f4,
+  A700 : #ff58f2,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$md-violet: (
+  50 : #eae8ed,
+  100 : #cac6d2,
+  200 : #a7a0b4,
+  300 : #837995,
+  400 : #695d7f,
+  500 : #4e4068,
+  600 : #473a60,
+  700 : #3d3255,
+  800 : #352a4b,
+  900 : #251c3a,
+  A100 : #a17eff,
+  A200 : #7b4bff,
+  A400 : #5618ff,
+  A700 : #4400fd,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
+$md-warning: (
+  50 : #feebe8,
+  100 : #fccec6,
+  200 : #fbada0,
+  300 : #f98c7a,
+  400 : #f7735e,
+  500 : #f65a41,
+  600 : #f5523b,
+  700 : #f34832,
+  800 : #f23f2a,
+  900 : #ef2e1c,
+  A100 : #ffffff,
+  A200 : #fff1f1,
+  A400 : #ffc2be,
+  A700 : #ffaaa4,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
 );
 $my-dark-theme-background: (
-  status-bar: #4E4068,
-  app-bar:    #4E4068,
+  status-bar:  map_get($md-violet, 500),
+  app-bar:   map_get($md-violet, 500),
   //background: linear-gradient(#4E4068, #272034),
-  background: #4E4068,
+  background: map_get($md-violet, 500),
   hover:      rgba(white, 0.04),
-  card:       map_get($mat-red, 800),
-  dialog:     #625376,
+  card:       map_get($md-violet, 500)!important,
+  dialog:    map_get($md-violet, 300)!important,
   disabled-button: $white-12-opacity,
   raised-button: map-get($mat-grey, 800),
   focused-button: map_get($md-accent, 500),
@@ -164,12 +361,12 @@ $my-dark-theme-background: (
 );
 
 $my-dark-theme-foreground: (
-  base:              #625376,
+  //base:              #625376,
   divider:           $white-12-opacity,
   dividers:          $white-12-opacity,
   disabled:          rgba(white, 0.3),
   disabled-button:   rgba(white, 0.3),
-   focused-button: map_get($md-accent, 500),
+  focused-button: map_get($md-accent, 500),
   disabled-text:     rgba(white, 0.3),
   hint-text:         rgba(white, 0.3),
   secondary-text:    rgba(white, 0.7),
@@ -180,7 +377,6 @@ $my-dark-theme-foreground: (
   slider-off:        rgba(white, 0.3),
   slider-off-active: rgba(white, 0.3),
 );
-// instead of creating a theme with mat-light-theme like a sane person, we will create our own theme-creating function that lets us apply our own foreground and background palettes.
 @function create-wonky-theme($primary, $accent, $warn) {
   @return (
     primary: $primary,
@@ -192,105 +388,15 @@ $my-dark-theme-foreground: (
   );
 }
 
-
-$coinKeeper-app-primary: mat-palette($md-primary, 500);
-$coinKeeper-app-accent:  mat-palette($md-accent, 500, 900, A100);
-$coinKeeper-app-warning:  mat-palette($md-warning, 500);
-$background-color: map_get($md-white, 500);
-// Create the theme object (a Sass map containing all of the palettes).
-$coinKeeper-app-theme: create-wonky-theme($coinKeeper-app-primary, $coinKeeper-app-accent,$coinKeeper-app-warning);
-
-
-// Insert custom background color
-$background: map-get($coinKeeper-app-theme, background);
-$background: map_merge($background, (background: $background-color));
-$theme: map_merge($coinKeeper-app-theme, (background: $background));
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($coinKeeper-app-theme);
-
-$coinKeeper-white: (
-    50 : #f1f1f2,
-    100 : #ddddde,
-    200 : #c6c6c9,
-    300 : #afafb3,
-    400 : #9e9ea2,
-    500 : #8d8d92,
-    600 : #85858a,
-    700 : #7a7a7f,
-    800 : #707075,
-    900 : #5d5d63,
-    A100 : #d8d8fc,
-    A200 : #a9a9f7,
-    A400 : #6e6eff,
-    A700 : #5555ff,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #000000,
-        500 : #000000,
-        600 : #000000,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #ffffff,
-        A700 : #ffffff,
-    )
-);
-
-
-$coinKeeper-lila: (
-    50 : #f7ebf6,
-    100 : #eacce9,
-    200 : #ddabda,
-    300 : #cf89cb,
-    400 : #c46fbf,
-    500 : #ba56b4,
-    600 : #b34fad,
-    700 : #ab45a4,
-    800 : #a33c9c,
-    900 : #942b8c,
-    A100 : #ffd8fc,
-    A200 : #ffa5f8,
-    A400 : #ff72f4,
-    A700 : #ff58f2,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #ffffff,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #000000,
-        A700 : #ffffff,
-    )
-);
-
-$background-color: map_get($mat-grey, 900);
 // Define an alternate dark theme.
-$dark-coinKeeper-primary: mat-palette($coinKeeper-white,800, 300, 900);
-$dark-coinKeeper-accent:  mat-palette($coinKeeper-lila, 500, 100, 600);
-$dark-coinKeeper-theme:   mat-dark-theme($dark-coinKeeper-primary, $dark-coinKeeper-accent);
+$dark-coinKeeper-primary: mat-palette($md-primary-dark,300, 300, 900);
+$dark-coinKeeper-accent:  mat-palette($md-accent-dark, 500, 100, 600);
+$dark-coinKeeper-warning:  mat-palette($md-warning, 500);
+$dark-coinKeeper-theme:   create-wonky-theme($dark-coinKeeper-primary, $dark-coinKeeper-accent, $dark-coinKeeper-warning);
 
-// Insert custom background color
 $background: map-get($dark-coinKeeper-theme, background);
 $background: map_merge($background, (background: $background-color));
 $theme: map_merge($dark-coinKeeper-theme, (background: $background));
-// Include the alternative theme styles inside of a block with a CSS class. You can make this
-// CSS class whatever you want. In this example, any component inside of an element with
-// `.unicorn-dark-theme` will be affected by this alternate dark theme instead of the default theme.
 .unicorn-dark-theme {
   @include angular-material-theme($dark-coinKeeper-theme);
-
 }

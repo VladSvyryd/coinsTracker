@@ -1,0 +1,30 @@
+<div class="bottomNavigation" [class.unicorn-dark-theme]="otherTheme">
+
+      <!--trying to do fixed navbar bottom-->
+   <mat-toolbar class="bottomNavigation">
+
+      <mat-toolbar-row class= "navigationButtons">
+              <!--  move the toggle to settings ?? -->
+             <!-- <mat-slide-toggle
+                  class="example-margin toggleButton"
+                  [color]="color"
+                  (click)="changeTheme()"
+              >
+              </mat-slide-toggle> -->
+
+        <!-- make goBack button an icon -->
+                <!--
+                <div class="goBack">
+                   <button mat-fab cdkDrag *ngIf="(isMobile | async)?.matches" (click)="goBack()"><mat-icon>undo</mat-icon></button>
+                 </div>
+                 -->
+        <mat-icon *ngIf="(isMobile | async)?.matches" (click)="goBack()" class="goBack" aria-hidden="false">arrow_back</mat-icon>
+        <span class="spacer"></span>
+        <app-circle-menu class="rightNavButton" *ngIf="(isMobile | async)?.matches"></app-circle-menu>
+
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+</div>
+
+

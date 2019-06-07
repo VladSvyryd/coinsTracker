@@ -8,3 +8,60 @@ body,html {
   height: 100%;
   margin: 0;
 }
+.unicorn-dark-theme .line h3 {
+  color: white;
+}
+
+.unicorn-dark-theme .wrapper {
+  background-color: #4e4068!important;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+.unicorn-dark-theme button {
+  background-color: #ba56b4!important;
+}
+
+.unicorn-dark-theme .buttonToOpenDialog {
+  background-color: transparent !important;
+  border: 2px solid #BA56B4!important;
+}
+
+.unicorn-dark-theme .iconToOpenDialog {
+  color: #BA56B4!important;
+}
+
+.unicorn-dark-theme .mat-button-wrapper {
+  color: #FFFFFF;
+}
+
+.unicorn-dark-theme .deleteIcon {
+  color: white!important;
+  opacity: 0.3;
+}
+
+.unicorn-dark-theme .goBack {
+  color: white!important;
+  opacity: 0.7;
+}
+
+.unicorn-dark-theme .infoBox {
+  color: #ffffff!important;
+}
+
+.unicorn-dark-theme .navigationButtons {
+  background-color: #695d7f!important;
+  box-shadow: 0px -1px 20px 0px rgba(112, 112, 112,0.3);
+}
+
+.unicorn-dark-theme .menuIcon {
+  color: white!important;
+  opacity: 0.7;
+}
+
+.unicorn-dark-theme .floating-btn {
+  background-color: transparent!important;
+}
+
+.mat-button-wrapper{
+  color: white;
+}
