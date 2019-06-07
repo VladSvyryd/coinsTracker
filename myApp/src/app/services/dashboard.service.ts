@@ -96,6 +96,13 @@ export class DashboardService {
     )
   }
 
+  transaction_Inc_to_Acc(inc:Income, acc:Account) {
+    let transactionData = {inc: inc,acc: acc}
+    console.log(transactionData)
+      return this.httpClient.put(this.server_path+"/inc_to_acc", transactionData).pipe(
+      catchError(this.handleError)
+    )
+  }
 
 
 
@@ -147,4 +154,6 @@ export class DashboardService {
     return throwError(
       'Something bad happened; please try again later.');
   };
+
+
 }

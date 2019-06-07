@@ -523,5 +523,20 @@ def check_refresh_financial_period(current_user):
             current_user.last_refresh_month = current_month
 
 
+@app.route('/inc_to_acc', methods=['PUT'])
+# this is a decorator to make this route opened to authenticated users with token
+@token_required
+def transaction_inc_acc(current_user):
+
+    data = request.get_json()
+    print(data)
+   # acc = Accounts.query.filter_by(user_id=current_user.public_id).filter_by(id=data).first()
+   # if not expense:
+    #    return jsonify({'server_message': 'No such expense found'})
+
+    # db.session.commit()
+    return jsonify({'server_message': 'This expense has been changed'})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
