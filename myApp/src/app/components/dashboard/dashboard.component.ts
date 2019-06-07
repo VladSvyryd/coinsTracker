@@ -118,17 +118,17 @@ export class DashboardComponent implements OnInit {
     let cdkDrag = e.source;
     // create a list to iterate only through needed elements
     let list;
-    let acc_to_acc_transaction;
+    let type_of_transaction;
     // draggable knows on which element it could be dropped
     if (draggableElementRef.classList.contains('inc')) {
-      acc_to_acc_transaction = false;
+      type_of_transaction = "inc_acc";
       list = this.cdkAccChildren;
     } else if (draggableElementRef.classList.contains('acc')) {
       // account coins are allowed to be send to another accounts
       list = this.cdkCatChildren
         .toArray()
         .concat(this.cdkAccChildren.toArray());
-      acc_to_acc_transaction = true;
+      type_of_transaction = "acc_exp";
     }
     list.forEach(cdkDrop => {
       let droppableElementRef = cdkDrop.getRootElement();
@@ -139,9 +139,9 @@ export class DashboardComponent implements OnInit {
       ) {
         console.log('MakeTransaktion');
         this.last_transaction = {
-          acc_to_acc_transaction: acc_to_acc_transaction,
+          type_of_transaction: type_of_transaction,
           cdkDrag,
-          cdkDrop
+          cdkDrop,
         };
         this.bs.nativeElement.click();
       }
@@ -176,16 +176,23 @@ export class DashboardComponent implements OnInit {
 
   transitionBegin(fromData, toData, amount) {
     console.log(fromData, toData);
+    if(this.last_transaction.type_of_transaction !=="inc_acc"){
     let newSpending: Spending = {
       description: '',
       amount: amount,
       account_id: fromData.data.id,
       expense_id: toData.data.id
     };
+
     this.dashboardService.createSpending(newSpending).subscribe((res: any) => {
       newSpending.id = res.last_added_id;
       this.sharedService.emitChange('account');
+      this.itterate();
     });
+    }else{
+      this.dashboardService.transaction_Inc_to_Acc(fromData,toData).subscribe();
+    }
+
   }
 
   //upgrade Coin
@@ -272,6 +279,11 @@ export class DashboardComponent implements OnInit {
       aRect.left > bRect.left + bRect.width
     );
   }
+
+  itterate(){
+    this.accounts$.forEach(item=>console.log(item))
+  }
+
 }
 
-// :TODO - Update on frontEnd Income,Account,Expanses
+// :TODO - Update on frontEnd Income,Account,Expenses
