@@ -1,5 +1,6 @@
 .wrapper{
   display: grid;
+  overflow: hidden;  // needed for bottom nav, to block scrollbars after openning circle menu
   grid-template-areas: "header" "mainA" "fixedNav";
   flex-direction: column;
   height: 100%;
@@ -14,6 +15,8 @@
 
 .main{
   grid-area: mainA;
+
+
 }
 
 .bottomNavigation {
@@ -44,4 +47,8 @@ mat-slide-toggle{
 
 .mat-button-wrapper {
   color: white;
+}
+
+.unicorn-dark-theme .mainA{
+  background: linear-gradient(to bottom, #4E4068, #272034);
 }
