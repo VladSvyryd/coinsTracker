@@ -10,12 +10,13 @@
     <div *ngIf="incomes$ | async as incomes" class="grid">
       <div class="list">
         <div class="box " *ngFor="let income of incomes">
-          <div *cdkDragPlaceholder class="example-custom-placeholder">
+          <div  class="example-custom-placeholder">
             <div class="holder"></div>
           </div>
           <button
             class="blaTest"
             mat-fab
+            color="primary"
             [cdkDragData]="income"
             (cdkDragMoved)="detectCollision($event)"
             (cdkDragReleased)="makeTransaction_ResetPosition($event, inc)"
@@ -32,14 +33,16 @@
           >
             <!-- (click)="openDialogToEditOld({ title: 'Income', item: income })"-->
             {{ income.name }}
-            <mat-icon (click)="remove('Income', income, incomes)"
+
+
+
+          </button>
+           <mat-icon (click)="remove('Income', income, incomes)"
                       class="deleteIcon"
-              >close</mat-icon
-            >
-            <div class="infoBox">
+              >close</mat-icon>
+          <div class="infoBox">
               {{ currency }}&nbsp;{{ income.amount || 0 }}
             </div>
-          </button>
         </div>
       </div>
       <div class="buttonHolder">
@@ -59,7 +62,8 @@
           [disabled]="incomes.length > 3"
           mat-fab
         >
-          <mat-icon class="iconToOpenDialog">add</mat-icon>
+                   <img class="pic" src="../../../assets/img/ic_add_white.svg" alt="">
+
         </button>
       </div>
     </div>
@@ -83,6 +87,7 @@
             cdkDragBoundary=".mainA"
             #acc
             class="acc"
+            color="warn"
             [cdkDragData]="account"
             (cdkDragMoved)="detectCollision($event)"
             (cdkDragReleased)="makeTransaction_ResetPosition($event, acc)"
@@ -120,7 +125,8 @@
           [disabled]="accounts.length > 3"
           mat-fab
         >
-          <mat-icon class="iconToOpenDialog">add</mat-icon>
+                   <img class="pic" src="../../../assets/img/ic_add_white.svg" alt="">
+
         </button>
       </div>
     </div>
@@ -135,9 +141,13 @@
     <div *ngIf="categories$ | async as categories" class="grid">
       <div class="list">
         <div class="box" *ngFor="let category of categories">
+           <div  class="example-custom-placeholder">
+            <div class="holder"></div>
+          </div>
           <button
             mat-fab
             cdkDrag
+            color="accent"
             [cdkDragData]="category"
             [cdkDragDisabled]="true"
             #cat
@@ -147,13 +157,10 @@
           >
             {{ category.name }}
           </button>
-          <div *cdkDragPlaceholder class="example-custom-placeholder">
-            <div class="holder"></div>
-          </div>
+
           <mat-icon (click)="remove('Expense', category, categories)"
                     class="deleteIcon"
-            >close</mat-icon
-          >
+            >close</mat-icon>
           <div *ngIf="category" class="infoBox">
             {{ currency }}&nbsp;{{ category.spent_amount || 0 }}
           </div>
@@ -175,16 +182,10 @@
           "
           mat-fab
         >
-          <mat-icon class="iconToOpenDialog">add</mat-icon>
+          <img class="pic" src="../../../assets/img/ic_add_white.svg" alt="">
         </button>
       </div>
     </div>
-    <mat-card>
-      <div>
-        <h1>dwd</h1>
-        <p>alkwdakgwd</p>
-      </div>
-    </mat-card>
   </div>
   <button #transaction style="display: none;" (click)="tryMakeTransaction()"></button>
 </div>

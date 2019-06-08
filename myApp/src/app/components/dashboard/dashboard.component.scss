@@ -54,9 +54,10 @@ mat-grid-list {
 
 .wrapper {
   width: 100%;
-  //box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
   margin: 13px 0;
   background-color: white;
+  border-radius: 10px;
 }
 
 // -----------------------------
@@ -146,10 +147,10 @@ mat-grid-list {
       position: absolute;
 
   .holder{
-    background: #d61850;
-    border: dotted 3px #d61850;
-    height: 50px;
-    width: 50px;
+    background: #E4E4E4;
+    border: dotted 2px #E4E4E4;
+    height: 49px;
+    width: 49px;
     border-radius: 50%;
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
@@ -216,12 +217,11 @@ $size: 56px;
 }
 
 .buttonToOpenDialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: transparent !important;
-  border: 2px solid #b87fb1;
-}
-
-.iconToOpenDialog {
-  color: #b87fb1;
+  border: 1px solid #b87fb1;
 }
 
 .deleteIcon {
@@ -229,11 +229,5 @@ $size: 56px;
   opacity: 0.4;
 }
 
-button span{
-  color: white;
-}
 
-.mat-button-wrapper {
-  color: white!important;
-}
 

@@ -160,7 +160,8 @@ $my-light-theme-background: (
   disabled-button-toggle: black,
   unselected-chip: map_get($mat-grey, 700),
   disabled-list-option: black,
-  icon: black
+  icon: black,
+  button: black
 );
 
 $my-light-theme-foreground: (
@@ -344,7 +345,6 @@ $md-warning: (
 $my-dark-theme-background: (
   status-bar:  map_get($md-violet, 500),
   app-bar:   map_get($md-violet, 500),
-  //background: linear-gradient(#4E4068, #272034),
   background: map_get($md-violet, 500),
   hover:      rgba(white, 0.04),
   card:       map_get($md-violet, 500)!important,
@@ -389,7 +389,7 @@ $my-dark-theme-foreground: (
 }
 
 // Define an alternate dark theme.
-$dark-coinKeeper-primary: mat-palette($md-primary-dark,300, 300, 900);
+$dark-coinKeeper-primary: mat-palette($md-primary-dark,500, 300, 900);
 $dark-coinKeeper-accent:  mat-palette($md-accent-dark, 500, 100, 600);
 $dark-coinKeeper-warning:  mat-palette($md-warning, 500);
 $dark-coinKeeper-theme:   create-wonky-theme($dark-coinKeeper-primary, $dark-coinKeeper-accent, $dark-coinKeeper-warning);

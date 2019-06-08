@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Location} from '@angular/common';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 import {Observable} from "rxjs";
@@ -14,18 +14,13 @@ export class NavigationBottomComponent implements OnInit {
 
   isMobile: Observable<BreakpointState>;
   color = 'accent';
-  otherTheme: boolean = false;
-
-  changeTheme() {
+  whiteTheme = false;
+  @Output() changeTheme: EventEmitter<Boolean> = new EventEmitter();
+  toogleTheme() {
     console.log("toggle")
-    this.otherTheme = !this.otherTheme;
+    this.changeTheme.emit(this.whiteTheme = !this.whiteTheme);
   }
-
-
-
-  constructor(overlayContainer: OverlayContainer, private breakpointObserver: BreakpointObserver, private _location: Location) {
-     this.isMobile = this.breakpointObserver.observe(Breakpoints.Handset);
-     overlayContainer.getContainerElement().classList.add('unicorn-dark-theme');
+  constructor(private _location: Location) {
   }
 
   ngOnInit() {

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" viewBox="0 0 15 15">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="15" height="15" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="ic_add_white" transform="translate(-140.5 -71.5)">
+    <g id="ic_add_white-2" data-name="ic_add_white" transform="translate(140.5 71.5)" clip-path="url(#clip-path)">
+      <path id="ic_add_white-3" data-name="ic_add_white" d="M3438,988h-6v6h-2v-6h-6v-2h6v-6h2v6h6Z" transform="translate(-3423.5 -979.5)" fill="none" stroke="#ba56b4" stroke-width="1"/>
+    </g>
+  </g>
+</svg>
