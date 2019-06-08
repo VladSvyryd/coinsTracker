@@ -6,13 +6,14 @@ import {OnlyLoggedInUsersGuard} from "./services/onlyLoggedInUsers.guard";
 import {UpsComponent} from "./components/ups/ups.component";
 import {PieChartComponent} from './components/pie-chart/pie-chart.component';
 import {TesterComponent} from './tester/tester.component';
-
+import {LineChartComponent} from "./components/line-chart/line-chart.component";
 
 
 const routes: Routes = [
   { path: '', component: ValidationComponent},
   { path: 'dashboard', component: DashboardComponent,  canActivate: [OnlyLoggedInUsersGuard]},
   { path: 'pie-chart', component: PieChartComponent,  canActivate: [OnlyLoggedInUsersGuard]},
+  { path: 'line-chart', component: LineChartComponent,  canActivate: [OnlyLoggedInUsersGuard]},
   { path: 'validation', component: ValidationComponent},
   { path: 'tester', component: TesterComponent},
   { path: 'ups', component: UpsComponent}
