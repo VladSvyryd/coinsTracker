@@ -1,12 +1,38 @@
-<div style="display: block;">
-  <h3>Expenses {{expenses}}</h3>
-  <canvas baseChart
-    [data]="pieChartData"
-    [labels]="pieChartLabels"
-    [chartType]="pieChartType"
-    [options]="pieChartOptions"
-    [plugins]="pieChartPlugins"
-          [colors]="chartColors()"
-    [legend]="pieChartLegend">
-  </canvas>
-</div>
+<mat-tab-group>
+  <mat-tab label="Account balance"></mat-tab>
+
+
+
+  <mat-tab label="Expenses">
+    <div style="display: block;">
+    <h3>Expenses {{expenses}}</h3>
+    <canvas baseChart
+      [data]="pieChartData"
+      [labels]="pieChartLabels"
+      [chartType]="pieChartType"
+      [options]="pieChartOptions"
+      [plugins]="pieChartPlugins"
+            [colors]="chartColors()"
+      [legend]="pieChartLegend"
+            (chartClick)="chartClicked($event)"
+    >
+    </canvas>
+
+      <div class="flex-item">
+      <table class="table table-responsive table-condensed" >
+         <tr>
+          <th ></th>
+        </tr>
+        <tr *ngFor="let spending of spendingsData">
+          <th >{{spending}}</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+  </mat-tab>
+
+
+  <mat-tab label="Incomes"> Content 3 </mat-tab>
+</mat-tab-group>
+
+

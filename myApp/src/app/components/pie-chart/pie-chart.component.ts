@@ -4,6 +4,7 @@ import {SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsToolti
 import {Observable} from "rxjs";
 import {Expense} from "../../models/expense";
 import {DashboardService} from "../../services/dashboard.service";
+import {Spending} from "../../models/spending";
 
 @Component({
   selector: 'app-pie-chart',
@@ -12,6 +13,8 @@ import {DashboardService} from "../../services/dashboard.service";
 })
 export class PieChartComponent implements OnInit {
   private categories$: Observable<Expense[]>;
+  private spending$: Observable<Spending[]>;
+
 
 
   // Pie
@@ -20,19 +23,13 @@ export class PieChartComponent implements OnInit {
   };
   public pieChartLabels: Label;
   public pieChartData: SingleDataSet;
-  colors2: Color[] = [{
-    backgroundColor:['green', 'blue', 'red', 'white'],
-    borderColor: 'rgba(225,10,24,0.2)',
-    pointBackgroundColor: 'rgba(225,10,24,0.2)',
-    pointBorderColor: '#fff',
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgba(225,255,24,0.2)'}
-  ];
+
   colors: Color[] = [{backgroundColor: ['green', 'blue', 'red', 'white'],borderColor: 'rgba(4,10,24,.4)'}];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartPlugins = [];
-  public expenses = 0;
+  public expenses = 0;  // variable to store expenses for all categories
+  public spendingsData = [];
 
   constructor(private dashboardService: DashboardService) {
     monkeyPatchChartJsTooltip();
@@ -68,6 +65,40 @@ chartColors(){
    this.pieChartData = categorySpendings;
 
 
+
+   // get information about spendings
+    let spendingInfo = {}, spendingArray = []
+    this.spending$ = this.dashboardService.getAll('spending');
+    this.spending$.forEach(spendings => {
+      spendings.forEach(spending => {
+        spendingArray.push(spending.amount);
+      });
+
+      console.log(spendingArray);
+
+    });
+
+    this.spendingsData = spendingArray;
+
   }
+
+  getSingleDataSetInfo() {
+    console.log("info");
+  }
+
+  public chartClicked(e: any): void {
+    if (e.active.length > 0) {
+    const chart = e.active[0]._chart;
+    const activePoints = chart.getElementAtEvent(e.event);
+    if ( activePoints.length > 0) {
+    // get the internal index of slice in pie chart
+    const clickedElementIndex = activePoints[0]._index;
+    const label = chart.data.labels[clickedElementIndex];
+    // get value by index
+    const value = chart.data.datasets[0].data[clickedElementIndex];
+    console.log(clickedElementIndex, label, value)
+  }
+ }
+}
 }
 
