@@ -362,11 +362,13 @@ def delete_account(current_user, account_id):
     return jsonify({'server_message': 'The account has been deleted!'})
 
 
+ # ********** Spendings *********
+
 @app.route('/spending', methods=['GET'])
 @token_required
 def get_all_spendings(current_user):
     spendings = Spendings.query.filter_by(user_id=current_user.public_id).all()
-    print(spendings)
+   # print(spendings)
     output = []
     for spending in spendings:
         spending_list = {}
@@ -375,6 +377,21 @@ def get_all_spendings(current_user):
         spending_list['amount'] = spending.amount
         spending_list['expense'] = spending.expense_id
         output.append(spending_list)
+    return jsonify(output)
+
+
+@app.route('/spending/<expense_id>', methods=['GET'])
+# this is a decorator to make this route opened to authenticated users with token
+@token_required
+def get_spending_by_expense_id(current_user, expense_id):
+    # check if the user that asks a request is as Admin: true  in DB
+    spendings = Spendings.query.filter_by(user_id=current_user.public_id).filter_by(expense_id=expense_id).all()
+    if not spendings:
+        return jsonify({'server_message': 'No such spending found'})
+    output = []
+    for spending in spendings:
+        spending_output = dict(amount=spending.amount, date=spending.date, description=spending.description)
+        output.append(spending_output)
     return jsonify(output)
 
 

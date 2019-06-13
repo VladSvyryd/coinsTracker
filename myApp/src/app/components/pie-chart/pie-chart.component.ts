@@ -32,6 +32,7 @@ export class PieChartComponent implements OnInit {
   public spendingsData = [];
   public valueSingleCat;
   public nameSingleCat;
+  public categoryIds;
 
   constructor(private dashboardService: DashboardService) {
     monkeyPatchChartJsTooltip();
@@ -45,63 +46,61 @@ chartColors(){
     let categoryNames = [];
     let categorySpendings = [];
     let expensesSum = 0;
+    let categoryIds = [];
     this.categories$ = this.dashboardService.getAll('expense');
     this.categories$.forEach(categories => {
       categories.forEach( category => {
         categoryNames.push(category.name);
         categorySpendings.push(category.spent_amount);
+        categoryIds.push(category.id);
 
         expensesSum = expensesSum + category.spent_amount;
-            console.log("2", expensesSum);
-
       });
-      console.log(categories[0].name);
-      console.log(categories);
-      console.log(expensesSum);
       this.expenses = expensesSum;
+      console.log(categoryIds, categoryNames);
     });
-
 
    this.pieChartLabels = categoryNames;
    this.pieChartData = categorySpendings;
+   this.categoryIds = categoryIds;
+
+  }
 
 
-
-   // get information about spendings
-    let spendingInfo = {}, spendingArray = []
-    this.spending$ = this.dashboardService.getAll('spending');
-    this.spending$.forEach(spendings => {
-      spendings.forEach(spending => {
-        spendingArray.push(spending.amount);
-      });
-
-      console.log(spendingArray);
-
+  // get information about spendings
+  getSpendingsFromChartClick(id:number) {
+    let spendingArray = [];
+    this.spending$ = this.dashboardService.getSpendingByCategory(id);
+    this.spending$.forEach(spendings1 => {
+      for(let i in spendings1){
+        console.log(spendings1[i]);
+      }
     });
 
     this.spendingsData = spendingArray;
   }
 
-  getSingleDataSetInfo() {
-    console.log("info");
-  }
-
   public chartClicked(e: any): void {
     if (e.active.length > 0) {
-    const chart = e.active[0]._chart;
-    const activePoints = chart.getElementAtEvent(e.event);
-    if ( activePoints.length > 0) {
-    // get the internal index of slice in pie chart
-    const clickedElementIndex = activePoints[0]._index;
-    const label = chart.data.labels[clickedElementIndex];
-    // get value by index
-    const value = chart.data.datasets[0].data[clickedElementIndex];
-    console.log("value", value);
-    this.valueSingleCat = value;
-    this.nameSingleCat = label;
-    console.log(clickedElementIndex, label, value)
+      const chart = e.active[0]._chart;
+      const activePoints = chart.getElementAtEvent(e.event);
+      if ( activePoints.length > 0) {
+        // get the internal index of slice in pie chart
+        const clickedElementIndex = activePoints[0]._index;
+        const label = chart.data.labels[clickedElementIndex];
+        // get value by index
+        const value = chart.data.datasets[0].data[clickedElementIndex];
+        //console.log("value", value);
+        this.valueSingleCat = value;
+        this.nameSingleCat = label;
+        console.log(clickedElementIndex, label, value);
+        console.log(this.categoryIds[clickedElementIndex]);
+
+        this.getSpendingsFromChartClick(this.categoryIds[clickedElementIndex])
+      }
+    }
   }
- }
-}
+
+
 }
 

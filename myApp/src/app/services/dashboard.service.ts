@@ -27,6 +27,10 @@ export class DashboardService {
     return this.httpClient.get<number>(this.server_path + "/" + path + '_sum');
   }
 
+  getSpendingByCategory(id:number):Observable<any[]>  {
+    return this.httpClient.get<any[]>(this.server_path+"/spending/" + id);
+  }
+
 
 //*****************ACCOUNTS**********************/
 
@@ -84,7 +88,7 @@ export class DashboardService {
   }
 
   deleteCategory(category:Expense) {
-    this.httpClient.delete(this.server_path+"/category/"+ category.id).pipe(
+    this.httpClient.delete(this.server_path+"/expense/"+ category.id).pipe(
       catchError(this.handleError)
     ).subscribe();
   }
