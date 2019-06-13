@@ -491,7 +491,7 @@ def upgrade_expense(current_user, expense_id):
 
 
 def make_transaction(account_id, amount, expense_id):
-    print(account_id,amount,expense_id)
+
     expense = Expenses.query.filter_by(id=expense_id).first()
     expense.spent_amount += amount
     account = Accounts.query.filter_by(id=account_id).first()
@@ -530,11 +530,16 @@ def transaction_inc_acc(current_user):
 
     data = request.get_json()
     print(data)
-   # acc = Accounts.query.filter_by(user_id=current_user.public_id).filter_by(id=data).first()
-   # if not expense:
-    #    return jsonify({'server_message': 'No such expense found'})
+    acc = Accounts.query.filter_by(user_id=current_user.public_id).filter_by(id=data['acc']["id"]).first()
+    if not acc:
+        return jsonify({'server_message': 'No such Account found'})
+    inc = Incomes.query.filter_by(user_id=current_user.public_id).filter_by(id=data['inc']["id"]).first()
+    if not inc:
+        return jsonify({'server_message': 'No such Income found'})
 
-    # db.session.commit()
+    inc.amount -= data["transaction_amount"]
+    acc.amount += data["transaction_amount"]
+    db.session.commit()
     return jsonify({'server_message': 'This expense has been changed'})
 
 

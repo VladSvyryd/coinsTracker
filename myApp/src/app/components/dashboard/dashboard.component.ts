@@ -69,6 +69,8 @@ export class DashboardComponent implements OnInit {
   }
 
   detectCollision(e) {
+    // set draggable z index to 9999 with css , to see it always over ui items
+    this.setDraggableRef_z_Index(e.event);
     // html element, to get colliderBox
     let draggableElementRef = e.event.target;
     // cdk object to interact with its data
@@ -91,7 +93,18 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  private setDraggableRef_z_Index(event: any) {
+       // console.log(event.path[0].tagName , event.path[1].tagName);
+        if(event.path[0].nodeName  == "BUTTON"){
+          event.path[0].classList.add("z_Index_dragged");
+        }else if (event.path[1].tagName == "BUTTON"){
+          event.path[1].classList.add("z_Index_dragged");
+        }
+  }
+
   private tryMakeTransaction() {
+
+    // open dialog  window to make transaction
     const dialogRef = this.dialog.open(TransactionDialogComponent, {
       width: '400px',
       data: {
@@ -103,8 +116,8 @@ export class DashboardComponent implements OnInit {
       console.log(result);
       if (result != undefined) {
         this.transitionBegin(
-          this.last_transaction.cdkDrag,
-          this.last_transaction.cdkDrop,
+          this.last_transaction.cdkDrag.data,
+          this.last_transaction.cdkDrop.data,
           parseInt(result.amount)
         );
       }
@@ -143,10 +156,12 @@ export class DashboardComponent implements OnInit {
           cdkDrag,
           cdkDrop,
         };
+        // small hack to open Dialog window to make a transaction
         this.bs.nativeElement.click();
       }
     });
     e.source.reset();
+    draggableElementRef.classList.remove("z_Index_dragged");
     // this.changeState();
   }
 
@@ -175,13 +190,13 @@ export class DashboardComponent implements OnInit {
   }
 
   transitionBegin(fromData, toData, amount) {
-    console.log(fromData, toData);
+    console.log(fromData, toData, amount);
     if(this.last_transaction.type_of_transaction !=="inc_acc"){
     let newSpending: Spending = {
       description: '',
       amount: amount,
-      account_id: fromData.data.id,
-      expense_id: toData.data.id
+      account_id: fromData.id,
+      expense_id: toData.id
     };
 
     this.dashboardService.createSpending(newSpending).subscribe((res: any) => {
@@ -190,7 +205,9 @@ export class DashboardComponent implements OnInit {
       this.itterate();
     });
     }else{
-      this.dashboardService.transaction_Inc_to_Acc(fromData,toData).subscribe();
+      this.dashboardService.transaction_Inc_to_Acc(fromData,toData,amount).subscribe();
+      this.sharedService.emitChange('income');
+      this.sharedService.emitChange('account');
     }
 
   }
