@@ -30,6 +30,8 @@ export class PieChartComponent implements OnInit {
   public pieChartPlugins = [];
   public expenses = 0;  // variable to store expenses for all categories
   public spendingsData = [];
+  public valueSingleCat;
+  public nameSingleCat;
 
   constructor(private dashboardService: DashboardService) {
     monkeyPatchChartJsTooltip();
@@ -48,7 +50,6 @@ chartColors(){
       categories.forEach( category => {
         categoryNames.push(category.name);
         categorySpendings.push(category.spent_amount);
-            console.log("1", category.spent_amount);
 
         expensesSum = expensesSum + category.spent_amount;
             console.log("2", expensesSum);
@@ -79,7 +80,6 @@ chartColors(){
     });
 
     this.spendingsData = spendingArray;
-
   }
 
   getSingleDataSetInfo() {
@@ -96,6 +96,9 @@ chartColors(){
     const label = chart.data.labels[clickedElementIndex];
     // get value by index
     const value = chart.data.datasets[0].data[clickedElementIndex];
+    console.log("value", value);
+    this.valueSingleCat = value;
+    this.nameSingleCat = label;
     console.log(clickedElementIndex, label, value)
   }
  }
