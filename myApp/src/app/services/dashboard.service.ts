@@ -96,8 +96,12 @@ export class DashboardService {
     )
   }
 
-  transaction_Inc_to_Acc(inc:Income, acc:Account) {
-    let transactionData = {inc: inc,acc: acc}
+  transaction_Inc_to_Acc(inc:Income, acc:Account,transaction_amount) {
+    let {id,amount}: Income = inc;
+    let destructedInc = {id,amount};
+    let destructedAcc = {id: acc.id, amount:acc.amount}
+
+    let transactionData = {inc: destructedInc,acc: destructedAcc,transaction_amount:transaction_amount};
     console.log(transactionData)
       return this.httpClient.put(this.server_path+"/inc_to_acc", transactionData).pipe(
       catchError(this.handleError)

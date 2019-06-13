@@ -26,10 +26,7 @@
             cdkDragBoundary=".mainA"
             class="inc"
             id="{{ income.id }}"
-            (click)="
-              $event.stopPropagation();
-              openDialogToEditOld({ title: 'Income', item: income })
-            "
+
           >
             <!-- (click)="openDialogToEditOld({ title: 'Income', item: income })"-->
             {{ income.name }}
