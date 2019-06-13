@@ -113,6 +113,9 @@ mat-grid-list {
         transform: translateX(-50%);
         color: $dark-violet;
       }
+      .deleteIcon{
+        cursor: pointer;
+      }
       mat-icon{
         position: absolute!important;
         top: -10px;
@@ -223,11 +226,5 @@ $size: 56px;
   background-color: transparent !important;
   border: 1px solid #b87fb1;
 }
-
-.deleteIcon {
-  color: #4E4068;
-  opacity: 0.4;
-}
-
 
 

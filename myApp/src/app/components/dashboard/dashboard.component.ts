@@ -145,12 +145,13 @@ export class DashboardComponent implements OnInit {
     }
     list.forEach(cdkDrop => {
       let droppableElementRef = cdkDrop.getRootElement();
-      // collision detection goes through all accounts, and could be done on the same element, fixed bug
+      // collision detection goes through all accounts, and could be done on the same element, bug fixed
       if (
         this.isCollide(draggableElementRef, droppableElementRef) &&
         droppableElementRef.id !== draggableElementRef.id
       ) {
-        console.log('MakeTransaktion');
+        if (draggableElementRef.classList.contains("acc") && droppableElementRef.classList.contains("acc")) type_of_transaction = "acc_acc";
+        console.log(type_of_transaction);
         this.last_transaction = {
           type_of_transaction: type_of_transaction,
           cdkDrag,
@@ -191,7 +192,7 @@ export class DashboardComponent implements OnInit {
 
   transitionBegin(fromData, toData, amount) {
     console.log(fromData, toData, amount);
-    if(this.last_transaction.type_of_transaction !=="inc_acc"){
+    if(this.last_transaction.type_of_transaction =="acc_exp"){
     let newSpending: Spending = {
       description: '',
       amount: amount,
@@ -204,10 +205,20 @@ export class DashboardComponent implements OnInit {
       this.sharedService.emitChange('account');
       this.itterate();
     });
-    }else{
-      this.dashboardService.transaction_Inc_to_Acc(fromData,toData,amount).subscribe();
-      this.sharedService.emitChange('income');
-      this.sharedService.emitChange('account');
+    }else if(this.last_transaction.type_of_transaction =="inc_acc"){
+      this.dashboardService.transaction_Inc_to_Acc(fromData,toData,amount).subscribe(
+        (res)=>{
+           this.sharedService.emitChange('income');
+           this.sharedService.emitChange('account');
+        }
+      );
+    }
+    else if(this.last_transaction.type_of_transaction =="acc_acc"){
+      this.dashboardService.transaction_Acc_to_Acc(fromData,toData,amount).subscribe(
+        (res)=>{
+           this.sharedService.emitChange('account');
+        }
+      );
     }
 
   }
@@ -280,7 +291,7 @@ export class DashboardComponent implements OnInit {
       } else if (type === 'Spending') {
         //this.dashboardService.deleteSpending(item);
       } else if (type === 'Expense') {
-        this.dashboardService.deleteCategory(item);
+        this.dashboardService.deleteExpense(item);
       }
     }
   }

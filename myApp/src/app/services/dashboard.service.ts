@@ -6,6 +6,7 @@ import {catchError} from "rxjs/operators";
 import {Income} from "../models/income";
 import {Expense} from "../models/expense";
 import {Spending} from '../models/spending';
+import {User} from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +26,6 @@ export class DashboardService {
 
   getSum(path:string): Observable<number>{
     return this.httpClient.get<number>(this.server_path + "/" + path + '_sum');
-  }
-
-  getSpendingByCategory(id:number):Observable<any[]>  {
-    return this.httpClient.get<any[]>(this.server_path+"/spending/" + id);
   }
 
 
@@ -87,7 +84,7 @@ export class DashboardService {
     )
   }
 
-  deleteCategory(category:Expense) {
+  deleteExpense(category:Expense) {
     this.httpClient.delete(this.server_path+"/expense/"+ category.id).pipe(
       catchError(this.handleError)
     ).subscribe();
@@ -104,14 +101,18 @@ export class DashboardService {
     let {id,amount}: Income = inc;
     let destructedInc = {id,amount};
     let destructedAcc = {id: acc.id, amount:acc.amount}
-
     let transactionData = {inc: destructedInc,acc: destructedAcc,transaction_amount:transaction_amount};
     console.log(transactionData)
       return this.httpClient.put(this.server_path+"/inc_to_acc", transactionData).pipe(
       catchError(this.handleError)
     )
   }
-
+  transaction_Acc_to_Acc(accFrom:Account, accTo: Account,transaction_amount){
+    let transactionData = {accIdFrom: accFrom.id, accIdTo:accTo.id, transaction_amount}
+      return this.httpClient.put(this.server_path+"/acc_to_acc", transactionData).pipe(
+      catchError(this.handleError)
+    )
+  }
 
 
 

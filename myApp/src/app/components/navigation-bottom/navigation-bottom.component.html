@@ -3,7 +3,8 @@
     <mat-toolbar-row class= "navigationButtons">
         <mat-slide-toggle
           [color]="color"
-          (click)="toogleTheme()"
+          (change)="toogleTheme(true)"
+          [checked]="!whiteTheme"
         >
         </mat-slide-toggle>
       <span class="spacer"></span>

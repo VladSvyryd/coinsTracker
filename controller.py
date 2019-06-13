@@ -362,13 +362,11 @@ def delete_account(current_user, account_id):
     return jsonify({'server_message': 'The account has been deleted!'})
 
 
- # ********** Spendings *********
-
 @app.route('/spending', methods=['GET'])
 @token_required
 def get_all_spendings(current_user):
     spendings = Spendings.query.filter_by(user_id=current_user.public_id).all()
-   # print(spendings)
+
     output = []
     for spending in spendings:
         spending_list = {}
@@ -377,21 +375,6 @@ def get_all_spendings(current_user):
         spending_list['amount'] = spending.amount
         spending_list['expense'] = spending.expense_id
         output.append(spending_list)
-    return jsonify(output)
-
-
-@app.route('/spending/<expense_id>', methods=['GET'])
-# this is a decorator to make this route opened to authenticated users with token
-@token_required
-def get_spending_by_expense_id(current_user, expense_id):
-    # check if the user that asks a request is as Admin: true  in DB
-    spendings = Spendings.query.filter_by(user_id=current_user.public_id).filter_by(expense_id=expense_id).all()
-    if not spendings:
-        return jsonify({'server_message': 'No such spending found'})
-    output = []
-    for spending in spendings:
-        spending_output = dict(amount=spending.amount, date=spending.date, description=spending.description)
-        output.append(spending_output)
     return jsonify(output)
 
 
@@ -557,7 +540,28 @@ def transaction_inc_acc(current_user):
     inc.amount -= data["transaction_amount"]
     acc.amount += data["transaction_amount"]
     db.session.commit()
-    return jsonify({'server_message': 'This expense has been changed'})
+    return jsonify({'server_message': 'This transaction_inc_acc has been committed'})\
+
+
+
+@app.route('/acc_to_acc', methods=['PUT'])
+# this is a decorator to make this route opened to authenticated users with token
+@token_required
+def transaction_acc_acc(current_user):
+
+    data = request.get_json()
+    print(data)
+    acc1 = Accounts.query.filter_by(user_id=current_user.public_id).filter_by(id=data['accIdFrom']).first()
+    if not acc1:
+        return jsonify({'server_message': 'No such Account1 found'})
+    acc2 = Accounts.query.filter_by(user_id=current_user.public_id).filter_by(id=data['accIdTo']).first()
+    if not acc2:
+        return jsonify({'server_message': 'No such Account2 found'})
+
+    acc1.amount -= data["transaction_amount"]
+    acc2.amount -= data["transaction_amount"]
+    db.session.commit()
+    return jsonify({'server_message': 'This transaction_acc_acc has been committed'})
 
 
 if __name__ == '__main__':
