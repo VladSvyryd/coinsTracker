@@ -3,6 +3,11 @@ import {HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/c
 import {throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
 import * as jwt_decode from 'jwt-decode';
+
+
+
+
+import {User} from "../models/user";
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +32,10 @@ export class AuthServiceService {
     this.httpClient.get(this.server_path + "/login", httpOptions).subscribe(data => {
       this.token = data as Object;
       this.saveToken(this.token)
+      if(this.getUserFromLocalStorage() === null){
+      let newUser:User = {email:email, dark_theme: false}
+          this.setNewUser(newUser);
+      }
     });
 
 
@@ -94,11 +103,13 @@ export class AuthServiceService {
       'Something bad happened; please try again later.');
   };
 
+ setNewUser(user:User){
+   console.log("cur_user", user);
+   localStorage.setItem("userProfile", JSON.stringify(user))
+  }
+  getUserFromLocalStorage(){
+    return localStorage.getItem("userProfile");
+  }
+
 }
-
-
-
-
-
-import {User} from "../models/user";
 

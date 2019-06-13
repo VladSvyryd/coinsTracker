@@ -6,6 +6,7 @@ import {catchError} from "rxjs/operators";
 import {Income} from "../models/income";
 import {Expense} from "../models/expense";
 import {Spending} from '../models/spending';
+import {User} from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -112,7 +113,6 @@ export class DashboardService {
       catchError(this.handleError)
     )
   }
-
 
 
 
