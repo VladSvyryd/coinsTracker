@@ -83,8 +83,8 @@ export class DashboardService {
     )
   }
 
-  deleteCategory(category:Expense) {
-    this.httpClient.delete(this.server_path+"/category/"+ category.id).pipe(
+  deleteExpense(category:Expense) {
+    this.httpClient.delete(this.server_path+"/expense/"+ category.id).pipe(
       catchError(this.handleError)
     ).subscribe();
   }
@@ -100,10 +100,15 @@ export class DashboardService {
     let {id,amount}: Income = inc;
     let destructedInc = {id,amount};
     let destructedAcc = {id: acc.id, amount:acc.amount}
-
     let transactionData = {inc: destructedInc,acc: destructedAcc,transaction_amount:transaction_amount};
     console.log(transactionData)
       return this.httpClient.put(this.server_path+"/inc_to_acc", transactionData).pipe(
+      catchError(this.handleError)
+    )
+  }
+  transaction_Acc_to_Acc(accFrom:Account, accTo: Account,transaction_amount){
+    let transactionData = {accIdFrom: accFrom.id, accIdTo:accTo.id, transaction_amount}
+      return this.httpClient.put(this.server_path+"/acc_to_acc", transactionData).pipe(
       catchError(this.handleError)
     )
   }
