@@ -574,7 +574,7 @@ def transaction_acc_acc(current_user):
         return jsonify({'server_message': 'No such Account2 found'})
 
     acc1.amount -= data["transaction_amount"]
-    acc2.amount -= data["transaction_amount"]
+    acc2.amount += data["transaction_amount"]
     db.session.commit()
     return jsonify({'server_message': 'This transaction_acc_acc has been committed'})
 

@@ -233,7 +233,6 @@ export class DashboardComponent implements OnInit {
     else if(this.last_transaction.type_of_transaction =="acc_acc"){
       this.dashboardService.transaction_Acc_to_Acc(fromData,toData,amount).subscribe(
         (res)=>{
-           this.sharedService.emitChange('account');
         }
       );
     }
