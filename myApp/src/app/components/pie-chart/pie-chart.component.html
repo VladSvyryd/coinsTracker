@@ -19,14 +19,17 @@
     </canvas>
 
       <div class="flex-item">
-      <table class="table table-responsive table-condensed" >
+      <table class="table table-responsive table-condensed" *ngIf="spending$ | async as spendings">
         <h3>{{nameSingleCat}}</h3>
-         <tr>
-          <th></th>
+        <tr >
+          <th >Expenses</th>
+          <th >Date</th>
+          <th >Description</th>
         </tr>
-        expenses
-        <tr>
-          <th >{{valueSingleCat}} €</th>
+        <tr *ngFor="let s of spendings">
+          <th >{{s.amount}} €</th>
+          <th >{{s.date}} </th>
+          <th >{{s.description}} </th>
         </tr>
       </table>
     </div>
