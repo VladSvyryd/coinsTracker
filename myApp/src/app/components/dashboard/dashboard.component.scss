@@ -114,12 +114,16 @@ mat-grid-list {
         color: $dark-violet;
       }
       .deleteIcon{
-        cursor: pointer;
+         top: -10px;
+        right: -5px;
+      }
+      .infoIcon{
+        top: -10px;
+        left: -5px;
       }
       mat-icon{
         position: absolute!important;
-        top: -10px;
-        right: 0px;
+        cursor: pointer;
         font-size: 16px;
         height: 16px;
         width: 16px;
@@ -127,8 +131,6 @@ mat-grid-list {
     }
   }
 }
-
-
 
 .cdk-drag-placeholder {
   opacity: 1;

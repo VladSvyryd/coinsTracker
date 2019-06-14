@@ -33,11 +33,10 @@ body,html {
   }
 
   .deleteIcon {
-    color: white!important;
     opacity: 0.3;
   }
 
-  .goBack {
+  mat-icon{
     color: white!important;
     opacity: 0.7;
   }
@@ -51,10 +50,6 @@ body,html {
     box-shadow: none!important;
   }
 
-  .menuIcon {
-    color: white!important;
-    opacity: 0.7;
-  }
 
   .floating-btn {
     background-color: transparent!important;
@@ -75,4 +70,11 @@ body,html {
 
 .z_Index_dragged{
   z-index: 99999;
+}
+
+.edit_mode{
+  display: none!important;
+  &.on{
+    display: initial!important;
+  }
 }

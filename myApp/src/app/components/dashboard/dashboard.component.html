@@ -18,15 +18,15 @@
             mat-fab
             color="primary"
             [cdkDragData]="income"
-            (cdkDragMoved)="detectCollision($event)"
-            (cdkDragReleased)="makeTransaction_ResetPosition($event, inc)"
+            (cdkDragMoved)="preventClickEvent($event); detectCollision($event)"
+            (cdkDragReleased)=" makeTransaction_ResetPosition($event, inc)"
             cdkDrag
             #inc
             [@fadeIn]="bounce"
             cdkDragBoundary=".mainA"
             class="inc"
             id="{{ income.id }}"
-
+            (click)="openDialogToEditOld({ title: 'Income', item: income })"
           >
             <!-- (click)="openDialogToEditOld({ title: 'Income', item: income })"-->
             {{ income.name }}
@@ -34,12 +34,15 @@
 
 
           </button>
-           <mat-icon (click)="remove('Income', income, incomes)"
-                      class="deleteIcon"
-              >close</mat-icon>
+          <mat-icon (click)="remove('Income', income, incomes)"
+                    class="deleteIcon edit_mode"
+          >close</mat-icon>
+          <mat-icon (click)="openDialogToEditOld({ title: 'Income', item: income })"
+                    class="infoIcon edit_mode"
+          >info_outline</mat-icon>
           <div class="infoBox">
-              {{ currency }}&nbsp;{{ income.amount || 0 }}
-            </div>
+            {{ currency }}&nbsp;{{ income.amount || 0 }}
+          </div>
         </div>
       </div>
       <div class="buttonHolder">
@@ -59,7 +62,7 @@
           [disabled]="incomes.length > 3"
           mat-fab
         >
-                   <img class="pic" src="../../../assets/img/ic_add_white.svg" alt="">
+          <img class="pic" src="../../../assets/img/ic_add_white.svg" alt="">
 
         </button>
       </div>
@@ -96,9 +99,11 @@
           </button>
 
           <mat-icon (click)="remove('Account', account, accounts)"
-                    class="deleteIcon"
-            >close</mat-icon
-          >
+                    class="deleteIcon edit_mode"
+          >close</mat-icon>
+          <mat-icon (click)="openDialogToEditOld({ title: 'Account', item: account })"
+                    class="infoIcon edit_mode"
+          >info_outline</mat-icon>
           <div class="infoBox">
             {{ currency }}&nbsp;{{ account.amount || 0 }}
           </div>
@@ -106,7 +111,7 @@
       </div>
       <div class="buttonHolder">
         <button
-           class="buttonToOpenDialog"
+          class="buttonToOpenDialog"
           (click)="
             openDialogToAddNew(
               'Account',
@@ -122,7 +127,7 @@
           [disabled]="accounts.length > 3"
           mat-fab
         >
-                   <img class="pic" src="../../../assets/img/ic_add_white.svg" alt="">
+          <img class="pic" src="../../../assets/img/ic_add_white.svg" alt="">
 
         </button>
       </div>
@@ -138,7 +143,7 @@
     <div *ngIf="categories$ | async as categories" class="grid">
       <div class="list">
         <div class="box" *ngFor="let category of categories">
-           <div  class="example-custom-placeholder">
+          <div  class="example-custom-placeholder">
             <div class="holder"></div>
           </div>
           <button
@@ -156,8 +161,9 @@
           </button>
 
           <mat-icon (click)="remove('Expense', category, categories)"
-                    class="deleteIcon"
-            >close</mat-icon>
+                    class="deleteIcon edit_mode"
+          >close</mat-icon>
+
           <div *ngIf="category" class="infoBox">
             {{ currency }}&nbsp;{{ category.spent_amount || 0 }}
           </div>
@@ -165,7 +171,7 @@
       </div>
       <div class="buttonHolder">
         <button
-           class="buttonToOpenDialog"
+          class="buttonToOpenDialog"
           (click)="
             openDialogToAddNew(
               'Expense',

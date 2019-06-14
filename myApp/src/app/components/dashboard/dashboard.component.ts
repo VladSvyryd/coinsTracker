@@ -1,4 +1,4 @@
-import {Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {DashboardService} from '../../services/dashboard.service';
 import {Account} from '../../models/account';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit {
   @ViewChildren('cat', {read: CdkDrag}) cdkCatChildren: QueryList<CdkDrag>;
   @ViewChild('transaction') bs;
   private last_transaction;
+  private editModeActive = false;
 
   constructor(
     private dashboardService: DashboardService,
@@ -51,6 +52,22 @@ export class DashboardComponent implements OnInit {
     private sharedService: SharedService,
     private breakpointObserver: BreakpointObserver
   ) {
+     this.sharedService.editEmitted$.subscribe(sum => {
+        this.editModeToggle();
+     });
+  }
+
+  editModeToggle() {
+    console.log("toggle");
+    this.editModeActive = !this.editModeActive;
+    console.log(this.editModeActive);
+    let edit_mode_element_ref = document.querySelectorAll(".edit_mode");
+    edit_mode_element_ref.forEach((item)=>{
+      item.classList.toggle("on");
+      console.log(item);
+      }
+
+    )
   }
 
   ngOnInit() {
@@ -124,7 +141,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  makeTransaction_ResetPosition(e, dragRef) {
+  makeTransaction_ResetPosition(e, dragRef){
     // html button
     let draggableElementRef = e.source.getRootElement();
     // cdkDrag object with data in it
@@ -312,6 +329,9 @@ export class DashboardComponent implements OnInit {
     this.accounts$.forEach(item=>console.log(item))
   }
 
+  showExpensInfo(){
+
+  }
 }
 
 // :TODO - Update on frontEnd Income,Account,Expenses
