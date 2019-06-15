@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartType, ChartOptions } from 'chart.js';
+import {ChartType, ChartOptions, ChartDataSets} from 'chart.js';
 import {SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Color} from 'ng2-charts';
 import {Observable} from "rxjs";
 import {Expense} from "../../models/expense";
 import {DashboardService} from "../../services/dashboard.service";
 import {Spending} from "../../models/spending";
+import {Account} from "../../models/account";
 
 @Component({
   selector: 'app-pie-chart',
@@ -14,10 +15,50 @@ import {Spending} from "../../models/spending";
 export class PieChartComponent implements OnInit {
   private categories$: Observable<Expense[]>;
   private spending$: Observable<Spending[]>;
+  private allSpending$: Observable<Spending[]>;
+  private accounts$: Observable<Account[]>;
+
+  //line chart
+  public lineChartData: ChartDataSets[] = [
+    { data: [], label: '' },
+  ];
+
+  public lineChartLabels: Label[] = [];
+  public lineChartOptions: (ChartOptions & { annotation: any }) = {
+    responsive: true,
+    scales: {
+      // We use this empty structure as a placeholder for dynamic theming.
+      xAxes: [{
+        gridLines: { color: 'rgba(255,255,255,0.1)' }
+      }],
+      yAxes: [
+        {
+          id: 'y-axis-0',
+          position: 'left',
+        },
+      ]
+    },
+    annotation: {
+
+    },
+  };
+  public lineChartColors: Color[] = [
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+  ];
+  public lineChartLegend = true;
+  public lineChartType = 'line';
+
+  public allSpendingsData;
 
 
-
-  // Pie
+  // Pie chart
   public pieChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -34,6 +75,7 @@ export class PieChartComponent implements OnInit {
   public nameSingleCat;
   public categoryIds;
 
+
   constructor(private dashboardService: DashboardService) {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
@@ -43,6 +85,20 @@ chartColors(){
 }
   ngOnInit() {
     // display data in pie chart
+
+   this.accounts$ = this.dashboardService.getAll('account');
+   this.accounts$.forEach(accounts =>{
+     accounts.forEach(account => {
+       console.log("account", account.amount);
+     })
+    });
+
+
+   this.getCategoryInfo();
+   this.getAllSpendings();
+  }
+
+  getCategoryInfo(){
     let categoryNames = [];
     let categorySpendings = [];
     let expensesSum = 0;
@@ -63,17 +119,35 @@ chartColors(){
    this.pieChartLabels = categoryNames;
    this.pieChartData = categorySpendings;
    this.categoryIds = categoryIds;
+  }
+
+  //get all spending to show in account balance
+  getAllSpendings(){
+    let allSpendingsAmount = [];
+    let allSpendingDate = [];
+    this.allSpending$ = this.dashboardService.getAll('spending');
+    this.allSpending$.forEach(spendingsAll => {
+      for(let i in spendingsAll){
+
+        allSpendingsAmount.push(spendingsAll[i].amount);
+        allSpendingDate.push(spendingsAll[i].date);
+      }
+    });
+
+    this.lineChartData[0].data = allSpendingsAmount;
+    this.lineChartLabels = allSpendingDate;
+    console.log()
 
   }
 
 
   // get information about spendings
-  getSpendingsFromChartClick(id:number) {
+  getSpendingsOnChartClick(id:number) {
     let spendingArray = [];
-    this.spending$ = this.dashboardService.getSpendingByCategory(id);
+    this.spending$ = this.dashboardService.getSpendingByCategorIdy(id);
     this.spending$.forEach(spendings1 => {
       for(let i in spendings1){
-        console.log(spendings1[i]);
+        console.log("spendings1", spendings1[i]);
       }
     });
 
@@ -93,14 +167,12 @@ chartColors(){
         //console.log("value", value);
         this.valueSingleCat = value;
         this.nameSingleCat = label;
-        console.log(clickedElementIndex, label, value);
-        console.log(this.categoryIds[clickedElementIndex]);
-
-        this.getSpendingsFromChartClick(this.categoryIds[clickedElementIndex])
+        //console.log(clickedElementIndex, label, value);
+        //console.log(this.categoryIds[clickedElementIndex]);
+        this.getSpendingsOnChartClick(this.categoryIds[clickedElementIndex])
       }
     }
   }
-
 
 }
 

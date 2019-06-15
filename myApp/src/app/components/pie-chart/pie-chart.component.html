@@ -1,5 +1,17 @@
 <mat-tab-group>
-  <mat-tab label="Account balance"></mat-tab>
+  <mat-tab label="Account balance">
+    <div style="display: block;">
+      <canvas baseChart width="300" height="300"
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
+        [chartType]="lineChartType"
+      >
+      </canvas>
+    </div>
+  </mat-tab>
 
 
 
@@ -28,7 +40,7 @@
         </tr>
         <tr *ngFor="let s of spendings">
           <th >{{s.amount}} €</th>
-          <th >{{s.date}} </th>
+          <th >{{s.date | date:'dd/MM/yy'}} </th>
           <th >{{s.description}} </th>
         </tr>
       </table>
