@@ -28,7 +28,7 @@ export class DashboardService {
     return this.httpClient.get<number>(this.server_path + "/" + path + '_sum');
   }
 
-  getSpendingByCategory(id:number):Observable<any[]>  {
+  getSpendingByCategoryId(id:number):Observable<any[]>  {
     return this.httpClient.get<any[]>(this.server_path+"/spending/" + id);
   }
 

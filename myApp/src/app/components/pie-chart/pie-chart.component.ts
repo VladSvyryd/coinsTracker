@@ -144,7 +144,7 @@ chartColors(){
   // get information about spendings
   getSpendingsOnChartClick(id:number) {
     let spendingArray = [];
-    this.spending$ = this.dashboardService.getSpendingByCategorIdy(id);
+    this.spending$ = this.dashboardService.getSpendingByCategoryId(id);
     this.spending$.forEach(spendings1 => {
       for(let i in spendings1){
         console.log("spendings1", spendings1[i]);
