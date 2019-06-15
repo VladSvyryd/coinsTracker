@@ -6,7 +6,7 @@ import {Expense} from "../../models/expense";
 import {DashboardService} from "../../services/dashboard.service";
 import {Spending} from "../../models/spending";
 import {Account} from "../../models/account";
-
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
@@ -20,7 +20,7 @@ export class PieChartComponent implements OnInit {
 
   //line chart
   public lineChartData: ChartDataSets[] = [
-    { data: [], label: '' },
+    { data: [], label: '' ,borderWidth:1.5},
   ];
 
   public lineChartLabels: Label[] = [];
@@ -44,7 +44,7 @@ export class PieChartComponent implements OnInit {
   };
   public lineChartColors: Color[] = [
     { // grey
-      backgroundColor: 'rgba(148,159,177,0)',
+      backgroundColor: 'rgba(148,159,177,0.3)',
       borderColor: 'rgba(148,159,177,1)',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
@@ -130,7 +130,7 @@ chartColors(){
       for(let i in spendingsAll){
 
         allSpendingsAmount.push(spendingsAll[i].amount);
-        allSpendingDate.push(spendingsAll[i].date);
+        allSpendingDate.push(this.transformDate(spendingsAll[i].date));
       }
     });
 
@@ -173,6 +173,8 @@ chartColors(){
       }
     }
   }
-
+transformDate(date) {
+    return formatDate(date, 'dd-MM-yy','en');
+  }
 }
 

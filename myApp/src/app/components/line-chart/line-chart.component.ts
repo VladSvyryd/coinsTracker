@@ -10,13 +10,14 @@ import { Color, BaseChartDirective, Label } from 'ng2-charts';
 })
 export class LineChartComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Incomes' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Accounts' },
-    { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Expenses'}
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Incomes', borderWidth:1.5 },
+    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Accounts',borderWidth:1.5 },
+    { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Expenses',borderWidth:1.5,  }
   ];
   public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
+
     scales: {
       // We use this empty structure as a placeholder for dynamic theming.
       xAxes: [{
@@ -35,7 +36,7 @@ export class LineChartComponent implements OnInit {
   };
   public lineChartColors: Color[] = [
     { // grey
-      backgroundColor: 'rgba(148,159,177,0)',
+      backgroundColor: 'rgba(148,159,177,0.3)',
       borderColor: 'rgba(148,159,177,1)',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
@@ -43,7 +44,7 @@ export class LineChartComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
     { // dark grey
-      backgroundColor: 'rgba(77,83,96,0)',
+      backgroundColor: 'rgba(77,83,96,0.3)',
       borderColor: 'rgba(77,83,96,1)',
       pointBackgroundColor: 'rgba(77,83,96,1)',
       pointBorderColor: '#fff',
@@ -51,7 +52,7 @@ export class LineChartComponent implements OnInit {
       pointHoverBorderColor: 'rgba(77,83,96,1)'
     },
     { // red
-      backgroundColor: 'rgba(255,0,0,0)',
+      backgroundColor: 'rgba(255,0,0,0.3)',
       borderColor: 'red',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
@@ -61,7 +62,7 @@ export class LineChartComponent implements OnInit {
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
-
+  public borderWidth: 1;
   constructor() { }
 
   ngOnInit() {
