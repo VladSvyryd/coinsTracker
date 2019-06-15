@@ -1,4 +1,4 @@
-import {Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {DashboardService} from '../../services/dashboard.service';
 import {Account} from '../../models/account';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -9,12 +9,13 @@ import {Income} from '../../models/income';
 import {Spending} from '../../models/spending';
 import {Expense} from '../../models/expense';
 import {EditWindowComponent} from '../edit-window/edit-window.component';
-import {Observable} from 'rxjs';
+import {Observable, timer} from 'rxjs';
 import {SharedService} from '../../services/shared.service';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 import {transition, trigger, useAnimation} from '@angular/animations';
 import {fadeIn, hinge, shake} from 'ng-animate';
 import {TransactionDialogComponent} from '../transaction-dialog/transaction-dialog.component';
+import {extractDirectiveDef} from '@angular/core/src/render3/definition';
 
 @Component({
   selector: 'app-dashboard',
@@ -44,6 +45,7 @@ export class DashboardComponent implements OnInit {
   @ViewChildren('cat', {read: CdkDrag}) cdkCatChildren: QueryList<CdkDrag>;
   @ViewChild('transaction') bs;
   private last_transaction;
+  private editModeActive = false;
 
   constructor(
     private dashboardService: DashboardService,
@@ -51,13 +53,17 @@ export class DashboardComponent implements OnInit {
     private sharedService: SharedService,
     private breakpointObserver: BreakpointObserver
   ) {
+
   }
+
+
 
   ngOnInit() {
     this.incomes$ = this.dashboardService.getAll('income');
     this.accounts$ = this.dashboardService.getAll('account');
     this.categories$ = this.dashboardService.getAll('expense');
-    this.isMobile = this.breakpointObserver.observe(Breakpoints.Handset);
+    this.isMobile = this.breakpointObserver.observe(Breakpoints.HandsetPortrait);
+
   }
 
   ngAfterInit() {
@@ -109,7 +115,8 @@ export class DashboardComponent implements OnInit {
       width: '400px',
       data: {
         from: this.last_transaction.cdkDrag.data.name,
-        to: this.last_transaction.cdkDrop.data.name
+        to: this.last_transaction.cdkDrop.data.name,
+        type_of_transaction:this.last_transaction.type_of_transaction
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -118,13 +125,14 @@ export class DashboardComponent implements OnInit {
         this.transitionBegin(
           this.last_transaction.cdkDrag.data,
           this.last_transaction.cdkDrop.data,
-          parseInt(result.amount)
+          parseInt(result.amount),
+          result.description
         );
       }
     });
   }
 
-  makeTransaction_ResetPosition(e, dragRef) {
+  makeTransaction_ResetPosition(e, dragRef){
     // html button
     let draggableElementRef = e.source.getRootElement();
     // cdkDrag object with data in it
@@ -155,7 +163,7 @@ export class DashboardComponent implements OnInit {
         this.last_transaction = {
           type_of_transaction: type_of_transaction,
           cdkDrag,
-          cdkDrop,
+          cdkDrop
         };
         // small hack to open Dialog window to make a transaction
         this.bs.nativeElement.click();
@@ -190,11 +198,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  transitionBegin(fromData, toData, amount) {
-    console.log(fromData, toData, amount);
+  transitionBegin(fromData, toData, amount,extras) {
+    console.log(fromData, toData, amount, extras);
     if(this.last_transaction.type_of_transaction =="acc_exp"){
     let newSpending: Spending = {
-      description: '',
+      description:  extras,
       amount: amount,
       account_id: fromData.id,
       expense_id: toData.id
@@ -203,7 +211,6 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.createSpending(newSpending).subscribe((res: any) => {
       newSpending.id = res.last_added_id;
       this.sharedService.emitChange('account');
-      this.itterate();
     });
     }else if(this.last_transaction.type_of_transaction =="inc_acc"){
       this.dashboardService.transaction_Inc_to_Acc(fromData,toData,amount).subscribe(
@@ -216,7 +223,6 @@ export class DashboardComponent implements OnInit {
     else if(this.last_transaction.type_of_transaction =="acc_acc"){
       this.dashboardService.transaction_Acc_to_Acc(fromData,toData,amount).subscribe(
         (res)=>{
-           this.sharedService.emitChange('account');
         }
       );
     }
@@ -308,10 +314,9 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  itterate(){
-    this.accounts$.forEach(item=>console.log(item))
-  }
+  showExpensInfo(){
 
+  }
 }
 
 // :TODO - Update on frontEnd Income,Account,Expenses

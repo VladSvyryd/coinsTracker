@@ -1,12 +1,13 @@
 <div class="bottomNavigation">
   <mat-toolbar class="bottomNavigation">
     <mat-toolbar-row class= "navigationButtons">
-        <mat-slide-toggle
+      <mat-slide-toggle
           [color]="color"
           (change)="toogleTheme(true)"
           [checked]="!whiteTheme"
         >
         </mat-slide-toggle>
+      <button mat-icon-button (click)="editModeActive()"><mat-icon>edit</mat-icon> </button>
       <span class="spacer"></span>
       <button mat-icon-button><mat-icon  (click)="goBack()" class="goBack" aria-hidden="false">arrow_back</mat-icon> </button>
       <app-circle-menu class="rightNavButton" ></app-circle-menu>

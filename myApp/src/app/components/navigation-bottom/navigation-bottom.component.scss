@@ -1,16 +1,22 @@
+@import '../../../variables';
+
 .navigationButtons {
-  //border-top: 1px solid #A48EC1;
- //box-shadow: 0px -49px 13px 4px rgba(164,142,193,0.82);
-/* offset-x | offset-y | blur-radius | spread-radius | color */
   box-shadow: 0px -1px 20px 0px rgba(112, 112, 112,0.3);
   background-color: #F6F6F4;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  @media #{$mobile} {
+    flex-direction: row;
+  }
 }
 
 .rightNavigationButtons {
- //display: flex;
+  //display: flex;
 }
-.goBack {
+mat-icon {
   color: #4E4068;
   opacity: 0.7;
 }
@@ -19,5 +25,29 @@
   flex: 1 1 auto;
 }
 
+mat-slide-toggle{
+  @media #{$mobile} {
+    margin-right: 15px;
+  }
+}
+.line{
+button{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 5px 0;
+  }
+  .title{
+    display: block;
+    margin-left: 15px;
+  }
 
+  @media #{$mobile} {
+    .title{
+      display: none;
+    }
+}
+}
 

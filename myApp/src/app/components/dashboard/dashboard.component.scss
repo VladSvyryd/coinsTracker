@@ -2,11 +2,30 @@
 .example-chip-list {
   width: 60%;
 }
-
+.griddy
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  .left-col{
+    flex: 1;
+  }
+  .right-col{
+    max-width: 600px;
+    margin: 20px;
+  }
+  @media #{$mobile} {
+     flex-direction: column;
+    justify-content: center;
+   }
+}
 .placeholder {
   max-width: 400px;
-  margin: 25px auto;
   padding: 0 15px;
+   @media #{$mobile} {
+    margin: 25px auto;
+   }
 }
 
 mat-divider {
@@ -114,12 +133,16 @@ mat-grid-list {
         color: $dark-violet;
       }
       .deleteIcon{
-        cursor: pointer;
+         top: -10px;
+        right: -5px;
+      }
+      .infoIcon{
+        top: -10px;
+        left: -5px;
       }
       mat-icon{
         position: absolute!important;
-        top: -10px;
-        right: 0px;
+        cursor: pointer;
         font-size: 16px;
         height: 16px;
         width: 16px;
@@ -127,8 +150,6 @@ mat-grid-list {
     }
   }
 }
-
-
 
 .cdk-drag-placeholder {
   opacity: 1;
