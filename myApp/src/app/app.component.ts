@@ -49,7 +49,7 @@ export class AppComponent {
     edit_mode_element_ref.forEach((item)=>{
         item.classList.toggle("on");
         const source = timer(5000);
-        const subscribe = source.subscribe(val => {item.classList.toggle("on");
+        const subscribe = source.subscribe(val => {item.classList.remove("on");
         });
       }
     )

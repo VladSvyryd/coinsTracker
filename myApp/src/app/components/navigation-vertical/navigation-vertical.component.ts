@@ -5,6 +5,7 @@ import {User} from '../../models/user';
 import {Location} from '@angular/common';
 import {AuthServiceService} from '../../services/auth-service.service';
 import {SharedService} from '../../services/shared.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navigation-vertical',
@@ -29,7 +30,7 @@ export class NavigationVerticalComponent implements OnInit {
       this.updateTheme(!bool)
     }
   }
-  constructor(private _location: Location, private authService: AuthServiceService,private sharedService: SharedService) {
+  constructor(private _location: Location, private authService: AuthServiceService,private sharedService: SharedService,private router:Router) {
     this.current_user = JSON.parse(this.authService.getUserFromLocalStorage());
      console.log("cur_user",this.current_user);
   }
@@ -39,7 +40,11 @@ export class NavigationVerticalComponent implements OnInit {
         this.toogleTheme(false);
    }
   }
+tryLogout(){
+    this.authService.logout();
+    this.router.navigate(['/validation'])
 
+  }
    goBack(){
      this._location.back();
   }
