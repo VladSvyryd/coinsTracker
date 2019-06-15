@@ -1,5 +1,6 @@
 <app-placeholder *ngIf="false"></app-placeholder>
-<div class="placeholder">
+<div class="griddy">
+<div class="placeholder left-col">
   <div class="wrapper">
     <div class="headerSection" *ngIf="!(isMobile | async)?.matches">
       <app-counter data="income" [title]="'Income'"></app-counter>
@@ -18,7 +19,7 @@
             mat-fab
             color="primary"
             [cdkDragData]="income"
-            (cdkDragMoved)="preventClickEvent($event); detectCollision($event)"
+            (cdkDragMoved)="detectCollision($event)"
             (cdkDragReleased)=" makeTransaction_ResetPosition($event, inc)"
             cdkDrag
             #inc
@@ -26,13 +27,9 @@
             cdkDragBoundary=".mainA"
             class="inc"
             id="{{ income.id }}"
-            (click)="openDialogToEditOld({ title: 'Income', item: income })"
           >
             <!-- (click)="openDialogToEditOld({ title: 'Income', item: income })"-->
             {{ income.name }}
-
-
-
           </button>
           <mat-icon (click)="remove('Income', income, incomes)"
                     class="deleteIcon edit_mode"
@@ -191,4 +188,14 @@
     </div>
   </div>
   <button #transaction style="display: none;" (click)="tryMakeTransaction()"></button>
+
+</div>
+<div class="charts right-col" *ngIf="!(isMobile | async)?.matches">
+  <div class="pie-chart">
+    <app-pie-chart></app-pie-chart>
+    </div>
+  <div class="line-chart">
+    <app-line-chart></app-line-chart>
+  </div>
+</div>
 </div>

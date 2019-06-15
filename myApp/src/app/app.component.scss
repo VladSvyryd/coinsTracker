@@ -15,8 +15,6 @@
 
 .main{
   grid-area: mainA;
-
-
 }
 
 .bottomNavigation {
@@ -38,11 +36,9 @@ mat-slide-toggle{
 .counters{
   display: flex;
   flex-direction: row;
+    color: #4E4067
 
-}
 
-.counters {
-  color: #4E4067;
 }
 
 .mat-button-wrapper {

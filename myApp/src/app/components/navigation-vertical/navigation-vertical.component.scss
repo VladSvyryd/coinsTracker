@@ -1,0 +1,10 @@
+.label{
+  margin-left: 15px;
+  &.wd{
+    margin-left: 7px;
+  }
+}
+mat-slide-toggle{
+  transform: rotate(90deg);
+  margin-left: -7px;
+}

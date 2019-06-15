@@ -25,7 +25,8 @@ export class TransactionDialogComponent implements OnInit {
     this.data = received_data;
     console.log(this.data);
     this.form = new FormGroup({
-      amount: this.amount
+      amount: this.amount,
+      description: new FormControl()
     });
   }
 
@@ -35,5 +36,9 @@ export class TransactionDialogComponent implements OnInit {
   }
   sendData() {
     this.dialogRef.close(this.form.value);
+  }
+
+  hasDescription() {
+    return this.data.type_of_transaction === "acc_exp";
   }
 }

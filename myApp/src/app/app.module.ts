@@ -26,6 +26,7 @@ import { TransactionDialogComponent } from './components/transaction-dialog/tran
 import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.component';
 import { NavigationBottomComponent } from './components/navigation-bottom/navigation-bottom.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { NavigationVerticalComponent } from './components/navigation-vertical/navigation-vertical.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
     TransactionDialogComponent,
     BottomSheetComponent,
     NavigationBottomComponent,
-    LineChartComponent
+    LineChartComponent,
+    NavigationVerticalComponent
   ],
   imports: [
     BrowserModule,

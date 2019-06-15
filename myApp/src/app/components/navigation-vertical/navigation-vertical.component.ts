@@ -1,30 +1,28 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Location} from '@angular/common';
-import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
-import {Observable, timer} from 'rxjs';
-import {OverlayContainer} from "@angular/cdk/overlay";
+import {Observable} from 'rxjs';
+import {BreakpointState} from '@angular/cdk/layout';
 import {User} from '../../models/user';
+import {Location} from '@angular/common';
 import {AuthServiceService} from '../../services/auth-service.service';
 import {SharedService} from '../../services/shared.service';
-import {map} from 'rxjs/operators';
-
 
 @Component({
-  selector: 'app-navigation-bottom',
-  templateUrl: './navigation-bottom.component.html',
-  styleUrls: ['./navigation-bottom.component.scss']
+  selector: 'app-navigation-vertical',
+  templateUrl: './navigation-vertical.component.html',
+  styleUrls: ['./navigation-vertical.component.scss']
 })
-export class NavigationBottomComponent implements OnInit {
+export class NavigationVerticalComponent implements OnInit {
+
 
   isMobile: Observable<BreakpointState>;
   color = 'accent';
   whiteTheme = true;
   current_user:User;
-  @Output() changeTheme: EventEmitter<Boolean> = new EventEmitter();
-  @Output() editMode: EventEmitter<Boolean> = new EventEmitter()
+  @Output() changeThemeV: EventEmitter<Boolean> = new EventEmitter();
+  @Output() editModeV: EventEmitter<Boolean> = new EventEmitter()
   toogleTheme(first) {
     console.log("toggle")
-    this.changeTheme.emit(this.whiteTheme = !this.whiteTheme);
+    this.changeThemeV.emit(this.whiteTheme = !this.whiteTheme);
     let bool = this.whiteTheme;
     console.log(this.whiteTheme);
     if(first){
@@ -52,6 +50,7 @@ export class NavigationBottomComponent implements OnInit {
   }
 
   editModeActive(){
-    this.editMode.emit();
+    this.editModeV.emit();
   }
+
 }

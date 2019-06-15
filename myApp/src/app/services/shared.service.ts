@@ -14,7 +14,7 @@ export class SharedService {
   emitChange(change: any) {
     this.emitChangeSource.next(change);
   }
-  editModeToggle(change:any){
+  editModeToggle(change:boolean){
     this.emitChangeSource.next(change);
   }
 }

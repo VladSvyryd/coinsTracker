@@ -1,6 +1,6 @@
 <div class="wrapper" [class.unicorn-dark-theme]="otherTheme"
 >
-  <mat-toolbar class="header">
+  <mat-toolbar class="header" *ngIf="(isMobile | async)?.matches">
     <span class="right-spacer"></span>
 
     <div class="counters" *ngIf="(isMobile | async)?.matches">
@@ -14,22 +14,24 @@
   </mat-toolbar>
 
   <mat-sidenav-container class="sidebar">
-    <mat-sidenav #sidenav mode="side" opened="false" class="example-sidenav"
+    <mat-sidenav #sidenav mode="side" (opened)="true" class="example-sidenav"
                  [fixedInViewport]="options.fixed" [fixedTopGap]="options.top"
                  [fixedBottomGap]="options.bottom">
-      Sidenav
+      <app-navigation-vertical (changeThemeV)="changeTheme()" (editModeV)="editModeToggle()" ></app-navigation-vertical>
+
     </mat-sidenav>
 
     <mat-sidenav-content class="mainA">
-      <!--
-      <button mat-fab color="accent" id="toggleMenu"(click)="sidenav.toggle()"><img src="../assets/img/lapa.png" alt=""></button>
-       -->
+
+      <button mat-fab *ngIf="!(isMobile | async)?.matches" color="accent"
+              id="toggleMenu"(click)="sidenav.toggle()"><img src="../assets/img/lapa.png"
+                                                                                     alt=""></button>
 
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 
-<app-navigation-bottom (changeTheme)="changeTheme()"  class="bottomNavigation">
+<app-navigation-bottom *ngIf="(isMobile | async)?.matches" (changeTheme)="changeTheme()" (editMode)="editModeToggle()"  class="bottomNavigation">
 
 </app-navigation-bottom>
 

@@ -1,0 +1,19 @@
+<mat-list>
+  <h3 mat-subheader>Navigation</h3>
+  <mat-action-list >
+    <button mat-list-item (click)="slider.defaults">
+      <mat-slide-toggle
+        [color]="color"
+        (change)="toogleTheme(true)"
+        [checked]="!whiteTheme"
+        #slider
+      >
+      </mat-slide-toggle>
+      <span class="label wd" >White/Dark</span>
+    </button>
+    <button mat-list-item (click)="editModeActive()"><mat-icon>edit</mat-icon> <span class="label">Edit Mode</span>  </button>
+    <button mat-list-item><mat-icon  (click)="goBack()" class="goBack" aria-hidden="false">arrow_back</mat-icon>
+      <span class="label">Back</span> </button>
+  </mat-action-list>
+
+</mat-list>

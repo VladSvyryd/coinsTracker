@@ -2,11 +2,29 @@
 .example-chip-list {
   width: 60%;
 }
-
+.griddy
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  .left-col{
+    flex: 1;
+  }
+  .right-col{
+    max-width: 600px;
+    margin: 20px;
+  }
+  @media #{$mobile} {
+     flex-direction: column;
+    justify-content: center;
+   }
+}
 .placeholder {
   max-width: 400px;
-  margin: 25px auto;
   padding: 0 15px;
+   @media #{$mobile} {
+    margin: 25px auto;
+   }
 }
 
 mat-divider {

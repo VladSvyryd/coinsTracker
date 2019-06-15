@@ -401,7 +401,7 @@ def create_spending(current_user):
     data = request.get_json()
     print(data)
     new_spending = Spendings(amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id,
-                             expense_id=data['expense_id'], account_id=data['account_id'])
+                             expense_id=data['expense_id'], account_id=data['account_id'],description=data['description'])
     db.session.add(new_spending)
     db.session.commit()
     make_transaction(data['account_id'], data['amount'], data['expense_id'])
