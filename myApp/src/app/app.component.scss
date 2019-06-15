@@ -1,10 +1,16 @@
+@import '../variables';
+
 .wrapper{
   display: grid;
   overflow: hidden;  // needed for bottom nav, to block scrollbars after openning circle menu
-  grid-template-areas: "header" "mainA" "fixedNav";
+    grid-template-areas:  "mainA";
   flex-direction: column;
   height: 100%;
+  grid-template-rows:  1fr;
+  @media #{$mobile} {
+  grid-template-areas: "header" "mainA" "fixedNav";
   grid-template-rows: fit-content(100%) 1fr  fit-content(100%);
+  }
 }
 .header{
   grid-area: header;
