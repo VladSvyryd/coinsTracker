@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from 
 import {DashboardService} from '../../services/dashboard.service';
 import {Account} from '../../models/account';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatDialog} from '@angular/material';
+import {MatBottomSheet, MatDialog} from '@angular/material';
 import {DialogWindowComponent} from '../dialog-window/dialog-window.component';
 import {CdkDrag} from '@angular/cdk/drag-drop';
 import {Income} from '../../models/income';
@@ -16,6 +16,7 @@ import {transition, trigger, useAnimation} from '@angular/animations';
 import {fadeIn, hinge, shake} from 'ng-animate';
 import {TransactionDialogComponent} from '../transaction-dialog/transaction-dialog.component';
 import {extractDirectiveDef} from '@angular/core/src/render3/definition';
+import {BottomSheetComponent} from '../bottom-sheet/bottom-sheet.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -51,7 +52,8 @@ export class DashboardComponent implements OnInit {
     private dashboardService: DashboardService,
     public dialog: MatDialog,
     private sharedService: SharedService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private bottomSheet: MatBottomSheet
   ) {
 
   }
@@ -69,9 +71,9 @@ export class DashboardComponent implements OnInit {
   ngAfterInit() {
   }
 
-  changeState() {
+  changeState( spent_amount) {
     this.clickedState =
-      this.clickedState === 'clicked' ? 'notClicked' : 'clicked';
+      this.clickedState === 'clicked'  && !(spent_amount > 0 ) ? 'notClicked': 'clicked';
   }
 
   detectCollision(e) {
@@ -100,12 +102,12 @@ export class DashboardComponent implements OnInit {
   }
 
   private setDraggableRef_z_Index(event: any) {
-       // console.log(event.path[0].tagName , event.path[1].tagName);
-        if(event.path[0].nodeName  == "BUTTON"){
-          event.path[0].classList.add("z_Index_dragged");
-        }else if (event.path[1].tagName == "BUTTON"){
-          event.path[1].classList.add("z_Index_dragged");
-        }
+    // console.log(event.path[0].tagName , event.path[1].tagName);
+    if(event.path[0].nodeName  == "BUTTON"){
+      event.path[0].classList.add("z_Index_dragged");
+    }else if (event.path[1].tagName == "BUTTON"){
+      event.path[1].classList.add("z_Index_dragged");
+    }
   }
 
   private tryMakeTransaction() {
@@ -201,22 +203,22 @@ export class DashboardComponent implements OnInit {
   transitionBegin(fromData, toData, amount,extras) {
     console.log(fromData, toData, amount, extras);
     if(this.last_transaction.type_of_transaction =="acc_exp"){
-    let newSpending: Spending = {
-      description:  extras,
-      amount: amount,
-      account_id: fromData.id,
-      expense_id: toData.id
-    };
+      let newSpending: Spending = {
+        description:  extras,
+        amount: amount,
+        account_id: fromData.id,
+        expense_id: toData.id
+      };
 
-    this.dashboardService.createSpending(newSpending).subscribe((res: any) => {
-      newSpending.id = res.last_added_id;
-      this.sharedService.emitChange('account');
-    });
+      this.dashboardService.createSpending(newSpending).subscribe((res: any) => {
+        newSpending.id = res.last_added_id;
+        this.sharedService.emitChange('account');
+      });
     }else if(this.last_transaction.type_of_transaction =="inc_acc"){
       this.dashboardService.transaction_Inc_to_Acc(fromData,toData,amount).subscribe(
         (res)=>{
-           this.sharedService.emitChange('income');
-           this.sharedService.emitChange('account');
+          this.sharedService.emitChange('income');
+          this.sharedService.emitChange('account');
         }
       );
     }
@@ -314,8 +316,16 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  showExpensInfo(){
-
+  showExpensInfo(id){
+    this.dashboardService.getSpendingByExpenseId(id).subscribe(res=>{
+      if(res.length){
+        const bottomSheet = this.bottomSheet.open(BottomSheetComponent,{
+          panelClass: 'customBottomSheet',
+          autoFocus: true,
+          data: res
+        });
+      }
+    });
   }
 }
 

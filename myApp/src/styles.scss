@@ -2,6 +2,7 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 // import our custom theme
 @import 'theme.scss';
+@import './variables';
 
 body,html {
   width: 100%;
@@ -55,7 +56,7 @@ body,html {
     background-color: transparent!important;
   }
   .circular-menu:after{
-      background-color: map_get($md-primary-dark,500)!important;
+    background-color: map_get($md-primary-dark,500)!important;
   }
 }
 .mat-button-wrapper{
@@ -81,4 +82,14 @@ body,html {
     opacity: 1!important;
   }
 
+}
+
+.customBottomSheet{
+  min-height: 30vw;
+
+  @media #{$mobile} {
+    min-width: 90vw!important;
+    min-height: 80vw;
+    border-radius: 25px 25px  0 0;
+  }
 }

@@ -13,7 +13,7 @@ import { TokenInterceptor } from './services/token.interceptor';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PlaceholderComponent } from './components/placeholder/placeholder.component';
 import { DialogWindowComponent } from './components/dialog-window/dialog-window.component';
-import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from "@angular/material";
+import {MAT_DIALOG_DEFAULT_OPTIONS, MAT_BOTTOM_SHEET_DEFAULT_OPTIONS} from "@angular/material";
 import { UpsComponent } from './components/ups/ups.component';
 import { EditWindowComponent } from './components/edit-window/edit-window.component';
 import { CounterComponent } from './components/counter/counter.component';
@@ -56,7 +56,8 @@ import { NavigationVerticalComponent } from './components/navigation-vertical/na
     MyOwnCustomMaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+
   ],
    entryComponents: [
     DialogWindowComponent,EditWindowComponent,TransactionDialogComponent,BottomSheetComponent
@@ -68,6 +69,11 @@ import { NavigationVerticalComponent } from './components/navigation-vertical/na
   },
     {
       provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {hasBackdrop: true}
+    }
+    ,
+    {
+       provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS,
       useValue: {hasBackdrop: true}
     }
   ],

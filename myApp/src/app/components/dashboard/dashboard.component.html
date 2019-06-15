@@ -151,10 +151,12 @@
             [cdkDragData]="category"
             [cdkDragDisabled]="true"
             #cat
-            [@shake]="clickedState"
-            (click)="changeState()"
             id="{{category.id}}"
-          >
+            (click)="showExpensInfo(category.id)"
+            >
+
+            <!--[@shake]="clickedState"
+            (click)="changeState(category.spent_amount)"-->
             {{ category.name }}
           </button>
 

@@ -28,9 +28,7 @@ export class DashboardService {
     return this.httpClient.get<number>(this.server_path + "/" + path + '_sum');
   }
 
-  getSpendingByCategoryId(id:number):Observable<any[]>  {
-    return this.httpClient.get<any[]>(this.server_path+"/spending/" + id);
-  }
+
 
 //*****************ACCOUNTS**********************/
 
@@ -98,6 +96,12 @@ export class DashboardService {
     return this.httpClient.post(this.server_path+"/spending", new_spending).pipe(
       catchError(this.handleError)
     )
+  }
+
+  getSpendingByExpenseId(id:number):Observable<any[]>  {
+    return this.httpClient.get<Spending[]>(this.server_path+"/spending/" + id).pipe(
+      catchError(this.handleError)
+    );
   }
 
   transaction_Inc_to_Acc(inc:Income, acc:Account,transaction_amount) {
