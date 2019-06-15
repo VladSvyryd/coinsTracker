@@ -74,7 +74,11 @@ body,html {
 
 .edit_mode{
   display: none!important;
+  opacity: 0!important;
+  transition: opacity .4s ease-in-out;
   &.on{
     display: initial!important;
+    opacity: 1!important;
   }
+
 }

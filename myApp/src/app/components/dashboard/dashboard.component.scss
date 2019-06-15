@@ -18,16 +18,20 @@
     margin: 20px;
   }
   @media #{$mobile} {
-     flex-direction: column;
+    flex-direction: column;
     justify-content: center;
-   }
+    margin: 0;
+    padding: 0 10px;
+
+  }
 }
 .placeholder {
+  width: 100%;
   max-width: 400px;
-  padding: 0 15px;
-   @media #{$mobile} {
+  margin: 0 15px;
+  @media #{$mobile} {
     margin: 25px auto;
-   }
+  }
 }
 
 mat-divider {
@@ -135,7 +139,7 @@ mat-grid-list {
         color: $dark-violet;
       }
       .deleteIcon{
-         top: -10px;
+        top: -10px;
         right: -5px;
       }
       .infoIcon{
@@ -170,7 +174,7 @@ mat-grid-list {
 }
 
 .example-custom-placeholder {
-      position: absolute;
+  position: absolute;
 
   .holder{
     background: #E4E4E4;

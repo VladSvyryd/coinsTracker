@@ -34,6 +34,8 @@ export class NavigationBottomComponent implements OnInit {
   constructor(private _location: Location, private authService: AuthServiceService,private sharedService: SharedService) {
     this.current_user = JSON.parse(this.authService.getUserFromLocalStorage());
      console.log("cur_user",this.current_user);
+
+
   }
 
   ngOnInit() {

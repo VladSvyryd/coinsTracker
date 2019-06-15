@@ -43,7 +43,6 @@ export class AppComponent {
   editModeToggle() {
     console.log("toggle");
     this.editModeActive = !this.editModeActive;
-    console.log(this.editModeActive);
     let edit_mode_element_ref = document.querySelectorAll(".edit_mode");
     // each edit function activate for 5 sec and then disappear
     edit_mode_element_ref.forEach((item)=>{
