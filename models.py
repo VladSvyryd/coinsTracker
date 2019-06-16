@@ -54,3 +54,19 @@ class Accounts(db.Model):
     date = db.Column(db.TIMESTAMP)
     icon = db.Column(db.String(50))
 
+
+class AccountTrack(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    account_id = db.Column(db.Integer)
+    income_id = db.Column(db.Integer)
+    amount = db.Column(db.Integer)
+    date = db.Column(db.TIMESTAMP)
+
+
+class IncomeTrack(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    income_id = db.Column(db.Integer)
+    amount = db.Column(db.Integer)
+    date = db.Column(db.TIMESTAMP)

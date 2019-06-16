@@ -11,7 +11,7 @@ from flask_cors import CORS
 import os
 from models import db
 # connect to db
-from models import User, Incomes, Accounts, Expenses, Spendings
+from models import User, Incomes, Accounts, Expenses, Spendings, AccountTrack, IncomeTrack
 
 app = Flask(__name__)
 CORS(app)
@@ -237,6 +237,11 @@ def create_income(current_user):
     db.session.commit()
     # on clientside we need id of newly created element / this will get last element id
     addedItem_id = db.session.query(Incomes).order_by(Incomes.id.desc()).first().id
+
+    new_income_track = IncomeTrack(user_id=current_user.public_id, income_id=addedItem_id, amount=data["amount"],
+                                   date=datetime.datetime.utcnow())
+    db.session.add(new_income_track)
+    db.session.commit()
     return jsonify({'last_added_id': addedItem_id})
 
 
@@ -557,6 +562,10 @@ def transaction_inc_acc(current_user):
     inc = Incomes.query.filter_by(user_id=current_user.public_id).filter_by(id=data['inc']["id"]).first()
     if not inc:
         return jsonify({'server_message': 'No such Income found'})
+
+    new_account_track = AccountTrack(user_id=current_user.public_id, account_id=data['acc']["id"],
+                                    income_id=data['inc']["id"], amount=data["transaction_amount"], date=datetime.datetime.utcnow())
+    db.session.add( new_account_track)
 
     inc.amount -= data["transaction_amount"]
     acc.amount += data["transaction_amount"]
