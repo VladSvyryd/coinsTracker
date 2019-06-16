@@ -7,6 +7,7 @@ import {UpsComponent} from "./components/ups/ups.component";
 import {PieChartComponent} from './components/pie-chart/pie-chart.component';
 import {TesterComponent} from './tester/tester.component';
 import {LineChartComponent} from "./components/line-chart/line-chart.component";
+import {DoughnutChartComponent} from './components/doughnut-chart/doughnut-chart.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'line-chart', component: LineChartComponent,  canActivate: [OnlyLoggedInUsersGuard]},
   { path: 'validation', component: ValidationComponent},
   { path: 'tester', component: TesterComponent},
+  { path: 'doughnut-chart', component: DoughnutChartComponent},
   { path: 'ups', component: UpsComponent}
 
 ];

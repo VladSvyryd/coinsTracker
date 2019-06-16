@@ -28,6 +28,7 @@ import { NavigationBottomComponent } from './components/navigation-bottom/naviga
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { NavigationVerticalComponent } from './components/navigation-vertical/navigation-vertical.component';
 import { IconPickerComponent } from './components/icon-picker/icon-picker.component';
+import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { IconPickerComponent } from './components/icon-picker/icon-picker.compon
     NavigationBottomComponent,
     LineChartComponent,
     NavigationVerticalComponent,
-    IconPickerComponent
+    IconPickerComponent,
+    DoughnutChartComponent
   ],
   imports: [
     BrowserModule,

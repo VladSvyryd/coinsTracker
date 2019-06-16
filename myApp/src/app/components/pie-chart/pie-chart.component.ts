@@ -104,6 +104,10 @@ chartColors(){
     let expensesSum = 0;
     let categoryIds = [];
     this.categories$ = this.dashboardService.getAll('expense');
+    this.dashboardService.getAll('expense').subscribe((res)=>{
+      console.log(res)
+
+    });
     this.categories$.forEach(categories => {
       categories.forEach( category => {
         categoryNames.push(category.name);
