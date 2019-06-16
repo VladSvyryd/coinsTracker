@@ -21,6 +21,7 @@ class Expenses(db.Model):
     user_id = db.Column(db.Integer)
     wanted_limit = db.Column(db.Integer, default=0)
     spent_amount = db.Column(db.Integer, default=0)
+    icon = db.Column(db.String(50))
 
 
 class Incomes(db.Model):
@@ -31,6 +32,7 @@ class Incomes(db.Model):
     wanted_income = db.Column(db.Integer)
     amount = db.Column(db.Integer)
     paycheck_date = db.Column(db.TIMESTAMP)
+    icon = db.Column(db.String(50))
 
 
 class Spendings(db.Model):
@@ -50,4 +52,5 @@ class Accounts(db.Model):
     user_id = db.Column(db.Integer)
     amount = db.Column(db.Integer)
     date = db.Column(db.TIMESTAMP)
+    icon = db.Column(db.String(50))
 

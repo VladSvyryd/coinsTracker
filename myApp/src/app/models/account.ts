@@ -4,5 +4,6 @@ export interface Account {
   description?: string;
   amount?:      number;
   date?:        string;
+  icon?:        string;
 
 }

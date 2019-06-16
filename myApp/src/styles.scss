@@ -93,3 +93,21 @@ body,html {
     border-radius: 25px 25px  0 0;
   }
 }
+.panelClass{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  max-width: 270px!important;
+  max-height:  200px!important;
+  justify-content: center;
+  img{
+    width: 20px;
+    color: white;
+  }
+  .mat-option {
+    .mat-icon{
+      margin-right: 0;
+    }
+  }
+}
+

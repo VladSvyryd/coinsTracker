@@ -252,7 +252,8 @@ export class DashboardComponent implements OnInit {
       let newItem: Account = {
         amount: item.amount || 0,
         name: item.name,
-        description: item.description
+        description: item.description,
+        icon: item.icon
       };
       this.dashboardService.createAccount(newItem).subscribe((res: any) => {
         newItem.id = res.last_added_id;
@@ -262,7 +263,8 @@ export class DashboardComponent implements OnInit {
     } else if (type === 'Income') {
       let newItem: Income = {
         name: item.name,
-        amount: item.amount
+        amount: item.amount,
+        icon: item.icon
       };
       this.dashboardService.createIncome(newItem).subscribe((res: any) => {
         newItem.id = res.last_added_id;
@@ -272,7 +274,8 @@ export class DashboardComponent implements OnInit {
     } else if (type === 'Expense') {
       let newItem: Expense = {
         name: item.name,
-        description: item.description || ''
+        description: item.description || '',
+        icon:item.icon
       };
       this.dashboardService.createCategory(item).subscribe((res: any) => {
         newItem.id = res.last_added_id;

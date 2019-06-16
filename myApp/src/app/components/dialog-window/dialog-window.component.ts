@@ -10,12 +10,12 @@ import {DialogData} from "../../models/dialog";
 })
 export class DialogWindowComponent implements OnInit {
   form: FormGroup;
-
+  standardIcons = ['star-regular','dragon','gem','star','hashtag', 'coins','infinity', 'ghost'];
   amount = new FormControl('', [Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.minLength(1)]); // regex for money value
   name = new FormControl('', [Validators.required]);
   description = new FormControl();
-
   inputFields:DialogData[];
+  icon;
   title;
   constructor(public dialogRef: MatDialogRef<DialogWindowComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Array<any>, fb: FormBuilder) {
@@ -24,7 +24,8 @@ export class DialogWindowComponent implements OnInit {
     this.form = fb.group({
       amount: this.amount,
       name: this.name,
-      description: this.description
+      description: this.description,
+      icon:new FormControl()
     });
 
   }
@@ -35,5 +36,25 @@ export class DialogWindowComponent implements OnInit {
 
   ngOnInit() {
   }
+    sendData(){
+    let icon  =  this.form.value.icon !== null  ? this.form.value.icon : this.pickRandomIcon();
+    let result = {
+      name: this.form.value.name,
+      amount:this.form.value.amount,
+      description:this.form.value.description,
+      icon: icon
+    }
+    this.dialogRef.close(result);
+  }
+  addToForm(e) {
+    console.log(e)
+    this.form.value.icon = e;
+  }
 
+  pickRandomIcon():string{
+    return this.standardIcons[this.getRandomInt(this.standardIcons.length)];
+  }
+  getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
 }

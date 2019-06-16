@@ -1,0 +1,8 @@
+<mat-form-field>
+  <mat-label>Category</mat-label>
+  <mat-select panelClass="panelClass" (selectionChange)="updateIcon(s.value)" #s [disableOptionCentering]="true" >
+    <mat-option *ngFor="let icon of icons" [value]="icon.name">
+      <!-- <img src="../../../assets/img/fa-icons/{{icon.name}}-solid.svg" alt=""> -->
+      <mat-icon svgIcon="{{icon.name}}" aria-hidden="false" ></mat-icon></mat-option>
+  </mat-select>
+</mat-form-field>

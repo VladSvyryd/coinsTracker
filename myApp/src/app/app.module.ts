@@ -27,6 +27,7 @@ import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.com
 import { NavigationBottomComponent } from './components/navigation-bottom/navigation-bottom.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { NavigationVerticalComponent } from './components/navigation-vertical/navigation-vertical.component';
+import { IconPickerComponent } from './components/icon-picker/icon-picker.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { NavigationVerticalComponent } from './components/navigation-vertical/na
     BottomSheetComponent,
     NavigationBottomComponent,
     LineChartComponent,
-    NavigationVerticalComponent
+    NavigationVerticalComponent,
+    IconPickerComponent
   ],
   imports: [
     BrowserModule,

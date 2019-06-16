@@ -11,13 +11,14 @@
     </mat-form-field>
   </form>
 </div>
+<app-icon-picker (iconName)="addToForm($event)"></app-icon-picker>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
   <button
     mat-button
     type="submit"
     [disabled]="!(name.valid && amount.valid)"
-    [mat-dialog-close]="form.value"
+    (click)="sendData()"
     cdkFocusInitial
   >
     Ok

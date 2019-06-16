@@ -30,7 +30,6 @@ export class AppComponent {
   private editModeActive = false;
 
   changeTheme() {
-    console.log("toggle")
     this.otherTheme = !this.otherTheme;
   }
 
@@ -41,7 +40,6 @@ export class AppComponent {
 
   }
   editModeToggle() {
-    console.log("toggle");
     this.editModeActive = !this.editModeActive;
     let edit_mode_element_ref = document.querySelectorAll(".edit_mode");
     // each edit function activate for 5 sec and then disappear

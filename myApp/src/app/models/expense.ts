@@ -5,5 +5,6 @@ export interface Expense {
   description?:  string;
   spent_amount?: number;
   date?:         string; //???
+  icon?:         string; //???
 
 }

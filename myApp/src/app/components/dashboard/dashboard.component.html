@@ -29,7 +29,8 @@
             id="{{ income.id }}"
           >
             <!-- (click)="openDialogToEditOld({ title: 'Income', item: income })"-->
-            {{ income.name }}
+             <mat-icon svgIcon="{{income.icon}}" aria-hidden="false" ></mat-icon>
+
           </button>
           <mat-icon (click)="remove('Income', income, incomes)"
                     class="deleteIcon edit_mode"
@@ -93,7 +94,7 @@
 
           >
             <!-- (click)="openDialogToEditOld({ title: 'Account', item: account })"-->
-            {{ account.name }}
+            <mat-icon svgIcon="{{account.icon}}" aria-hidden="false" ></mat-icon>
           </button>
 
           <mat-icon (click)="remove('Account', account, accounts)"
@@ -157,7 +158,8 @@
 
             <!--[@shake]="clickedState"
             (click)="changeState(category.spent_amount)"-->
-            {{ category.name }}
+            <mat-icon svgIcon="{{category.icon}}" aria-hidden="false" ></mat-icon>
+
           </button>
 
           <mat-icon (click)="remove('Expense', category, categories)"
@@ -200,5 +202,6 @@
   <div class="line-chart">
     <app-line-chart></app-line-chart>
   </div>
+  <app-icon-picker></app-icon-picker>
 </div>
 </div>

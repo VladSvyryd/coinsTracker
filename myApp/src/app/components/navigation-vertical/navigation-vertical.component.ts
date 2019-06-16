@@ -22,17 +22,14 @@ export class NavigationVerticalComponent implements OnInit {
   @Output() changeThemeV: EventEmitter<Boolean> = new EventEmitter();
   @Output() editModeV: EventEmitter<Boolean> = new EventEmitter()
   toogleTheme(first) {
-    console.log("toggle")
     this.changeThemeV.emit(this.whiteTheme = !this.whiteTheme);
     let bool = this.whiteTheme;
-    console.log(this.whiteTheme);
     if(first){
       this.updateTheme(!bool)
     }
   }
   constructor(private _location: Location, private authService: AuthServiceService,private sharedService: SharedService,private router:Router) {
     this.current_user = JSON.parse(this.authService.getUserFromLocalStorage());
-     console.log("cur_user",this.current_user);
   }
 
   ngOnInit() {

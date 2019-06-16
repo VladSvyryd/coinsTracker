@@ -193,7 +193,9 @@ def get_all_incomes(current_user):
         income_list['id'] = income.id
         income_list['amount'] = income.amount
         income_list['date'] = income.date
+        income_list['icon'] = income.icon
         output.append(income_list)
+        print(output)
     return jsonify(output)
 
 
@@ -218,7 +220,7 @@ def get_one_income(current_user, income_id):
     income = Incomes.query.filter_by(user_id=current_user.public_id).filter_by(id=income_id).first()
     if not income:
         return jsonify({'server_message': 'No such income found'})
-    income_output = dict(amount=income.amount, date=income.date)
+    income_output = dict(amount=income.amount, date=income.date, icon=income.icon)
     return jsonify({'income': income_output})
 
 
@@ -230,7 +232,7 @@ def create_income(current_user):
     # get data
     data = request.get_json()
 
-    new_income = Incomes(name=data['name'], amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id)
+    new_income = Incomes(name=data['name'], amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id, icon=data['icon'])
     db.session.add(new_income)
     db.session.commit()
     # on clientside we need id of newly created element / this will get last element id
@@ -250,6 +252,7 @@ def upgrade_income(current_user, income_id):
 
     income.amount = data['amount']
     income.name = data['name']
+    income.icon = data['icon']
     income.date = datetime.datetime.utcnow()
     db.session.commit()
     return jsonify({'server_message': 'This income has been changed'})
@@ -279,7 +282,7 @@ def create_account(current_user):
     # get data
     data = request.get_json()
     print(data)
-    new_account = Accounts(name=data['name'], user_id=current_user.public_id, amount=(int)(data['amount']), date=datetime.datetime.utcnow())
+    new_account = Accounts(name=data['name'], user_id=current_user.public_id, amount=(int)(data['amount']), date=datetime.datetime.utcnow(),icon=data['icon'])
     db.session.add(new_account)
     db.session.commit()
     # on clientside we need id of newly created element / this will get last element id
@@ -301,7 +304,9 @@ def get_all_accounts(current_user):
         account_list['description'] = account.description
         account_list['amount'] = account.amount
         account_list['date'] = account.date
+        account_list['icon'] = account.icon
         output.append(account_list)
+    print(output)
     return jsonify(output)
 
 
@@ -325,7 +330,7 @@ def get_one_account(current_user, account_id):
     account = Accounts.query.filter_by(user_id=current_user.public_id).filter_by(id=account_id).first()
     if not account:
         return jsonify({'server_message': 'No such income found'})
-    account_output = dict(amount=account.amount, date=account.date)
+    account_output = dict(amount=account.amount, date=account.date,icon=account.icon)
     return jsonify({'account': account_output})
 
 
@@ -342,6 +347,7 @@ def upgrade_account(current_user, account_id):
     account.name = data['name']
     account.description = data['description'] or account.description
     account.amount = data['amount']
+    account.icon = data['icon']
     account.date = datetime.datetime.utcnow()
     db.session.commit()
     return jsonify({'server_message': 'This acount has been changed'})
@@ -399,7 +405,6 @@ def create_spending(current_user):
 
     # get data
     data = request.get_json()
-    print(data)
     new_spending = Spendings(amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id,
                              expense_id=data['expense_id'], account_id=data['account_id'],description=data['description'])
     db.session.add(new_spending)
@@ -445,12 +450,12 @@ def upgrade_spending(current_user, spending_id):
 @token_required
 def get_all_expenses(current_user):
     expenses = Expenses.query.filter_by(user_id=current_user.public_id).all()
-    print(expenses)
     output = []
     for expense in expenses:
         expenses_list = {}
         expenses_list['id'] = expense.id
         expenses_list['name'] = expense.name
+        expenses_list['icon'] = expense.icon
         expenses_list['wanted_limit'] = expense.wanted_limit
         expenses_list['spent_amount'] = expense.spent_amount
         output.append(expenses_list)
@@ -465,7 +470,7 @@ def create_expense(current_user):
     data = request.get_json()
 
     new_expense = Expenses(name=data['name'],
-                            user_id=current_user.public_id, wanted_limit=data['wanted_limit'])
+                            user_id=current_user.public_id, wanted_limit=data['wanted_limit'], icon=data['icon'])
     db.session.add(new_expense)
     db.session.commit()
     # on client side we need id of newly created element / this will get last element id
@@ -500,6 +505,7 @@ def upgrade_expense(current_user, expense_id):
         return jsonify({'server_message': 'No such expense found'})
 
     expense.name = data['name']
+    expense.icon = data['icon']
     expense.wanted_limit = data['wanted_limit']
     db.session.commit()
     return jsonify({'server_message': 'This expense has been changed'})

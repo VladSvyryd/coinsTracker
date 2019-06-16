@@ -28,13 +28,13 @@ mat-slide-toggle{
   }
 }
 .line{
-button{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  padding: 5px 0;
+  button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 5px 0;
   }
   .title{
     display: block;
@@ -45,6 +45,6 @@ button{
     .title{
       display: none;
     }
-}
+  }
 }
 

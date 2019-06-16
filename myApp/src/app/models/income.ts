@@ -6,4 +6,5 @@ export interface Income {
   paycheck_date?:    any; //???
   total?: number;
   id?:             number;
+  icon?:string;
 }

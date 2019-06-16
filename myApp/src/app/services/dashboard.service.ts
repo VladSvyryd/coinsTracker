@@ -33,7 +33,8 @@ export class DashboardService {
 //*****************ACCOUNTS**********************/
 
   createAccount(account:Account) {
-    let new_account:Account = { name: account.name, amount: account.amount};
+    let new_account:Account = { name: account.name, amount: account.amount,icon:account.icon};
+    console.log(new_account);
     return this.httpClient.post(this.server_path+"/account", new_account).pipe(
       catchError(this.handleError)
     );
@@ -46,7 +47,7 @@ export class DashboardService {
   }
 
   upgradeAccount(account:Account){
-    let upgraded_account:Account = { name: account.name, amount: account.amount, description:account.description};
+    let upgraded_account:Account = { name: account.name, amount: account.amount, description:account.description,icon:account.icon};
     return this.httpClient.put(this.server_path+"/account/"+ account.id, upgraded_account).pipe(
       catchError(this.handleError)
     )
@@ -56,7 +57,7 @@ export class DashboardService {
   //**************************INCOMES****************************/
 
   createIncome(income:Income) {
-    let new_income:Income = { name: income.name, wanted_income: income.wanted_income, amount: income.amount};
+    let new_income:Income = { name: income.name, wanted_income: income.wanted_income, amount: income.amount,icon:income.icon};
     return this.httpClient.post(this.server_path+"/income", new_income).pipe(
       catchError(this.handleError)
     );
@@ -69,7 +70,7 @@ export class DashboardService {
   }
 
   upgradeIncome(income:Income){
-    let upgraded_income:Income = { name: income.name, amount: income.amount};
+    let upgraded_income:Income = { name: income.name, amount: income.amount, icon:income.icon};
     return this.httpClient.put(this.server_path+"/income/"+ income.id, upgraded_income).pipe(
       catchError(this.handleError)
     )
@@ -79,7 +80,7 @@ export class DashboardService {
   //*****************************EXPENSES******************************/
 
   createCategory(category:Expense) {
-    let new_category:Expense = {name: category.name, description: category.description, wanted_limit: category.wanted_limit || 0};
+    let new_category:Expense = {name: category.name, description: category.description, wanted_limit: category.wanted_limit || 0, icon:category.icon};
     return this.httpClient.post(this.server_path+"/expense", new_category).pipe(
       catchError(this.handleError)
     )
