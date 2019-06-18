@@ -1,8 +1,17 @@
+<div class="icon-picker">
+<span class="icon" (click)="panel.open()">
+  <mat-icon svgIcon="{{s.value}}" *ngIf="s.value" aria-hidden="false" ></mat-icon>
+  <span *ngIf="!s.value && !iconToEdit" >icon</span>
+    <mat-icon svgIcon="{{iconToEdit}}" *ngIf="iconToEdit && !s.value" aria-hidden="false" ></mat-icon>
+
+
+</span>
 <mat-form-field>
-  <mat-label>Category</mat-label>
-  <mat-select panelClass="panelClass" (selectionChange)="updateIcon(s.value)" #s [disableOptionCentering]="true" >
+   <mat-select panelClass="panelClass" #panel (selectionChange)="updateIcon(s.value)" #s
+               [disableOptionCentering]="true" >
     <mat-option *ngFor="let icon of icons" [value]="icon.name">
       <!-- <img src="../../../assets/img/fa-icons/{{icon.name}}-solid.svg" alt=""> -->
       <mat-icon svgIcon="{{icon.name}}" aria-hidden="false" ></mat-icon></mat-option>
   </mat-select>
 </mat-form-field>
+</div>

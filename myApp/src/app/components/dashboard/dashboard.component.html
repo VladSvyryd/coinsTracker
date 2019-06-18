@@ -9,7 +9,7 @@
       </div>
     </div>
     <div *ngIf="incomes$ | async as incomes" class="grid">
-      <div class="list">
+      <div class="list" [class.not-fixed]="!userSettings.fixedLayout">
         <div class="box " *ngFor="let income of incomes">
           <div  class="example-custom-placeholder">
             <div class="holder"></div>
@@ -75,7 +75,7 @@
       </div>
     </div>
     <div *ngIf="accounts$ | async as accounts" class="grid">
-      <div class="list" id="accountList">
+      <div class="list" id="accountList" [class.not-fixed]="!userSettings.fixedLayout">
         <div *ngFor="let account of accounts" class="box ">
           <div  class="example-custom-placeholder">
             <div class="holder"></div>
@@ -140,7 +140,7 @@
       </div>
     </div>
     <div *ngIf="categories$ | async as categories" class="grid">
-      <div class="list">
+      <div class="list" [class.not-fixed]="!userSettings.fixedLayout">
         <div class="box" *ngFor="let category of categories">
           <div  class="example-custom-placeholder">
             <div class="holder"></div>
@@ -203,6 +203,5 @@
   <div class="line-chart">
     <app-line-chart></app-line-chart>
   </div>
-  <app-icon-picker></app-icon-picker>
 </div>
 </div>

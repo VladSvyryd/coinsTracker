@@ -29,6 +29,7 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
 import { NavigationVerticalComponent } from './components/navigation-vertical/navigation-vertical.component';
 import { IconPickerComponent } from './components/icon-picker/icon-picker.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-cha
     LineChartComponent,
     NavigationVerticalComponent,
     IconPickerComponent,
-    DoughnutChartComponent
+    DoughnutChartComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,7 @@ import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-cha
 
   ],
    entryComponents: [
-    DialogWindowComponent,EditWindowComponent,TransactionDialogComponent,BottomSheetComponent
+    DialogWindowComponent,EditWindowComponent,TransactionDialogComponent,BottomSheetComponent,SettingsComponent
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

@@ -6,6 +6,8 @@ import {Location} from '@angular/common';
 import {AuthServiceService} from '../../services/auth-service.service';
 import {SharedService} from '../../services/shared.service';
 import {Router} from '@angular/router';
+import {MatBottomSheet} from '@angular/material';
+import {SettingsComponent} from '../settings/settings.component';
 
 @Component({
   selector: 'app-navigation-vertical',
@@ -28,22 +30,22 @@ export class NavigationVerticalComponent implements OnInit {
       this.updateTheme(!bool)
     }
   }
-  constructor(private _location: Location, private authService: AuthServiceService,private sharedService: SharedService,private router:Router) {
-    this.current_user = JSON.parse(this.authService.getUserFromLocalStorage());
+  constructor(private _location: Location, private authService: AuthServiceService,private sharedService: SharedService,private router:Router,private bottomSheet: MatBottomSheet) {
+    this.current_user = this.authService.getUserFromLocalStorage();
   }
 
   ngOnInit() {
-   if(this.current_user.dark_theme){
-        this.toogleTheme(false);
-   }
+    if(this.current_user && this.current_user.dark_theme){
+      this.toogleTheme(false);
+    }
   }
-tryLogout(){
+  tryLogout(){
     this.authService.logout();
     this.router.navigate(['/validation'])
 
   }
-   goBack(){
-     this._location.back();
+  goBack(){
+    this._location.back();
   }
   updateTheme(bool){
     this.current_user.dark_theme = bool;

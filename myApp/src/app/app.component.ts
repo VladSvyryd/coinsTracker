@@ -21,7 +21,7 @@ export class AppComponent {
     top: 0
   };
   isExpanded = false;
-  users: JSON;
+  users: User;
   readonly ROOT_URL = 'http://127.0.0.1:5000/';
   isMobile: Observable<BreakpointState>;
   color = 'accent';
@@ -36,7 +36,7 @@ export class AppComponent {
   constructor(overlayContainer: OverlayContainer, public router: Router,private breakpointObserver: BreakpointObserver,private _location: Location,private authService:AuthServiceService) {
     overlayContainer.getContainerElement().classList.add('unicorn-dark-theme');
     this.isMobile = this.breakpointObserver.observe(Breakpoints.HandsetPortrait);
-    this.current_user =  JSON.parse(this.authService.getUserFromLocalStorage());
+    this.current_user =  this.authService.getUserFromLocalStorage();
 
   }
   editModeToggle() {

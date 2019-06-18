@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from 
 import {DashboardService} from '../../services/dashboard.service';
 import {Account} from '../../models/account';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatBottomSheet, MatDialog} from '@angular/material';
+import {MatBottomSheet, MatDialog, MatIconRegistry} from '@angular/material';
 import {DialogWindowComponent} from '../dialog-window/dialog-window.component';
 import {CdkDrag} from '@angular/cdk/drag-drop';
 import {Income} from '../../models/income';
@@ -17,6 +17,10 @@ import {fadeIn, hinge, shake} from 'ng-animate';
 import {TransactionDialogComponent} from '../transaction-dialog/transaction-dialog.component';
 import {extractDirectiveDef} from '@angular/core/src/render3/definition';
 import {BottomSheetComponent} from '../bottom-sheet/bottom-sheet.component';
+import {Icons} from '../../models/icons';
+import {DomSanitizer} from '@angular/platform-browser';
+import {User} from '../../models/user';
+import {AuthServiceService} from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -47,25 +51,36 @@ export class DashboardComponent implements OnInit {
   @ViewChild('transaction') bs;
   private last_transaction;
   private editModeActive = false;
-
+  icons = Icons;
+  userSettings:User;
   constructor(
     private dashboardService: DashboardService,
     public dialog: MatDialog,
     private sharedService: SharedService,
     private breakpointObserver: BreakpointObserver,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private iconRegistry: MatIconRegistry,
+    private sanitizer: DomSanitizer,
+    private auth:AuthServiceService
   ) {
-
+    this.icons.forEach((item)=>{
+      let path = 'assets/img/fa-icons/'+item.name +'-solid.svg'
+      iconRegistry.addSvgIcon(
+        item.name,
+        sanitizer.bypassSecurityTrustResourceUrl(path));
+    })
   }
 
-
+  initSettings(){
+    this.userSettings = this.auth.getUserFromLocalStorage();
+  }
 
   ngOnInit() {
     this.incomes$ = this.dashboardService.getAll('income');
     this.accounts$ = this.dashboardService.getAll('account');
     this.categories$ = this.dashboardService.getAll('expense');
     this.isMobile = this.breakpointObserver.observe(Breakpoints.HandsetPortrait);
-
+    this.initSettings();
   }
 
   ngAfterInit() {

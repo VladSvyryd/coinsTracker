@@ -1,0 +1,17 @@
+<div>
+  <h3 mat-subheader>Settings</h3>
+  <mat-list role="list">
+    <mat-list-item role="listitem">
+      <label >Fixed layout for coins(not more than 4):</label>
+      <mat-slide-toggle
+        (change)="updateUserSettings(slider.checked)"
+        [checked]="fixedLayout"
+        #slider
+        class="example-margin"
+      >
+      </mat-slide-toggle>
+  </mat-list-item>
+    <mat-list-item role="listitem">Item 2</mat-list-item>
+    <mat-list-item role="listitem">Item 3</mat-list-item>
+  </mat-list>
+</div>

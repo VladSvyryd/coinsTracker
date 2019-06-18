@@ -30,7 +30,7 @@ export class NavigationBottomComponent implements OnInit {
     }
   }
   constructor(private _location: Location, private authService: AuthServiceService,private sharedService: SharedService) {
-    this.current_user = JSON.parse(this.authService.getUserFromLocalStorage());
+    this.current_user = this.authService.getUserFromLocalStorage();
 
 
   }

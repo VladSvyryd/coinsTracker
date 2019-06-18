@@ -1,3 +1,12 @@
 mat-form-field{
   width: 100%;
 }
+.icon-picker{
+  display: flex;
+  .icon{
+    padding-bottom: 1.25em;
+    display: flex;
+    align-items: flex-end;
+    margin-right: 10px;
+  }
+}

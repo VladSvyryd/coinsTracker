@@ -33,7 +33,7 @@ export class AuthServiceService {
       this.token = data as Object;
       this.saveToken(this.token)
       if(this.getUserFromLocalStorage() === null){
-      let newUser:User = {email:email, dark_theme: false}
+      let newUser:User = {email:email, dark_theme: false,fixedLayout:false}
           this.setNewUser(newUser);
       }
     });
@@ -108,7 +108,7 @@ export class AuthServiceService {
    localStorage.setItem("userProfile", JSON.stringify(user))
   }
   getUserFromLocalStorage(){
-    return localStorage.getItem("userProfile");
+    return JSON.parse(localStorage.getItem("userProfile"));
   }
 
 }

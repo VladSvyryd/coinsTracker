@@ -2,6 +2,7 @@
   <dictionary name="vlado">
     <words>
       <w>droppable</w>
+      <w>expens</w>
       <w>lastname</w>
       <w>spendings</w>
       <w>sqlalchemy</w>

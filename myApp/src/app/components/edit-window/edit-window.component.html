@@ -38,6 +38,8 @@
       </div>
     </div>
   </form>
+  <app-icon-picker (iconName)="addToForm($event)"  [iconToEdit]="oldIcon" ></app-icon-picker>
+
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>

@@ -168,7 +168,7 @@ $my-light-theme-foreground: (
   dividers:          $white-12-opacity,
   disabled:          rgba(black, 0.3),
   disabled-button:   rgba(black, 0.3),
-  focused-button: map_get($md-accent, 500),
+  focused-button:    map_get($md-accent, 500),
   disabled-text:     rgba(black, 0.3),
   hint-text:         rgba(black, 0.3),
   secondary-text:    rgba(black, 0.7),

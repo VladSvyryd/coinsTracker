@@ -21,6 +21,7 @@ export class DialogWindowComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: Array<any>, fb: FormBuilder) {
     this.title = data.shift()
     this.inputFields = data;
+    console.log(this.inputFields)
     this.form = fb.group({
       amount: this.amount,
       name: this.name,

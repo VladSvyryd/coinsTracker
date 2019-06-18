@@ -19,13 +19,14 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSortModule} from '@angular/material/sort';
 import {MatRippleModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 
 import {NgModule} from '@angular/core';
 
 @NgModule({
-  imports: [MatSelectModule,MatRippleModule,MatSortModule,MatCardModule,MatBottomSheetModule,MatSliderModule, DragDropModule, MatDialogModule, MatSnackBarModule, MatChipsModule, MatSlideToggleModule, MatListModule, MatButtonModule, MatCheckboxModule, MatSidenavModule, MatToolbarModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTabsModule, MatDividerModule, MatGridListModule],
-  exports: [MatSelectModule,MatRippleModule,MatSortModule,MatCardModule,MatBottomSheetModule,MatSliderModule, DragDropModule, MatDialogModule, MatSnackBarModule, MatChipsModule, MatSlideToggleModule, MatListModule, MatButtonModule, MatCheckboxModule, MatSidenavModule, MatToolbarModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTabsModule, MatDividerModule, MatGridListModule],
+  imports: [MatRadioModule,MatSelectModule,MatRippleModule,MatSortModule,MatCardModule,MatBottomSheetModule,MatSliderModule, DragDropModule, MatDialogModule, MatSnackBarModule, MatChipsModule, MatSlideToggleModule, MatListModule, MatButtonModule, MatCheckboxModule, MatSidenavModule, MatToolbarModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTabsModule, MatDividerModule, MatGridListModule],
+  exports: [MatRadioModule,MatSelectModule,MatRippleModule,MatSortModule,MatCardModule,MatBottomSheetModule,MatSliderModule, DragDropModule, MatDialogModule, MatSnackBarModule, MatChipsModule, MatSlideToggleModule, MatListModule, MatButtonModule, MatCheckboxModule, MatSidenavModule, MatToolbarModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTabsModule, MatDividerModule, MatGridListModule],
 })
 export class MyOwnCustomMaterialModule { }

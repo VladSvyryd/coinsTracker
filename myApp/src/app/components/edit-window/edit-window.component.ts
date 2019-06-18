@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DialogData} from '../../models/dialog';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 export interface EditData {
   title:string,
-  item:any
+  item:any,
 }
 
 @Component({
@@ -22,16 +22,20 @@ export class EditWindowComponent implements OnInit {
   inputs;
   max;
   value;
+  oldIcon;
+  newIcon
   constructor(public dialogRef: MatDialogRef<EditWindowComponent>,
               @Inject(MAT_DIALOG_DATA) public recievedData: EditData, fb: FormBuilder) {
     this.data = recievedData;
     // separate fields of Object
-    const { date, id, ...shortObject } = this.data.item;
+    const { date, id,icon, ...shortObject } = this.data.item;
     this.inputs = shortObject;
+        console.log(this.inputs );
+    this.oldIcon = this.data.item.icon;
     this.form = fb.group({
       name: new FormControl('' + this.data.item.name,[Validators.required]),
       amount: new FormControl('' + this.data.item.amount,[Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.minLength(1)]),
-      description: new FormControl(String(this.data.item.description) || '')
+      description: new FormControl(String(this.data.item.description) || ''),
     });
 
   }
@@ -49,6 +53,7 @@ export class EditWindowComponent implements OnInit {
     this.data.item.name = this.form.value.name;
     this.data.item.amount = this.form.value.amount;
     this.data.item.description = this.form.value.description;
+    this.data.item.icon = this.newIcon;
     this.dialogRef.close(this.data.item);
   }
   ngOnInit() {
@@ -68,5 +73,8 @@ export class EditWindowComponent implements OnInit {
     }
 
     return value;
+  }
+    addToForm(e) {
+    this.newIcon= e;
   }
 }

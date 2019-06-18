@@ -1,26 +1,29 @@
 <mat-list>
   <h3 mat-subheader>Navigation</h3>
   <mat-action-list >
-    <button mat-list-item (click)="slider.defaults">
+        <button mat-list-item routerLink="dashboard"><mat-icon>dashboard</mat-icon> <span class="label">Dashboard</span>
+        </button>
+
+    <button mat-list-item (click)="my_slider.toggle();toogleTheme(true)">
       <mat-slide-toggle
         [color]="color"
         (change)="toogleTheme(true)"
         [checked]="!whiteTheme"
-        #slider
+        #my_slider
       >
       </mat-slide-toggle>
       <span class="label wd" >White/Dark</span>
     </button>
     <button mat-list-item (click)="editModeActive()"><mat-icon>edit</mat-icon> <span class="label">Edit Mode</span>  </button>
+    <button mat-list-item  class="menu-item" routerLink="settings">
+      <mat-icon  aria-hidden="false" aria-label="Settings">settings</mat-icon>
+    <span class="label">Settings</span>
+    </button>
     <button mat-list-item><mat-icon  (click)="goBack()" class="goBack" aria-hidden="false">arrow_back</mat-icon>
       <span class="label">Back</span> </button>
         <button mat-list-item (click)="tryLogout()"  class="menu-item">
       <mat-icon  aria-hidden="false" aria-label="Log Out">exit_to_app</mat-icon>
           <span class="label">Log out</span>
-    </button>
-    <button mat-list-item  class="menu-item">
-      <mat-icon  aria-hidden="false" aria-label="settings">settings</mat-icon>
-    <span class="label">Settings</span>
     </button>
   </mat-action-list>
 
