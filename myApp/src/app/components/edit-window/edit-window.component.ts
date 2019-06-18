@@ -30,7 +30,6 @@ export class EditWindowComponent implements OnInit {
     // separate fields of Object
     const { date, id,icon, ...shortObject } = this.data.item;
     this.inputs = shortObject;
-        console.log(this.inputs );
     this.oldIcon = this.data.item.icon;
     this.form = fb.group({
       name: new FormControl('' + this.data.item.name,[Validators.required]),
@@ -53,7 +52,7 @@ export class EditWindowComponent implements OnInit {
     this.data.item.name = this.form.value.name;
     this.data.item.amount = this.form.value.amount;
     this.data.item.description = this.form.value.description;
-    this.data.item.icon = this.newIcon;
+    this.data.item.icon = !this.newIcon ? this.oldIcon : this.newIcon;
     this.dialogRef.close(this.data.item);
   }
   ngOnInit() {

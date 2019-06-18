@@ -9,18 +9,29 @@ import {MAT_BOTTOM_SHEET_DATA, MatBottomSheet, MatBottomSheetRef} from '@angular
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  user:User;
+  user: User;
   fixedLayout: boolean;
-  constructor(private auth:AuthServiceService) {
-      this.user = auth.getUserFromLocalStorage();
-      this.fixedLayout = this.user.fixedLayout;
+  coinsNamesOn: boolean;
+
+  constructor(private auth: AuthServiceService) {
+    this.user = auth.getUserFromLocalStorage();
+    this.fixedLayout = this.user.fixedLayout;
+    this.coinsNamesOn = this.user.coinsNamesOn;
   }
 
   ngOnInit() {
   }
 
-  updateUserSettings( v) {
-    this.user.fixedLayout = v;
+  updateUserSettings(property, newState) {
+    this.getUserOnProperty(property,newState);
     this.auth.setNewUser(this.user);
+  }
+
+  getUserOnProperty(property,newState) {
+    Object.keys(this.user).forEach(key => {
+      if (this.user[key] === property) {
+         this.user[key] = newState;
+      }
+    });
   }
 }

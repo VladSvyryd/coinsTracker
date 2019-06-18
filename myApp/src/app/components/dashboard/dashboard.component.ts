@@ -345,6 +345,12 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+  truncate(input) {
+    if (input.length > 8)
+      return input.substring(0,8) + '..';
+    else
+      return input;
+  };
 }
 
 // :TODO - Update on frontEnd Income,Account,Expenses

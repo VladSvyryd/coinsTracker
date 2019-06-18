@@ -134,7 +134,7 @@ mat-grid-list {
       &.active{
         background-color: black;
       }
-       .edit_mode{
+      .edit_mode{
         position: absolute!important;
         cursor: pointer;
         font-size: 16px;
@@ -146,7 +146,13 @@ mat-grid-list {
         bottom: -20px;
         left: 50%;
         transform: translateX(-50%);
-        color: $dark-violet;
+      }
+      .nameBox{
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
       }
       .deleteIcon{
         top: -10px;

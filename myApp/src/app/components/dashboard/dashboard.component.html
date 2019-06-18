@@ -42,6 +42,9 @@
           <div class="infoBox">
             {{ currency }}&nbsp;{{ income.amount || 0 }}
           </div>
+          <div class="nameBox" *ngIf="userSettings.coinsNamesOn">
+            {{ truncate(income.name) || '' }}
+          </div>
         </div>
       </div>
       <div class="buttonHolder">
@@ -106,6 +109,9 @@
           <div class="infoBox">
             {{ currency }}&nbsp;{{ account.amount || 0 }}
           </div>
+          <div class="nameBox" *ngIf="userSettings.coinsNamesOn">
+            {{ truncate(account.name) || '' }}
+          </div>
         </div>
       </div>
       <div class="buttonHolder">
@@ -169,6 +175,9 @@
 
           <div *ngIf="category" class="infoBox">
             {{ currency }}&nbsp;{{ category.spent_amount || 0 }}
+          </div>
+          <div class="nameBox" *ngIf="userSettings.coinsNamesOn">
+            {{ truncate(category.name) || '' }}
           </div>
         </div>
       </div>

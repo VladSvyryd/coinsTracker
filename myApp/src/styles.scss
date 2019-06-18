@@ -45,7 +45,9 @@ body,html {
   .infoBox {
     color: #ffffff!important;
   }
-
+  .nameBox{
+    color: #ffffff!important;
+  }
   .navigationButtons {
     background-color: #272034!important;
     box-shadow: none!important;
@@ -122,8 +124,8 @@ body,html {
 
 .icon-picker{
   .mat-form-field-infix{
-  width: 0px!important;
-}
+    width: 0px!important;
+  }
   .mat-select-arrow-wrapper{
     display: none;
   }
