@@ -348,12 +348,12 @@ $my-dark-theme-background: (
   card:       map_get($md-violet, 500),
   dialog:    map_get($md-violet, 400),
   disabled-button: $white-12-opacity,
-  raised-button: map-get($mat-grey, 800),
+  raised-button: map-get($md-violet, 800),
   focused-button: map_get($md-accent, 500),
-  selected-button: map_get($mat-grey, 900),
-  selected-disabled-button: map_get($mat-grey, 800),
+  selected-button: map_get($md-violet, 900),
+  selected-disabled-button: map_get($md-violet, 800),
   disabled-button-toggle: black,
-  unselected-chip: map_get($mat-grey, 700),
+  unselected-chip: map_get($md-violet, 700),
   disabled-list-option: black,
   icon: white
 );

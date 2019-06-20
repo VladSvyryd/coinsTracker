@@ -110,7 +110,6 @@ export class DashboardComponent implements OnInit {
     list.forEach(cdkDrop => {
       let droppableElementRef = cdkDrop.getRootElement();
       if (this.isCollide(draggableElementRef, droppableElementRef)) {
-        console.log('sd');
         //if (this.coveredState !== "covered") this.changeState();
       }
     });
@@ -137,7 +136,6 @@ export class DashboardComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result != undefined) {
         this.transitionBegin(
           this.last_transaction.cdkDrag.data,
@@ -151,6 +149,7 @@ export class DashboardComponent implements OnInit {
 
   makeTransaction_ResetPosition(e, dragRef){
     // html button
+
     let draggableElementRef = e.source.getRootElement();
     // cdkDrag object with data in it
     let cdkDrag = e.source;
@@ -168,15 +167,15 @@ export class DashboardComponent implements OnInit {
         .concat(this.cdkAccChildren.toArray());
       type_of_transaction = "acc_exp";
     }
-    list.forEach(cdkDrop => {
+    list.forEach((cdkDrop) => {
       let droppableElementRef = cdkDrop.getRootElement();
+
       // collision detection goes through all accounts, and could be done on the same element, bug fixed
       if (
         this.isCollide(draggableElementRef, droppableElementRef) &&
         droppableElementRef.id !== draggableElementRef.id
       ) {
         if (draggableElementRef.classList.contains("acc") && droppableElementRef.classList.contains("acc")) type_of_transaction = "acc_acc";
-        console.log(type_of_transaction);
         this.last_transaction = {
           type_of_transaction: type_of_transaction,
           cdkDrag,
@@ -186,6 +185,7 @@ export class DashboardComponent implements OnInit {
         this.bs.nativeElement.click();
       }
     });
+
     e.source.reset();
     draggableElementRef.classList.remove("z_Index_dragged");
     // this.changeState();
@@ -193,7 +193,7 @@ export class DashboardComponent implements OnInit {
 
   openDialogToAddNew(ofType, keys: Array<any>, toArray) {
     const dialogRef = this.dialog.open(DialogWindowComponent, {
-      width: '300px',
+      width: '400px',
       data: keys
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -216,7 +216,6 @@ export class DashboardComponent implements OnInit {
   }
 
   transitionBegin(fromData, toData, amount,extras) {
-    console.log(fromData, toData, amount, extras);
     if(this.last_transaction.type_of_transaction =="acc_exp"){
       let newSpending: Spending = {
         description:  extras,
@@ -231,7 +230,10 @@ export class DashboardComponent implements OnInit {
       });
     }else if(this.last_transaction.type_of_transaction =="inc_acc"){
       this.dashboardService.transaction_Inc_to_Acc(fromData,toData,amount).subscribe(
+
         (res)=>{
+          console.log(fromData);
+
           this.sharedService.emitChange('income');
           this.sharedService.emitChange('account');
         }
@@ -262,7 +264,6 @@ export class DashboardComponent implements OnInit {
 
   // add Coin on UI
   add(type, item, toArray: Array<any>): void {
-    console.log(type);
     if (type === 'Account') {
       let newItem: Account = {
         amount: item.amount || 0,
@@ -304,7 +305,6 @@ export class DashboardComponent implements OnInit {
     const index = from.indexOf(item);
     if (index >= 0) {
       from.splice(index, 1);
-      console.log(item);
 
       if (type === 'Account') {
         this.dashboardService.deleteAccount(item).subscribe(() => {

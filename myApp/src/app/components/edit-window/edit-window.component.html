@@ -1,4 +1,4 @@
-<div mat-dialog-content>
+<div mat-dialog-content class="mat-dialog">
   <p>Edit {{ data.title }}</p>
   <form [formGroup]="form">
     <div class="flexForm">
@@ -40,15 +40,17 @@
   </form>
   <app-icon-picker (iconName)="addToForm($event)"  [iconToEdit]="oldIcon" ></app-icon-picker>
 
+  <button mat-icon-button class="close"(click)="onNoClick()"><mat-icon>close</mat-icon></button>
 </div>
+
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
   <button
-    mat-button
+    mat-raised-button
     type="submit"
     [disabled]="!form.valid"
     (click)="sendData()"
     cdkFocusInitial
+    class="submit"
   >
     Ok
   </button>
