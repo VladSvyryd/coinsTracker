@@ -33,6 +33,7 @@ class Incomes(db.Model):
     amount = db.Column(db.Integer)
     paycheck_date = db.Column(db.TIMESTAMP)
     icon = db.Column(db.String(50))
+    #account_track = db.relationship("AccountTrack", backref='incomes')
 
 
 class Spendings(db.Model):
@@ -43,6 +44,7 @@ class Spendings(db.Model):
     expense_id = db.Column(db.Integer)
     account_id = db.Column(db.INTEGER)
     description = db.Column(db.String(50))
+    account_balance = db.Column(db.Integer)
 
 
 class Accounts(db.Model):
@@ -62,6 +64,8 @@ class AccountTrack(db.Model):
     income_id = db.Column(db.Integer)
     amount = db.Column(db.Integer)
     date = db.Column(db.TIMESTAMP)
+    account_balance = db.Column(db.Integer)
+    #incomes_id = db.Column(db.String(50), db.ForeignKey('incomes.id'))
 
 
 class IncomeTrack(db.Model):

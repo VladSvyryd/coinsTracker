@@ -7,6 +7,7 @@ import jwt  # json web token (you need to install PyJWT if ou get an error while
 import datetime  # to work with date and time
 from functools import wraps  # for decorator
 from flask_cors import CORS
+from operator import itemgetter
 
 import os
 from models import db
@@ -235,7 +236,7 @@ def create_income(current_user):
     new_income = Incomes(name=data['name'], amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id, icon=data['icon'])
     db.session.add(new_income)
     db.session.commit()
-    # on clientside we need id of newly created element / this will get last element id
+    # on client side we need id of newly created element / this will get last element id
     addedItem_id = db.session.query(Incomes).order_by(Incomes.id.desc()).first().id
 
     new_income_track = IncomeTrack(user_id=current_user.public_id, income_id=addedItem_id, amount=data["amount"],
@@ -287,10 +288,11 @@ def create_account(current_user):
     # get data
     data = request.get_json()
     print(data)
-    new_account = Accounts(name=data['name'], user_id=current_user.public_id, amount=(int)(data['amount']), date=datetime.datetime.utcnow(),icon=data['icon'])
+    new_account = Accounts(name=data['name'], user_id=current_user.public_id, amount=(int)(data['amount']),
+                           date=datetime.datetime.utcnow(), icon=data['icon'])
     db.session.add(new_account)
     db.session.commit()
-    # on clientside we need id of newly created element / this will get last element id
+    # on client side we need id of newly created element / this will get last element id
     addedItem_id = db.session.query(Accounts).order_by(Accounts.id.desc()).first().id
     return jsonify({'last_added_id': addedItem_id})
 
@@ -303,13 +305,8 @@ def get_all_accounts(current_user):
     accounts = Accounts.query.filter_by(user_id=current_user.public_id).all()
     output = []
     for account in accounts:
-        account_list = {}
-        account_list['id'] = account.id
-        account_list['name'] = account.name
-        account_list['description'] = account.description
-        account_list['amount'] = account.amount
-        account_list['date'] = account.date
-        account_list['icon'] = account.icon
+        account_list = dict(id=account.id, name=account.name, description=account.description,
+                            amount=account.amount, date=account.date, icon=account.icon)
         output.append(account_list)
     print(output)
     return jsonify(output)
@@ -324,6 +321,26 @@ def get_accounts_sum(current_user):
     return jsonify(sum)
 
 
+@app.route('/account_balance', methods=['GET'])
+@token_required
+def get_account_balance_history(current_user):
+
+    expense_history = Spendings.query.filter_by(user_id=current_user.public_id).all()
+    output = []
+    for expense in expense_history:
+        expense_list = dict(id=expense.id, amount=expense.amount, date=expense.date, type="outgoing",
+                            account_balance=expense.account_balance)
+        output.append(expense_list)
+
+    incoming_history = AccountTrack.query.filter_by(user_id=current_user.public_id).all()
+    for incoming in incoming_history:
+        incoming_list = dict(id=incoming.id, amount=incoming.amount, date=incoming.date, type="incoming",
+                             account_balance=incoming.account_balance)
+        output.append(incoming_list)
+    output = sorted(output, key=itemgetter('date'), reverse=False)
+    return jsonify(output)
+
+
 @app.route('/account/<account_id>', methods=['GET'])
 # this is a decorator to make this route opened to authenticated users with token
 @token_required
@@ -335,7 +352,7 @@ def get_one_account(current_user, account_id):
     account = Accounts.query.filter_by(user_id=current_user.public_id).filter_by(id=account_id).first()
     if not account:
         return jsonify({'server_message': 'No such income found'})
-    account_output = dict(amount=account.amount, date=account.date,icon=account.icon)
+    account_output = dict(amount=account.amount, date=account.date, icon=account.icon)
     return jsonify({'account': account_output})
 
 
@@ -380,11 +397,7 @@ def get_all_spendings(current_user):
 
     output = []
     for spending in spendings:
-        spending_list = {}
-        spending_list['id'] = spending.id
-        spending_list['date'] = spending.date
-        spending_list['amount'] = spending.amount
-        spending_list['expense'] = spending.expense_id
+        spending_list = dict(id=spending.id, date=spending.date, amount=spending.amount, expense=spending.expense_id)
         output.append(spending_list)
     return jsonify(output)
 
@@ -410,14 +423,24 @@ def create_spending(current_user):
 
     # get data
     data = request.get_json()
+
+    account_balance = Accounts.query.with_entities(func.sum(Accounts.amount)).filter_by(
+        user_id=current_user.public_id
+    ).first()
+
+    current_account_balance = account_balance[0] - data['amount']
+
+    print("current_account_balance", current_account_balance)
+
     new_spending = Spendings(amount=data['amount'], date=datetime.datetime.utcnow(), user_id=current_user.public_id,
-                             expense_id=data['expense_id'], account_id=data['account_id'],description=data['description'])
+                             expense_id=data['expense_id'], account_id=data['account_id'],
+                             description=data['description'], account_balance=current_account_balance)
     db.session.add(new_spending)
     db.session.commit()
     make_transaction(data['account_id'], data['amount'], data['expense_id'])
-    # on clientside we need id of newly created element / this will get last element id
-    addedItem_id = db.session.query(Spendings).order_by(Spendings.id.desc()).first().id
-    return jsonify({'last_added_id': addedItem_id})
+    # on client side we need id of newly created element / this will get last element id
+    added_item_id = db.session.query(Spendings).order_by(Spendings.id.desc()).first().id
+    return jsonify({'last_added_id': added_item_id})
 
 
 @app.route('/spending/<spending_id>', methods=['DELETE'])
@@ -475,7 +498,7 @@ def create_expense(current_user):
     data = request.get_json()
 
     new_expense = Expenses(name=data['name'],
-                            user_id=current_user.public_id, wanted_limit=data['wanted_limit'], icon=data['icon'])
+                           user_id=current_user.public_id, wanted_limit=data['wanted_limit'], icon=data['icon'])
     db.session.add(new_expense)
     db.session.commit()
     # on client side we need id of newly created element / this will get last element id
@@ -563,8 +586,15 @@ def transaction_inc_acc(current_user):
     if not inc:
         return jsonify({'server_message': 'No such Income found'})
 
+    account_balance = Accounts.query.with_entities(func.sum(Accounts.amount)).filter_by(
+        user_id=current_user.public_id
+    ).first()
+
+    current_account_balance = account_balance[0] + data['transaction_amount']
+
     new_account_track = AccountTrack(user_id=current_user.public_id, account_id=data['acc']["id"],
-                                    income_id=data['inc']["id"], amount=data["transaction_amount"], date=datetime.datetime.utcnow())
+                                     income_id=data['inc']["id"], amount=data["transaction_amount"],
+                                     date=datetime.datetime.utcnow(), account_balance=current_account_balance)
     db.session.add( new_account_track)
 
     inc.amount -= data["transaction_amount"]

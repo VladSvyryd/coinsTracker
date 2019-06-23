@@ -6,6 +6,8 @@ import {catchError} from "rxjs/operators";
 import {Income} from "../models/income";
 import {Expense} from "../models/expense";
 import {Spending} from '../models/spending';
+import {AccountTrack} from "../models/account-track";
+import {IncomeTrack} from "../models/income-track";
 import {User} from '../models/user';
 
 @Injectable({
@@ -121,6 +123,16 @@ export class DashboardService {
       catchError(this.handleError)
     )
   }
+
+
+  
+    //*****************************ACCOUNT/INCOME TRACK******************************/
+   getAccountBalanceHistory(path:string):Observable<any[]>  {
+    return this.httpClient.get<any[]>(this.server_path+"/account_balance").pipe(
+      catchError(this.handleError)
+    );
+  }
+
 
 
 

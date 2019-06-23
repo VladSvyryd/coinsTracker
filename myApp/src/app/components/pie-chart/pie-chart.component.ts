@@ -105,8 +105,7 @@ chartColors(){
     let categoryIds = [];
     this.categories$ = this.dashboardService.getAll('expense');
     this.dashboardService.getAll('expense').subscribe((res)=>{
-      console.log(res)
-
+      //console.log(res)
     });
     this.categories$.forEach(categories => {
       categories.forEach( category => {
@@ -140,8 +139,6 @@ chartColors(){
 
     this.lineChartData[0].data = allSpendingsAmount;
     this.lineChartLabels = allSpendingDate;
-    console.log()
-
   }
 
 
@@ -151,7 +148,7 @@ chartColors(){
     this.spending$ = this.dashboardService.getSpendingByExpenseId(id);
     this.spending$.forEach(spendings1 => {
       for(let i in spendings1){
-        console.log("spendings1", spendings1[i]);
+        //console.log("spendings1", spendings1[i]);
       }
     });
 

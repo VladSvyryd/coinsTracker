@@ -1,0 +1,26 @@
+    <div style="display: block;">
+      <canvas baseChart width="300" height="300"
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
+        [chartType]="lineChartType"
+      >
+      </canvas>
+    </div>
+<mat-list>
+  <h3 mat-subheader>Balance history</h3>
+  <mat-list-item *ngFor="let aH of accountHistory">
+    <mat-icon mat-list-icon>arrow_right</mat-icon>
+    <h4 mat-line>{{aH.name}}</h4>
+    <p mat-line> {{aH.date | date:'dd-MM-yy' }} </p>
+    <span class="example-spacer"></span>
+     <p *ngIf="aH.type == 'incoming'" [ngStyle]="{'color': 'green'}">{{aH.amount}}€</p>
+     <p *ngIf="aH.type == 'outgoing'" [ngStyle]="{'color': 'red'}"> -{{aH.amount}}€</p>
+
+
+      <mat-divider></mat-divider>
+
+  </mat-list-item>
+</mat-list>

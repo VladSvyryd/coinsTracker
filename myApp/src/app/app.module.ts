@@ -30,6 +30,7 @@ import { NavigationVerticalComponent } from './components/navigation-vertical/na
 import { IconPickerComponent } from './components/icon-picker/icon-picker.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { AccountBalanceComponent } from './components/account-balance/account-balance.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { SettingsComponent } from './components/settings/settings.component';
     NavigationVerticalComponent,
     IconPickerComponent,
     DoughnutChartComponent,
-    SettingsComponent
+    SettingsComponent,
+    AccountBalanceComponent
   ],
   imports: [
     BrowserModule,
