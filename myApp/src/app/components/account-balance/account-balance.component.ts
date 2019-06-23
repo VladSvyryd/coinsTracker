@@ -18,8 +18,6 @@ export class AccountBalanceComponent implements OnInit {
   private accBalanceHistory$: Observable<any[]>;
 
   public accountHistory = [];
-  public incomes$ = [];
-  public expenses = [];
 
 
   public lineChartData = [
@@ -66,13 +64,7 @@ export class AccountBalanceComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getCurrentBalance();
     this.getAccountHistory();
-  }
-
-  getCurrentBalance() {
-     this.dashboardService.getSum('account').subscribe((sum)=>{
-     });
   }
 
   getAccountHistory() {

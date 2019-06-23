@@ -4,8 +4,28 @@
       <canvas baseChart
         [data]="doughnutChartData"
         [labels]="doughnutChartLabels"
-        [chartType]="doughnutChartType">
+        [chartType]="doughnutChartType"
+        (chartClick)="chartClicked($event)"
+      >
       </canvas>
+
+      <div class="scrollContainer">
+      <table *ngIf="spending$ | async as spendings">
+
+        <h3 mat-subheader>{{nameSingleCat}}</h3>
+        <tr >
+          <th>Expenses</th>
+          <th>Date</th>
+          <th>Description</th>
+        </tr>
+        <tr *ngFor="let s of spendings">
+          <th >{{s.amount}} €</th>
+          <th >{{s.date | date:'dd/MM/yy'}} </th>
+          <th >{{s.description}} </th>
+        </tr>
+      </table>
+
+    </div>
     </div>
   </div>
 </div>

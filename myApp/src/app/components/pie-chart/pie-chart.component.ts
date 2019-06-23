@@ -7,6 +7,7 @@ import {DashboardService} from "../../services/dashboard.service";
 import {Spending} from "../../models/spending";
 import {Account} from "../../models/account";
 import { formatDate } from '@angular/common';
+
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
@@ -20,7 +21,7 @@ export class PieChartComponent implements OnInit {
 
   //line chart
   public lineChartData: ChartDataSets[] = [
-    { data: [], label: '' ,borderWidth:1.5},
+    { data: [], label: '' ,borderWidth: 1.5},
   ];
 
   public lineChartLabels: Label[] = [];
@@ -85,14 +86,12 @@ chartColors(){
 }
   ngOnInit() {
     // display data in pie chart
-
-   this.accounts$ = this.dashboardService.getAll('account');
+   /*this.accounts$ = this.dashboardService.getAll('account');
    this.accounts$.forEach(accounts =>{
      accounts.forEach(account => {
        console.log("account", account.amount);
      })
-    });
-
+    });**/
 
    this.getCategoryInfo();
    this.getAllSpendings();
