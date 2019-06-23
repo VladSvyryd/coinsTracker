@@ -1,4 +1,4 @@
-<div mat-dialog-content>
+<div mat-dialog-content class="mat-dialog">
   <p>New {{ title }}</p>
   <form [formGroup]="form">
     <mat-form-field *ngFor="let item of inputFields">
@@ -10,16 +10,17 @@
       />
     </mat-form-field>
   </form>
+  <button mat-icon-button (click)="onNoClick()" class="close"><mat-icon>close</mat-icon></button>
 </div>
 <app-icon-picker (iconName)="addToForm($event)"></app-icon-picker>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
   <button
-    mat-button
+    mat-flat-button
     type="submit"
     [disabled]="!(name.valid && amount.valid)"
     (click)="sendData()"
     cdkFocusInitial
+    class="submit"
   >
     Ok
   </button>

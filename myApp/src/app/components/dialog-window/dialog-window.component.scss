@@ -10,3 +10,15 @@ mat-form-field{
     margin-right: 10px;
   }
 }
+.mat-dialog{
+  position: relative;
+  .close{
+    position: absolute;
+    top: 5px;
+    right: 20px;
+  }
+}
+.submit{
+  margin-left: auto;
+}
+
