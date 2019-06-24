@@ -325,17 +325,26 @@ def get_accounts_sum(current_user):
 @token_required
 def get_account_balance_history(current_user):
 
-    expense_history = Spendings.query.filter_by(user_id=current_user.public_id).all()
+    #expense_history = Spendings.query.filter_by(user_id=current_user.public_id).all()
+    expense_history = Spendings.query.join(Expenses, Spendings.expense_id == Expenses.id)\
+        .add_columns(Spendings.id, Spendings.amount, Spendings.date, Spendings.account_balance, Expenses.name)\
+        .filter_by(user_id=current_user.public_id)
     output = []
+    print("expense_history", expense_history)
     for expense in expense_history:
         expense_list = dict(id=expense.id, amount=expense.amount, date=expense.date, type="outgoing",
-                            account_balance=expense.account_balance)
+                            account_balance=expense.account_balance, name=expense.name)
+
         output.append(expense_list)
 
-    incoming_history = AccountTrack.query.filter_by(user_id=current_user.public_id).all()
+    #incoming_history = AccountTrack.query.filter_by(user_id=current_user.public_id).all()
+    incoming_history = AccountTrack.query.join(Incomes, AccountTrack.income_id == Incomes.id)\
+        .add_columns(AccountTrack.id, AccountTrack.amount, AccountTrack.date, AccountTrack.account_balance,
+                     Incomes.name)\
+        .filter_by(user_id=current_user.public_id)
     for incoming in incoming_history:
         incoming_list = dict(id=incoming.id, amount=incoming.amount, date=incoming.date, type="incoming",
-                             account_balance=incoming.account_balance)
+                             account_balance=incoming.account_balance, name=incoming.name)
         output.append(incoming_list)
     output = sorted(output, key=itemgetter('date'), reverse=False)
     return jsonify(output)
