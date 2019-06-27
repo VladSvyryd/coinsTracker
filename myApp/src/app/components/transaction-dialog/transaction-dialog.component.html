@@ -1,5 +1,11 @@
-<div>
-  <h3>From:{{data.from}} to: {{data.to}}</h3>
+
+
+<div class="header">
+  <h3><div class="header-box"><mat-icon svgIcon="{{data.from.icon}}" aria-hidden="false" ></mat-icon>
+   <span> {{truncate(data.from.name)}} </span>
+  </div> <span> > </span>
+   <div class="header-box"> <span>{{truncate(data.to.name)}}</span>
+    <mat-icon svgIcon="{{data.to.icon}}" aria-hidden="false" ></mat-icon></div></h3>
 </div>
 <form [formGroup]="form">
     <mat-form-field >

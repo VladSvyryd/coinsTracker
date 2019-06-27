@@ -14,7 +14,6 @@ import {User} from './models/user';
 })
 export class AppComponent {
   title = 'CK';
-  blackThemeOn = false;
   options = {
     bottom: 0,
     fixed: false,
