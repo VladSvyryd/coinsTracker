@@ -1,5 +1,5 @@
 import {Component, OnInit, AfterViewInit, Input} from '@angular/core';
-import { ChartType} from 'chart.js';
+import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import { MultiDataSet, Label} from 'ng2-charts';
 import {Observable} from "rxjs";
 import {Spending} from "../../models/spending";
@@ -27,22 +27,14 @@ export class DoughnutChartComponent implements OnInit, AfterViewInit {
   public doughnutChartData: MultiDataSet = [];
   public doughnutChartType: ChartType = 'doughnut';
 
- public doughnutChartOptions: any = {
+ public doughnutChartOptions: ChartOptions  = {
     cutoutPercentage: 70,
-    elements: {
-      center: {
-        text: 'Hello',
-        fontColor: '#ff6e00',
-        backgroundColor: '#841386',
-        fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-        fontSize: 25,
-        fontStyle: 'normal'
-      }
-    }
+
+
   };
-  public doughnutChartDatasets: any[] = [
+  public doughnutChartDatasets: ChartDataSets[]  = [
     {
-      options: this.doughnutChartOptions,
+
       backgroundColor: [
         "rgba(37,176,250,0.3)",
         "rgba(67,224,170,0.3)",
@@ -54,7 +46,8 @@ export class DoughnutChartComponent implements OnInit, AfterViewInit {
         'rgba(5,209,255,0.3)',
         'rgba(132,19,134,0.3)',
         'rgba(255,255,255,0.3)'
-      ]
+      ],
+      borderWidth: 1.5
     }];
 
   public isDoughnutChart : boolean;
@@ -134,7 +127,7 @@ export class DoughnutChartComponent implements OnInit, AfterViewInit {
         ctx = chart.ctx;
 
         ctx.restore();
-        let fontSize = (height / 250).toFixed(2);
+        let fontSize = (height / 280).toFixed(2);
         ctx.font = fontSize + "em sans-serif";
         ctx.textBaseline = "middle";
         ctx.textAlign = 'center';
