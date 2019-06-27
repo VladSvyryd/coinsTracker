@@ -28,14 +28,14 @@ export class DoughnutChartComponent implements OnInit, AfterViewInit {
   public doughnutChartType: ChartType = 'doughnut';
 
  public doughnutChartOptions: any = {
-    cutoutPercentage: 50,
+    cutoutPercentage: 70,
     elements: {
       center: {
         text: 'Hello',
         fontColor: '#ff6e00',
         backgroundColor: '#841386',
         fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-        fontSize: 44,
+        fontSize: 25,
         fontStyle: 'normal'
       }
     }
@@ -44,16 +44,16 @@ export class DoughnutChartComponent implements OnInit, AfterViewInit {
     {
       options: this.doughnutChartOptions,
       backgroundColor: [
-        "#24AEFC",
-        "#43E0AA",
-        "#935CCB",
-        '#14143e',
-        '#ff6e00',
-        '#f0c800',
-        '#00efab',
-        '#05d1ff',
-        '#841386',
-        '#fff'
+        "rgba(37,176,250,0.3)",
+        "rgba(67,224,170,0.3)",
+        "rgba(147,92,203,0.3)",
+        'rgba(20,20,62,0.3)',
+        'rgba(255,110,0,0.3)',
+        'rgba(240,200,0,0.3)',
+        'rgba(0,239,171,0.3)',
+        'rgba(5,209,255,0.3)',
+        'rgba(132,19,134,0.3)',
+        'rgba(255,255,255,0.3)'
       ]
     }];
 

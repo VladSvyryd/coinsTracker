@@ -14,8 +14,9 @@
     flex: 1;
   }
   .right-col{
-    max-width: 600px;
+    max-width: 1200px;
     margin: 20px;
+    min-width: 700px;
   }
   @media #{$mobile} {
     flex-direction: column;
@@ -30,7 +31,7 @@
   max-width: 400px;
   margin: 0 15px;
   @media #{$mobile} {
-    margin: 25px auto;
+    margin: 10px auto;
   }
 }
 
@@ -263,5 +264,17 @@ $size: 56px;
   align-items: center;
   background-color: transparent !important;
   border: 1px solid #b87fb1;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    padding:  0 0 50px 0;
+}
+.doughnut-chart{
+  width: 100%;
 }
 

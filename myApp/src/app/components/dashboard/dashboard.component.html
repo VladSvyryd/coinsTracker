@@ -1,57 +1,58 @@
 <app-placeholder *ngIf="false"></app-placeholder>
 <div class="griddy">
-<div class="placeholder left-col">
-  <div class="wrapper">
-    <div class="headerSection" *ngIf="!(isMobile | async)?.matches">
-      <app-counter data="income" [title]="'Income'"></app-counter>
-      <div class="line">
-        <h4>Date</h4>
-      </div>
-    </div>
-    <div *ngIf="incomes$ | async as incomes" class="grid">
-      <div class="list" [class.not-fixed]="!userSettings.fixedLayout">
-        <div class="box " *ngFor="let income of incomes">
-          <div  class="example-custom-placeholder">
-            <div class="holder"></div>
-          </div>
-          <button
-            class="blaTest"
-            mat-fab
-            color="primary"
-            [cdkDragData]="income"
-            (cdkDragMoved)="detectCollision($event)"
-            (cdkDragReleased)=" makeTransaction_ResetPosition($event, inc)"
-            (cdkDragStarted)="setDraggableRef_z_Index($event)"
-            cdkDrag
-            #inc
-            [@fadeIn]="bounce"
-            cdkDragBoundary=".mainA"
-            class="inc"
-            id="{{ income.id }}"
-          >
-            <!-- (click)="openDialogToEditOld({ title: 'Income', item: income })"-->
-             <mat-icon svgIcon="{{income.icon}}" aria-hidden="false" ></mat-icon>
-
-          </button>
-          <mat-icon (click)="remove('Income', income, incomes)"
-                    class="deleteIcon edit_mode"
-
-          >close</mat-icon>
-          <mat-icon (click)="openDialogToEditOld({ title: 'Income', item: income })"
-                    class="infoIcon edit_mode"
-          >info_outline</mat-icon>
-          <div class="infoBox">
-            {{ currency }}&nbsp;{{ income.amount || 0 }}
-          </div>
-          <div class="nameBox" *ngIf="userSettings.coinsNamesOn">
-            {{ truncate(income.name) || '' }}
+  <div class="row">
+    <div class="placeholder left-col">
+      <div class="wrapper">
+        <div class="headerSection" *ngIf="!(isMobile | async)?.matches">
+          <app-counter data="income" [title]="'Income'"></app-counter>
+          <div class="line">
+            <h4>Date</h4>
           </div>
         </div>
-      </div>
-      <div class="buttonHolder">
-        <button
-          class="buttonToOpenDialog"
-          (click)="
+        <div *ngIf="incomes$ | async as incomes" class="grid">
+          <div class="list" [class.not-fixed]="!userSettings.fixedLayout">
+            <div class="box " *ngFor="let income of incomes">
+              <div  class="example-custom-placeholder">
+                <div class="holder"></div>
+              </div>
+              <button
+                class="blaTest"
+                mat-fab
+                color="primary"
+                [cdkDragData]="income"
+                (cdkDragMoved)="detectCollision($event)"
+                (cdkDragReleased)=" makeTransaction_ResetPosition($event, inc)"
+                (cdkDragStarted)="setDraggableRef_z_Index($event)"
+                cdkDrag
+                #inc
+                [@fadeIn]="bounce"
+                cdkDragBoundary=".mainA"
+                class="inc"
+                id="{{ income.id }}"
+              >
+                <!-- (click)="openDialogToEditOld({ title: 'Income', item: income })"-->
+                <mat-icon svgIcon="{{income.icon}}" aria-hidden="false" ></mat-icon>
+
+              </button>
+              <mat-icon (click)="remove('Income', income, incomes)"
+                        class="deleteIcon edit_mode"
+
+              >close</mat-icon>
+              <mat-icon (click)="openDialogToEditOld({ title: 'Income', item: income })"
+                        class="infoIcon edit_mode"
+              >info_outline</mat-icon>
+              <div class="infoBox">
+                {{ currency }}&nbsp;{{ income.amount || 0 }}
+              </div>
+              <div class="nameBox" *ngIf="userSettings.coinsNamesOn">
+                {{ truncate(income.name) || '' }}
+              </div>
+            </div>
+          </div>
+          <div class="buttonHolder">
+            <button
+              class="buttonToOpenDialog"
+              (click)="
             openDialogToAddNew(
               'Income',
               [
@@ -62,65 +63,65 @@
               incomes
             )
           "
-          [disabled]="incomes.length > 3"
-          mat-fab
-        >
-          <img class="pic" src="../../../assets/img/ic_add_white.svg" alt="">
+              [disabled]="incomes.length > 3"
+              mat-fab
+            >
+              <img class="pic" src="../../../assets/img/ic_add_white.svg" alt="">
 
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="wrapper">
-    <div class="headerSection" *ngIf="!(isMobile | async)?.matches">
-      <app-counter data="account" [title]="'Account'"></app-counter>
-      <div class="line">
-        <h4>Date</h4>
-      </div>
-    </div>
-    <div *ngIf="accounts$ | async as accounts" class="grid">
-      <div class="list" id="accountList" [class.not-fixed]="!userSettings.fixedLayout">
-        <div *ngFor="let account of accounts" class="box ">
-          <div  class="example-custom-placeholder">
-            <div class="holder"></div>
-          </div>
-          <button
-            mat-fab
-            cdkDrag
-            cdkDragBoundary=".mainA"
-            #acc
-            class="acc"
-            color="warn"
-            [cdkDragData]="account"
-            (cdkDragMoved)="detectCollision($event)"
-            (cdkDragReleased)="makeTransaction_ResetPosition($event, acc)"
-            (cdkDragStarted)="setDraggableRef_z_Index($event)"
-
-            id="{{ account.id }}"
-
-          >
-            <!-- (click)="openDialogToEditOld({ title: 'Account', item: account })"-->
-            <mat-icon svgIcon="{{account.icon}}" aria-hidden="false" ></mat-icon>
-          </button>
-
-          <mat-icon (click)="remove('Account', account, accounts)"
-                    class="deleteIcon edit_mode"
-          >close</mat-icon>
-          <mat-icon (click)="openDialogToEditOld({ title: 'Account', item: account })"
-                    class="infoIcon edit_mode"
-          >info_outline</mat-icon>
-          <div class="infoBox">
-            {{ currency }}&nbsp;{{ account.amount || 0 }}
-          </div>
-          <div class="nameBox" *ngIf="userSettings.coinsNamesOn">
-            {{ truncate(account.name) || '' }}
+            </button>
           </div>
         </div>
       </div>
-      <div class="buttonHolder">
-        <button
-          class="buttonToOpenDialog"
-          (click)="
+      <div class="wrapper">
+        <div class="headerSection" *ngIf="!(isMobile | async)?.matches">
+          <app-counter data="account" [title]="'Account'"></app-counter>
+          <div class="line">
+            <h4>Date</h4>
+          </div>
+        </div>
+        <div *ngIf="accounts$ | async as accounts" class="grid">
+          <div class="list" id="accountList" [class.not-fixed]="!userSettings.fixedLayout">
+            <div *ngFor="let account of accounts" class="box ">
+              <div  class="example-custom-placeholder">
+                <div class="holder"></div>
+              </div>
+              <button
+                mat-fab
+                cdkDrag
+                cdkDragBoundary=".mainA"
+                #acc
+                class="acc"
+                color="warn"
+                [cdkDragData]="account"
+                (cdkDragMoved)="detectCollision($event)"
+                (cdkDragReleased)="makeTransaction_ResetPosition($event, acc)"
+                (cdkDragStarted)="setDraggableRef_z_Index($event)"
+
+                id="{{ account.id }}"
+
+              >
+                <!-- (click)="openDialogToEditOld({ title: 'Account', item: account })"-->
+                <mat-icon svgIcon="{{account.icon}}" aria-hidden="false" ></mat-icon>
+              </button>
+
+              <mat-icon (click)="remove('Account', account, accounts)"
+                        class="deleteIcon edit_mode"
+              >close</mat-icon>
+              <mat-icon (click)="openDialogToEditOld({ title: 'Account', item: account })"
+                        class="infoIcon edit_mode"
+              >info_outline</mat-icon>
+              <div class="infoBox">
+                {{ currency }}&nbsp;{{ account.amount || 0 }}
+              </div>
+              <div class="nameBox" *ngIf="userSettings.coinsNamesOn">
+                {{ truncate(account.name) || '' }}
+              </div>
+            </div>
+          </div>
+          <div class="buttonHolder">
+            <button
+              class="buttonToOpenDialog"
+              (click)="
             openDialogToAddNew(
               'Account',
               [
@@ -132,62 +133,62 @@
               accounts
             )
           "
-          [disabled]="accounts.length > 3"
-          mat-fab
-        >
-          <img class="pic" src="../../../assets/img/ic_add_white.svg" alt="">
-
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="wrapper">
-    <div class="headerSection" *ngIf="!(isMobile | async)?.matches">
-      <app-counter [title]="'Categories'"></app-counter>
-      <div class="line">
-        <h4>Date</h4>
-      </div>
-    </div>
-    <div *ngIf="categories$ | async as categories" class="grid">
-      <div class="list" [class.not-fixed]="!userSettings.fixedLayout">
-        <div class="box" *ngFor="let category of categories">
-          <div  class="example-custom-placeholder">
-            <div class="holder"></div>
-          </div>
-          <button
-            mat-fab
-            cdkDrag
-            color="accent"
-            [cdkDragData]="category"
-            [cdkDragDisabled]="true"
-            #cat
-            id="{{category.id}}"
-            (click)="showExpensInfo(category.id)"
+              [disabled]="accounts.length > 3"
+              mat-fab
             >
+              <img class="pic" src="../../../assets/img/ic_add_white.svg" alt="">
 
-            <!--[@shake]="clickedState"
-            (click)="changeState(category.spent_amount)"-->
-
-            <mat-icon svgIcon="{{category.icon}}" aria-hidden="false" ></mat-icon>
-
-          </button>
-
-          <mat-icon (click)="remove('Expense', category, categories)"
-                    class="deleteIcon edit_mode"
-          >close</mat-icon>
-
-          <div *ngIf="category" class="infoBox">
-            {{ currency }}&nbsp;{{ category.spent_amount || 0 }}
-          </div>
-          <div class="nameBox" *ngIf="userSettings.coinsNamesOn">
-            {{ truncate(category.name) || '' }}
+            </button>
           </div>
         </div>
       </div>
-      <div class="buttonHolder">
-        <button
-          class="buttonToOpenDialog"
-          (click)="
+      <div class="wrapper">
+        <div class="headerSection" *ngIf="!(isMobile | async)?.matches">
+          <app-counter [title]="'Categories'"></app-counter>
+          <div class="line">
+            <h4>Date</h4>
+          </div>
+        </div>
+        <div *ngIf="categories$ | async as categories" class="grid">
+          <div class="list" [class.not-fixed]="!userSettings.fixedLayout">
+            <div class="box" *ngFor="let category of categories">
+              <div  class="example-custom-placeholder">
+                <div class="holder"></div>
+              </div>
+              <button
+                mat-fab
+                cdkDrag
+                color="accent"
+                [cdkDragData]="category"
+                [cdkDragDisabled]="true"
+                #cat
+                id="{{category.id}}"
+                (click)="showExpensInfo(category.id)"
+              >
+
+                <!--[@shake]="clickedState"
+                (click)="changeState(category.spent_amount)"-->
+
+                <mat-icon svgIcon="{{category.icon}}" aria-hidden="false" ></mat-icon>
+
+              </button>
+
+              <mat-icon (click)="remove('Expense', category, categories)"
+                        class="deleteIcon edit_mode"
+              >close</mat-icon>
+
+              <div *ngIf="category" class="infoBox">
+                {{ currency }}&nbsp;{{ category.spent_amount || 0 }}
+              </div>
+              <div class="nameBox" *ngIf="userSettings.coinsNamesOn">
+                {{ truncate(category.name) || '' }}
+              </div>
+            </div>
+          </div>
+          <div class="buttonHolder">
+            <button
+              class="buttonToOpenDialog"
+              (click)="
             openDialogToAddNew(
               'Expense',
               [
@@ -198,22 +199,25 @@
               categories
             )
           "
-          mat-fab
-        >
-          <img class="pic" src="../../../assets/img/ic_add_white.svg" alt="">
-        </button>
+              mat-fab
+            >
+              <img class="pic" src="../../../assets/img/ic_add_white.svg" alt="">
+            </button>
+          </div>
+        </div>
+      </div>
+      <button #transaction style="display: none;" (click)="tryMakeTransaction()"></button>
+
+    </div>
+    <div class="charts right-col" *ngIf="!(isMobile | async)?.matches">
+      <div class="pie-chart">
+        <app-pie-chart></app-pie-chart>
       </div>
     </div>
   </div>
-  <button #transaction style="display: none;" (click)="tryMakeTransaction()"></button>
-
-</div>
-<div class="charts right-col" *ngIf="!(isMobile | async)?.matches">
-  <div class="pie-chart">
-    <app-pie-chart></app-pie-chart>
+  <div class="row" *ngIf="!(isMobile | async)?.matches">
+    <div class="doughnut-chart">
+      <app-doughnut-chart></app-doughnut-chart>
     </div>
-  <div class="line-chart">
-    <app-line-chart></app-line-chart>
   </div>
-</div>
 </div>

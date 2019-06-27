@@ -1,6 +1,5 @@
-<div>
-  <div>
-    <div style="display: block">
+    <div class="chartContainer">
+      <div class="chart">
       <canvas baseChart
         [data]="doughnutChartData"
         [labels]="doughnutChartLabels"
@@ -10,8 +9,8 @@
         (chartClick)="chartClicked($event)"
       >
       </canvas>
-
-      <div class="scrollContainer">
+</div>
+      <div class="scrollContainer wrapper">
       <table *ngIf="spending$ | async as spendings">
 
         <h3 mat-subheader>{{nameSingleCat}}</h3>
@@ -29,5 +28,3 @@
 
     </div>
     </div>
-  </div>
-</div>
