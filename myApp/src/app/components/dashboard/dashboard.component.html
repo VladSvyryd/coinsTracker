@@ -21,6 +21,8 @@
             [cdkDragData]="income"
             (cdkDragMoved)="detectCollision($event)"
             (cdkDragReleased)=" makeTransaction_ResetPosition($event, inc)"
+            (cdkDragStarted)="setDraggableRef_z_Index($event)"
+
             cdkDrag
             #inc
             [@fadeIn]="bounce"
@@ -93,6 +95,8 @@
             [cdkDragData]="account"
             (cdkDragMoved)="detectCollision($event)"
             (cdkDragReleased)="makeTransaction_ResetPosition($event, acc)"
+            (cdkDragStarted)="setDraggableRef_z_Index($event)"
+
             id="{{ account.id }}"
 
           >
