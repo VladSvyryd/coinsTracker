@@ -8,7 +8,6 @@ import datetime  # to work with date and time
 from functools import wraps  # for decorator
 from flask_cors import CORS
 from operator import itemgetter
-from datetime import datetime, timedelta
 from sqlalchemy import extract
 
 import os
@@ -639,8 +638,8 @@ def transaction_acc_acc(current_user):
 @token_required
 def get_income_track_and_spendings(current_user):
 
-    filter_after = datetime.today() - timedelta(days=30)
-    current_month = datetime.today().month
+    filter_after = datetime.datetime.today() - datetime.timedelta(days=30)
+    current_month = datetime.datetime.today().month
 
     #expense_history = Spendings.query.filter(Spendings.date >= filter_after, Spendings.user_id == current_user.public_id).all()
     expense_history = Spendings.query.filter(extract('month', Spendings.date) == current_month, Spendings.user_id == current_user.public_id).all()
