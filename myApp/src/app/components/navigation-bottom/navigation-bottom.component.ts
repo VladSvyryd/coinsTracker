@@ -29,25 +29,24 @@ export class NavigationBottomComponent implements OnInit {
       this.updateTheme(!bool)
     }
   }
-  constructor(private _location: Location, private authService: AuthServiceService,private sharedService: SharedService) {
+  constructor(private _location: Location, private authService: AuthServiceService,private breakpointObserver: BreakpointObserver) {
     this.current_user = this.authService.getUserFromLocalStorage();
-
+    this.isMobile = this.breakpointObserver.observe(Breakpoints.HandsetPortrait);
 
   }
 
   ngOnInit() {
-   if(this.current_user.dark_theme){
-        this.toogleTheme(false);
-   }
+    if(this.current_user && this.current_user.dark_theme){
+      this.toogleTheme(false);
+    }
   }
 
    goBack(){
      this._location.back();
   }
-  updateTheme(bool){
+ updateTheme(bool){
     this.current_user.dark_theme = bool;
     this.authService.setNewUser(this.current_user);
-
   }
 
   editModeActive(){

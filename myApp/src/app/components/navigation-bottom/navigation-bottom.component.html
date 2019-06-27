@@ -1,18 +1,17 @@
 <div class="bottomNavigation">
-  <mat-toolbar class="bottomNavigation">
-    <mat-toolbar-row class= "navigationButtons">
-      <mat-slide-toggle
-          [color]="color"
-          (change)="toogleTheme(true)"
-          [checked]="!whiteTheme"
-        >
-        </mat-slide-toggle>
-      <button mat-icon-button (click)="editModeActive()"><mat-icon>edit</mat-icon> </button>
+    <mat-action-list class= "navigationButtons">
       <span class="spacer"></span>
-      <button mat-icon-button><mat-icon  (click)="goBack()" class="goBack" aria-hidden="false">arrow_back</mat-icon> </button>
-      <app-circle-menu class="rightNavButton" ></app-circle-menu>
-    </mat-toolbar-row>
-  </mat-toolbar>
+      <button mat-list-item routerLink="dashboard"><mat-icon>dashboard</mat-icon> <span class="label">Dashboard</span>
+        </button>
+       <button mat-list-item (click)="editModeActive()"><mat-icon>edit</mat-icon> <span class="label">Edit Mode</span>  </button>
+      <button mat-list-item  class="menu-item" routerLink="settings">
+      <mat-icon  aria-hidden="false" aria-label="Settings">settings</mat-icon>
+    <span class="label">Settings</span>
+    </button>
+    <button mat-list-item (click)="goBack()"><mat-icon class="goBack" aria-hidden="false">arrow_back</mat-icon>
+      <span class="label">Back</span> </button>
+      <app-circle-menu class="rightNavButton" *ngIf="(isMobile | async)?.matches"></app-circle-menu>
+    </mat-action-list>
 
 </div>
 
