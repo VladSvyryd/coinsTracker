@@ -9,6 +9,8 @@ from functools import wraps  # for decorator
 from flask_cors import CORS
 from operator import itemgetter
 from sqlalchemy import extract
+from sqlalchemy import asc
+
 
 import os
 from models import db
@@ -329,9 +331,8 @@ def get_account_balance_history(current_user):
     #expense_history = Spendings.query.filter_by(user_id=current_user.public_id).all()
     expense_history = Spendings.query.join(Expenses, Spendings.expense_id == Expenses.id)\
         .add_columns(Spendings.id, Spendings.amount, Spendings.date, Spendings.account_balance, Expenses.name)\
-        .filter_by(user_id=current_user.public_id)
+        .filter_by(user_id=current_user.public_id).order_by(Spendings.date.desc())
     output = []
-    print("expense_history", expense_history)
     for expense in expense_history:
         expense_list = dict(id=expense.id, amount=expense.amount, date=expense.date, type="outgoing",
                             account_balance=expense.account_balance, name=expense.name)
@@ -342,7 +343,7 @@ def get_account_balance_history(current_user):
     incoming_history = AccountTrack.query.join(Incomes, AccountTrack.income_id == Incomes.id)\
         .add_columns(AccountTrack.id, AccountTrack.amount, AccountTrack.date, AccountTrack.account_balance,
                      Incomes.name)\
-        .filter_by(user_id=current_user.public_id)
+        .filter_by(user_id=current_user.public_id).order_by(AccountTrack.date.desc())
     for incoming in incoming_history:
         incoming_list = dict(id=incoming.id, amount=incoming.amount, date=incoming.date, type="incoming",
                              account_balance=incoming.account_balance, name=incoming.name)
@@ -634,24 +635,23 @@ def transaction_acc_acc(current_user):
     return jsonify({'server_message': 'This transaction_acc_acc has been committed'})
 
 
-@app.route('/income_expense', methods=['GET'])
+@app.route('/income_expense/<date_range>', methods=['GET'])
 @token_required
-def get_income_track_and_spendings(current_user):
+def get_income_track_and_spendings(current_user, date_range):
 
-    filter_after = datetime.datetime.today() - datetime.timedelta(days=30)
-    current_month = datetime.datetime.today().month
+    filter_after = datetime.datetime.today() - datetime.timedelta(days=int(date_range))
+    #current_month = datetime.datetime.today().month
 
-    #expense_history = Spendings.query.filter(Spendings.date >= filter_after, Spendings.user_id == current_user.public_id).all()
-    expense_history = Spendings.query.filter(extract('month', Spendings.date) == current_month, Spendings.user_id == current_user.public_id).all()
+    expense_history = Spendings.query.filter(Spendings.date >= filter_after, Spendings.user_id == current_user.public_id).all()
+    #expense_history = Spendings.query.filter(extract('month', Spendings.date) == current_month, Spendings.user_id == current_user.public_id).all()
 
     output = []
     for expense in expense_history:
         expense_list = dict(id=expense.id, amount=expense.amount, date=expense.date, type="expense")
         output.append(expense_list)
 
-    #income_tracks = IncomeTrack.query.filter(IncomeTrack.date >= filter_after, IncomeTrack.user_id == current_user.public_id).all()
-    income_tracks = IncomeTrack.query.filter(extract('month', IncomeTrack.date) == current_month, IncomeTrack.user_id == current_user.public_id).all()
-
+    income_tracks = AccountTrack.query.filter(AccountTrack.date >= filter_after, AccountTrack.user_id == current_user.public_id).all()
+    #income_tracks = AccountTrack.query.filter(extract('month', AccountTrack.date) == current_month, AccountTrack.user_id == current_user.public_id).all()
 
     for it in income_tracks:
         income_track_list = dict(id=it.id, amount=it.amount, date=it.date, type="income")

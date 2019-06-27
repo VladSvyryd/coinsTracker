@@ -74,7 +74,7 @@ export class PieChartComponent implements OnInit {
   }
 
 
-  getAllDataAboutIncomesAndExpenses() {
+  getAllDataAboutIncomesAndExpenses(date_range=2) {
 
     let incomeMap = new Map();
     let expenseMap = new Map();
@@ -87,9 +87,8 @@ export class PieChartComponent implements OnInit {
        expenseMap.set(temp, 0);
     }
 
-    this.dashboardService.getAll('income_expense').subscribe((res:any)=> {
-
-
+    this.dashboardService.getIcomesAndExpensesByDate(date_range).subscribe((res:any)=> {
+      console.log(res)
       for(let i=0; i<res.length; i++) {
         if(res[i].type === "income") {
            let newDate = this.transformDate(res[i].date);
@@ -107,7 +106,7 @@ export class PieChartComponent implements OnInit {
 
       let keys = Array.from(incomeMap.keys());
       let incomeValues = Array.from(incomeMap.values());
-      console.log("key", keys)
+      //console.log("incomevalue", incomeValues)
       this.lineChartData[0].data = incomeValues;
       this.lineChartLabels = keys;
 
