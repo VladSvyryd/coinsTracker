@@ -15,17 +15,18 @@ export class SettingsComponent implements OnInit {
   fixedLayout: boolean;
   coinsNamesOn: boolean;
   whiteTheme : boolean;
-  color = 'accent';
+
   @Output() changeThemeV: EventEmitter<Boolean> = new EventEmitter();
-  constructor(private auth: AuthServiceService,overlayContainer: OverlayContainer,private appComponent: AppComponent) {
-    overlayContainer.getContainerElement().classList.add('unicorn-dark-theme');
+  constructor(private auth: AuthServiceService,private appComponent: AppComponent) {
     this.user = auth.getUserFromLocalStorage();
-    this.fixedLayout = this.user.fixedLayout;
-    this.coinsNamesOn = this.user.coinsNamesOn;
-    this.whiteTheme =  this.user.dark_theme;
+
   }
 
   ngOnInit() {
+    this.user = this.auth.getUserFromLocalStorage();
+    this.fixedLayout = this.user.fixedLayout;
+    this.coinsNamesOn = this.user.coinsNamesOn;
+    this.whiteTheme =  this.user.dark_theme;
   }
 
   updateUserSettings(property, newState) {

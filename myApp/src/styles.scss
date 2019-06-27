@@ -49,8 +49,11 @@ body,html {
     color: #ffffff!important;
   }
   .navigationButtons {
-    background-color: #272034!important;
+    background-color: #695d7f!important;
     box-shadow: none!important;
+    .label{
+      color: white;
+    }
   }
 
 

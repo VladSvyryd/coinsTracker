@@ -5,7 +5,7 @@
       <label >Fixed layout for coins (not more than 4):</label>
       <mat-slide-toggle
         (change)="updateUserSettings(user.fixedLayout,slider1.checked)"
-        [checked]="fixedLayout"
+        [checked]="user.fixedLayout"
         #slider1
         class="example-margin"
       >
@@ -15,7 +15,7 @@
       <label >Coins Name (visible if: On):</label>
       <mat-slide-toggle
         (change)="updateUserSettings(user.coinsNamesOn, slider2.checked)"
-        [checked]="coinsNamesOn"
+        [checked]="user.coinsNamesOn"
         #slider2
         class="example-margin"
       >
@@ -24,9 +24,8 @@
     <mat-list-item role="listitem">
       <label >Dark mode (dark if: on):</label>
       <mat-slide-toggle
-        [color]="color"
         (change)="updateUserSettings(user.dark_theme,slider3.checked); toggleTheme();"
-        [checked]="whiteTheme"
+        [checked]="user.dark_theme"
         #slider3
         class="example-margin"
       >
