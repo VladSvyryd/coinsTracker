@@ -62,7 +62,7 @@ export class AccountBalanceComponent implements OnInit {
   }
 
   getAccountHistory() {
-    this.dashboardService.getAccountBalanceHistory('account_balance').subscribe((res:any)=>{
+    this.dashboardService.getAccountBalanceHistory().subscribe((res:any)=>{
       this.accountHistory = res;
 
       for(let i=0; i<res.length; i++) {

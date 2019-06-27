@@ -1,5 +1,5 @@
-import {Component, OnInit, AfterViewInit, Input} from '@angular/core';
-import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
+import {Component, OnInit} from '@angular/core';
+import { ChartType} from 'chart.js';
 import { MultiDataSet, Label} from 'ng2-charts';
 import {Observable} from "rxjs";
 import {Spending} from "../../models/spending";
@@ -14,12 +14,11 @@ import * as Chart from 'chart.js'
 })
 
 
-export class DoughnutChartComponent implements OnInit, AfterViewInit {
+export class DoughnutChartComponent implements OnInit {
 
   private spending$: Observable<Spending[]>;
   public categoryIds = [];
-  public expenses = 0;  // variable to store expenses for all categories
-  public spendingsData = [];
+  public static expenses = 0;  // variable to store expenses for all categories
   public valueSingleCat;
   public nameSingleCat;
 
@@ -27,14 +26,22 @@ export class DoughnutChartComponent implements OnInit, AfterViewInit {
   public doughnutChartData: MultiDataSet = [];
   public doughnutChartType: ChartType = 'doughnut';
 
- public doughnutChartOptions: ChartOptions  = {
+ public doughnutChartOptions: any = {
     cutoutPercentage: 70,
-
-
+    elements: {
+      center: {
+        text: 'Hello',
+        fontColor: '#ff6e00',
+        backgroundColor: '#841386',
+        fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+        fontSize: 25,
+        fontStyle: 'normal'
+      }
+    }
   };
-  public doughnutChartDatasets: ChartDataSets[]  = [
+  public doughnutChartDatasets: any[] = [
     {
-
+      options: this.doughnutChartOptions,
       backgroundColor: [
         "rgba(37,176,250,0.3)",
         "rgba(67,224,170,0.3)",
@@ -46,52 +53,39 @@ export class DoughnutChartComponent implements OnInit, AfterViewInit {
         'rgba(5,209,255,0.3)',
         'rgba(132,19,134,0.3)',
         'rgba(255,255,255,0.3)'
-      ],
-      borderWidth: 1.5
+      ]
     }];
 
-  public isDoughnutChart : boolean;
 
-  constructor(private dashboardService: DashboardService) {
-    this.isDoughnutChart = true;
-
-  }
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit() {
-    this.getCategoryInfo()
-    this.isDoughnutChart = true;
+    this.getCategoryInfo();
+    Chart.pluginService.register(this.plugin)
   }
 
    getCategoryInfo(){
     let expensesSum = 0;
     this.dashboardService.getAll('expense').subscribe((res)=>{
       for(let i in res) {
-        this.doughnutChartLabels.push(res[i].name)
-        this.doughnutChartData.push(res[i].spent_amount)
-        this.categoryIds.push(res[i].id)
+        this.doughnutChartLabels.push(res[i].name);
+        this.doughnutChartData.push(res[i].spent_amount);
+        this.categoryIds.push(res[i].id);
 
         expensesSum = expensesSum + res[i].spent_amount;
 
       }
-      this.nameSingleCat = this.doughnutChartLabels[0]
-      this.getSpendingsOnChartClick(this.categoryIds[0])
-      //this.doughnutChartOptions.elements.center.text = expensesSum;
-      this.expenses = expensesSum;
-
+      this.nameSingleCat = this.doughnutChartLabels[0];
+      this.getSpendingsOnChartClick(this.categoryIds[0]);
+      DoughnutChartComponent.expenses = expensesSum;
     });
   }
 
     // get information about spendings
   getSpendingsOnChartClick(id:number) {
-    let spendingArray = [];
     this.spending$ = this.dashboardService.getSpendingByExpenseId(id);
-    this.spending$.forEach(spendings1 => {
-      for(let i in spendings1){
-      }
-    });
-
-    this.spendingsData = spendingArray;
   }
+
   chartClicked(e: any): void {
     if (e.active.length > 0) {
       const chart = e.active[0]._chart;
@@ -109,41 +103,33 @@ export class DoughnutChartComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
-    let expensesSum = 0;
-    this.dashboardService.getAll('expense').subscribe((res)=>{
-      for(let i in res) {
-        expensesSum = expensesSum + res[i].spent_amount;
-      }
-    });
-    let visible = this.isDoughnutChart;
-    Chart.pluginService.register({
+   public plugin = {
 
-      beforeDraw: function(chart) {
+      afterDraw: function(chart) {
 
-        if(visible) {
-           let width = chart.canvas.width,
+        let width = chart.canvas.width,
         height = chart.canvas.height,
         ctx = chart.ctx;
 
         ctx.restore();
-        let fontSize = (height / 280).toFixed(2);
+        let fontSize = (height / 250).toFixed(2);
         ctx.font = fontSize + "em sans-serif";
         ctx.textBaseline = "middle";
         ctx.textAlign = 'center';
         ctx.fillStyle = '#05d1ff';
 
-        let text = expensesSum.toString()+"€",
+        let text = DoughnutChartComponent.expenses + "€",
 
         textX = ((chart.chartArea.left + chart.chartArea.right) / 2),
         textY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
 
         ctx.fillText(text, textX, textY);
         ctx.save();
-        }
       }
-    })
+  };
 
+  ngOnDestroy() {
+    Chart.pluginService.unregister(this.plugin)
   }
 
 }
