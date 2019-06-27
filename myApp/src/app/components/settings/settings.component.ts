@@ -1,7 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {User} from '../../models/user';
 import {AuthServiceService} from '../../services/auth-service.service';
 import {MAT_BOTTOM_SHEET_DATA, MatBottomSheet, MatBottomSheetRef} from '@angular/material';
+import {OverlayContainer} from '@angular/cdk/overlay';
+import {AppComponent} from '../../app.component';
 
 @Component({
   selector: 'app-settings',
@@ -12,14 +14,19 @@ export class SettingsComponent implements OnInit {
   user: User;
   fixedLayout: boolean;
   coinsNamesOn: boolean;
+  whiteTheme : boolean;
 
-  constructor(private auth: AuthServiceService) {
+  @Output() changeThemeV: EventEmitter<Boolean> = new EventEmitter();
+  constructor(private auth: AuthServiceService,private appComponent: AppComponent) {
     this.user = auth.getUserFromLocalStorage();
-    this.fixedLayout = this.user.fixedLayout;
-    this.coinsNamesOn = this.user.coinsNamesOn;
+
   }
 
   ngOnInit() {
+    this.user = this.auth.getUserFromLocalStorage();
+    this.fixedLayout = this.user.fixedLayout;
+    this.coinsNamesOn = this.user.coinsNamesOn;
+    this.whiteTheme =  this.user.dark_theme;
   }
 
   updateUserSettings(property, newState) {
@@ -34,4 +41,8 @@ export class SettingsComponent implements OnInit {
       }
     });
   }
+   toggleTheme() {
+    this.appComponent.changeTheme();
+  }
+
 }

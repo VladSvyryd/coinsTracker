@@ -124,8 +124,8 @@ export class DashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(TransactionDialogComponent, {
       width: '300px',
       data: {
-        from: this.last_transaction.cdkDrag.data.name,
-        to: this.last_transaction.cdkDrop.data.name,
+        from: this.last_transaction.cdkDrag.data,
+        to: this.last_transaction.cdkDrop.data,
         type_of_transaction:this.last_transaction.type_of_transaction
       }
     });

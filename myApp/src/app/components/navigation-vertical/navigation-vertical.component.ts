@@ -50,7 +50,6 @@ export class NavigationVerticalComponent implements OnInit {
   updateTheme(bool){
     this.current_user.dark_theme = bool;
     this.authService.setNewUser(this.current_user);
-
   }
 
   editModeActive(){

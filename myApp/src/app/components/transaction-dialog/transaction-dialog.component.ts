@@ -41,4 +41,10 @@ export class TransactionDialogComponent implements OnInit {
   hasDescription() {
     return this.data.type_of_transaction === "acc_exp";
   }
+  truncate(input) {
+    if (input.length > 8)
+      return input.substring(0,8) + '..';
+    else
+      return input;
+  };
 }

@@ -13,11 +13,11 @@
 
   </mat-toolbar>
 
-  <mat-sidenav-container class="sidebar">
+  <mat-sidenav-container  class="sidebar">
     <mat-sidenav #sidenav mode="side" [opened]="!(isMobile | async)?.matches" class="example-sidenav"
                  [fixedInViewport]="options.fixed" [fixedTopGap]="options.top"
                  [fixedBottomGap]="options.bottom">
-      <app-navigation-vertical (changeThemeV)="changeTheme()" (editModeV)="editModeToggle()" ></app-navigation-vertical>
+      <app-navigation-bottom *ngIf="!(isMobile | async)?.matches" (changeThemeV)="changeTheme()" (editModeV)="editModeToggle()" ></app-navigation-bottom>
 
     </mat-sidenav>
 
@@ -30,7 +30,8 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 
-<app-navigation-bottom *ngIf="(isMobile | async)?.matches" (changeTheme)="changeTheme()" (editMode)="editModeToggle()"  class="bottomNavigation">
+<app-navigation-bottom *ngIf="(isMobile | async)?.matches" (changeTheme)="changeTheme()" (editMode)="editModeToggle()"
+                  class="bottomNavigation">
 
 </app-navigation-bottom>
 

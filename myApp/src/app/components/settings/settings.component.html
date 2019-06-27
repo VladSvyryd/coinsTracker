@@ -5,22 +5,31 @@
       <label >Fixed layout for coins (not more than 4):</label>
       <mat-slide-toggle
         (change)="updateUserSettings(user.fixedLayout,slider1.checked)"
-        [checked]="fixedLayout"
+        [checked]="user.fixedLayout"
         #slider1
         class="example-margin"
       >
       </mat-slide-toggle>
-  </mat-list-item>
-     <mat-list-item role="listitem">
+    </mat-list-item>
+    <mat-list-item role="listitem">
       <label >Coins Name (visible if: On):</label>
       <mat-slide-toggle
         (change)="updateUserSettings(user.coinsNamesOn, slider2.checked)"
-        [checked]="coinsNamesOn"
+        [checked]="user.coinsNamesOn"
         #slider2
         class="example-margin"
       >
       </mat-slide-toggle>
-  </mat-list-item>
-    <mat-list-item role="listitem">Item 3</mat-list-item>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <label >Dark mode (dark if: on):</label>
+      <mat-slide-toggle
+        (change)="updateUserSettings(user.dark_theme,slider3.checked); toggleTheme();"
+        [checked]="user.dark_theme"
+        #slider3
+        class="example-margin"
+      >
+      </mat-slide-toggle>
+    </mat-list-item>
   </mat-list>
 </div>
