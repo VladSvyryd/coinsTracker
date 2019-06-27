@@ -1,9 +1,10 @@
-import { Component, OnInit,ElementRef, ViewChild } from '@angular/core';
-import { ChartType } from 'chart.js';
-import { MultiDataSet, Label } from 'ng2-charts';
+import {Component, OnInit, AfterViewInit, Input} from '@angular/core';
+import { ChartType} from 'chart.js';
+import { MultiDataSet, Label} from 'ng2-charts';
 import {Observable} from "rxjs";
 import {Spending} from "../../models/spending";
 import {DashboardService} from "../../services/dashboard.service";
+import * as Chart from 'chart.js'
 
 
 @Component({
@@ -11,7 +12,9 @@ import {DashboardService} from "../../services/dashboard.service";
   templateUrl: './doughnut-chart.component.html',
   styleUrls: ['./doughnut-chart.component.scss']
 })
-export class DoughnutChartComponent implements OnInit {
+
+
+export class DoughnutChartComponent implements OnInit, AfterViewInit {
 
   private spending$: Observable<Spending[]>;
   public categoryIds = [];
@@ -20,8 +23,6 @@ export class DoughnutChartComponent implements OnInit {
   public valueSingleCat;
   public nameSingleCat;
 
-
-  // Doughnut
   public doughnutChartLabels: Label[] = [];
   public doughnutChartData: MultiDataSet = [];
   public doughnutChartType: ChartType = 'doughnut';
@@ -31,9 +32,10 @@ export class DoughnutChartComponent implements OnInit {
     elements: {
       center: {
         text: 'Hello',
-        fontColor: '#000',
+        fontColor: '#ff6e00',
+        backgroundColor: '#841386',
         fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-        fontSize: 24,
+        fontSize: 44,
         fontStyle: 'normal'
       }
     }
@@ -55,14 +57,16 @@ export class DoughnutChartComponent implements OnInit {
       ]
     }];
 
+  public isDoughnutChart : boolean;
 
+  constructor(private dashboardService: DashboardService) {
+    this.isDoughnutChart = true;
 
-  constructor(private dashboardService: DashboardService) { }
+  }
 
   ngOnInit() {
-
-    this.getCategoryInfo();
-
+    this.getCategoryInfo()
+    this.isDoughnutChart = true;
   }
 
    getCategoryInfo(){
@@ -76,7 +80,9 @@ export class DoughnutChartComponent implements OnInit {
         expensesSum = expensesSum + res[i].spent_amount;
 
       }
-      this.doughnutChartOptions.elements.center.text = expensesSum;
+      this.nameSingleCat = this.doughnutChartLabels[0]
+      this.getSpendingsOnChartClick(this.categoryIds[0])
+      //this.doughnutChartOptions.elements.center.text = expensesSum;
       this.expenses = expensesSum;
 
     });
@@ -93,7 +99,7 @@ export class DoughnutChartComponent implements OnInit {
 
     this.spendingsData = spendingArray;
   }
-    public chartClicked(e: any): void {
+  chartClicked(e: any): void {
     if (e.active.length > 0) {
       const chart = e.active[0]._chart;
       const activePoints = chart.getElementAtEvent(e.event);
@@ -108,6 +114,43 @@ export class DoughnutChartComponent implements OnInit {
         this.getSpendingsOnChartClick(this.categoryIds[clickedElementIndex])
       }
     }
+  }
+
+  ngAfterViewInit() {
+    let expensesSum = 0;
+    this.dashboardService.getAll('expense').subscribe((res)=>{
+      for(let i in res) {
+        expensesSum = expensesSum + res[i].spent_amount;
+      }
+    });
+    let visible = this.isDoughnutChart;
+    Chart.pluginService.register({
+
+      beforeDraw: function(chart) {
+
+        if(visible) {
+           let width = chart.canvas.width,
+        height = chart.canvas.height,
+        ctx = chart.ctx;
+
+        ctx.restore();
+        let fontSize = (height / 250).toFixed(2);
+        ctx.font = fontSize + "em sans-serif";
+        ctx.textBaseline = "middle";
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#05d1ff';
+
+        let text = expensesSum.toString()+"€",
+
+        textX = ((chart.chartArea.left + chart.chartArea.right) / 2),
+        textY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
+
+        ctx.fillText(text, textX, textY);
+        ctx.save();
+        }
+      }
+    })
+
   }
 
 }

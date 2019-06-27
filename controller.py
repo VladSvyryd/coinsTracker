@@ -8,6 +8,8 @@ import datetime  # to work with date and time
 from functools import wraps  # for decorator
 from flask_cors import CORS
 from operator import itemgetter
+from datetime import datetime, timedelta
+from sqlalchemy import extract
 
 import os
 from models import db
@@ -631,6 +633,32 @@ def transaction_acc_acc(current_user):
     acc2.amount += data["transaction_amount"]
     db.session.commit()
     return jsonify({'server_message': 'This transaction_acc_acc has been committed'})
+
+
+@app.route('/income_expense', methods=['GET'])
+@token_required
+def get_income_track_and_spendings(current_user):
+
+    filter_after = datetime.today() - timedelta(days=30)
+    current_month = datetime.today().month
+
+    #expense_history = Spendings.query.filter(Spendings.date >= filter_after, Spendings.user_id == current_user.public_id).all()
+    expense_history = Spendings.query.filter(extract('month', Spendings.date) == current_month, Spendings.user_id == current_user.public_id).all()
+
+    output = []
+    for expense in expense_history:
+        expense_list = dict(id=expense.id, amount=expense.amount, date=expense.date, type="expense")
+        output.append(expense_list)
+
+    #income_tracks = IncomeTrack.query.filter(IncomeTrack.date >= filter_after, IncomeTrack.user_id == current_user.public_id).all()
+    income_tracks = IncomeTrack.query.filter(extract('month', IncomeTrack.date) == current_month, IncomeTrack.user_id == current_user.public_id).all()
+
+
+    for it in income_tracks:
+        income_track_list = dict(id=it.id, amount=it.amount, date=it.date, type="income")
+        output.append(income_track_list)
+    output = sorted(output, key=itemgetter('date'), reverse=False)
+    return jsonify(output)
 
 
 if __name__ == '__main__':

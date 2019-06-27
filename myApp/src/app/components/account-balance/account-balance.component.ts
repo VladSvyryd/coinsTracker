@@ -1,24 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import {ChartType, ChartOptions, ChartDataSets} from 'chart.js';
-import {SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Color} from 'ng2-charts';
-import {Observable} from "rxjs";
-import {Account} from "../../models/account";
+import {Component, OnInit} from '@angular/core';
+import {ChartOptions} from 'chart.js';
+import {Label, Color} from 'ng2-charts';
 import {DashboardService} from "../../services/dashboard.service";
 import {formatDate} from "@angular/common";
-
-
 
 @Component({
   selector: 'app-account-balance',
   templateUrl: './account-balance.component.html',
   styleUrls: ['./account-balance.component.scss']
 })
+
 export class AccountBalanceComponent implements OnInit {
-  private account_balance$: Observable<number>;
-  private accBalanceHistory$: Observable<any[]>;
 
   public accountHistory = [];
-
 
   public lineChartData = [
     { data: [], label: 'Account balance', borderWidth:1.5},
@@ -69,18 +63,16 @@ export class AccountBalanceComponent implements OnInit {
 
   getAccountHistory() {
     this.dashboardService.getAccountBalanceHistory('account_balance').subscribe((res:any)=>{
-      //console.log(res)
-        this.accountHistory = res
-        console.log( "account history", this.accountHistory)
+      this.accountHistory = res;
 
-      for(let i in res) {
-        this.lineChartLabels.push(this.transformDate(res[i].date))
+      for(let i=0; i<res.length; i++) {
+        this.lineChartLabels.push(this.transformDate(res[i].date));
         this.lineChartData[0].data.push(res[i].account_balance)
       }
     })
   }
   transformDate(date) {
-    return formatDate(date, 'dd-MM-yy','en');
+    return formatDate(date, 'dd-MM','en');
   }
 
 }

@@ -5,6 +5,8 @@
         [data]="doughnutChartData"
         [labels]="doughnutChartLabels"
         [chartType]="doughnutChartType"
+              [options]="doughnutChartOptions"
+              [datasets]="doughnutChartDatasets"
         (chartClick)="chartClicked($event)"
       >
       </canvas>
@@ -14,13 +16,13 @@
 
         <h3 mat-subheader>{{nameSingleCat}}</h3>
         <tr >
-          <th>Expenses</th>
           <th>Date</th>
+          <th>Expenses</th>
           <th>Description</th>
         </tr>
         <tr *ngFor="let s of spendings">
-          <th >{{s.amount}} €</th>
           <th >{{s.date | date:'dd/MM/yy'}} </th>
+          <th >{{s.amount}} €</th>
           <th >{{s.description}} </th>
         </tr>
       </table>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {Router} from "@angular/router";
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
@@ -33,20 +33,22 @@ export class AppComponent {
     this.otherTheme = !this.otherTheme;
   }
 
-  constructor(overlayContainer: OverlayContainer, public router: Router,private breakpointObserver: BreakpointObserver,private _location: Location,private authService:AuthServiceService) {
+  constructor(overlayContainer: OverlayContainer, public router: Router, private breakpointObserver: BreakpointObserver, private _location: Location, private authService: AuthServiceService) {
     overlayContainer.getContainerElement().classList.add('unicorn-dark-theme');
     this.isMobile = this.breakpointObserver.observe(Breakpoints.HandsetPortrait);
-    this.current_user =  this.authService.getUserFromLocalStorage();
+    this.current_user = this.authService.getUserFromLocalStorage();
 
   }
+
   editModeToggle() {
     this.editModeActive = !this.editModeActive;
     let edit_mode_element_ref = document.querySelectorAll(".edit_mode");
     // each edit function activate for 5 sec and then disappear
-    edit_mode_element_ref.forEach((item)=>{
+    edit_mode_element_ref.forEach((item) => {
         item.classList.toggle("on");
         const source = timer(5000);
-        const subscribe = source.subscribe(val => {item.classList.remove("on");
+        const subscribe = source.subscribe(val => {
+          item.classList.remove("on");
         });
       }
     )
