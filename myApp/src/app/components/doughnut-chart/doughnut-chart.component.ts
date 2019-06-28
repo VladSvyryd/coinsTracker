@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import * as Chart from 'chart.js';
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import {Label, MultiDataSet} from 'ng2-charts';
 import {Observable} from 'rxjs';
@@ -18,41 +17,15 @@ export class DoughnutChartComponent implements OnInit {
 
   private spending$: Observable<Spending[]>;
   public categoryIds = [];
-  public static expenses = 0;  // variable to store expenses for all categories
+  public expenses = 0;  // variable to store expenses for all categories
   public valueSingleCat;
   public nameSingleCat;
 
   public doughnutChartLabels: Label[] = [];
   public doughnutChartData: MultiDataSet = [];
   public doughnutChartType: ChartType = 'doughnut';
-  public plugin = {
-
-    afterDraw: function(chart) {
-
-      let width = chart.canvas.width,
-        height = chart.canvas.height,
-        ctx = chart.ctx;
-
-      ctx.restore();
-      let fontSize = (height / 250).toFixed(2);
-      ctx.font = fontSize + "em sans-serif";
-      ctx.textBaseline = "middle";
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#05d1ff';
-
-      let text = DoughnutChartComponent.expenses + "€",
-
-        textX = ((chart.chartArea.left + chart.chartArea.right) / 2),
-        textY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
-
-      ctx.fillText(text, textX, textY);
-      ctx.save();
-    }
-  };
   public doughnutChartOptions: ChartOptions = {
     cutoutPercentage: 70,
-    plugins:
-    this.plugin
 
   };
   public doughnutChartDataset: ChartDataSets[]  =[
@@ -91,7 +64,7 @@ export class DoughnutChartComponent implements OnInit {
       }
       this.nameSingleCat = this.doughnutChartLabels[0];
       this.getSpendingsOnChartClick(this.categoryIds[0]);
-      DoughnutChartComponent.expenses = expensesSum;
+      this.expenses = expensesSum;
     });
   }
 
@@ -115,12 +88,6 @@ export class DoughnutChartComponent implements OnInit {
         this.getSpendingsOnChartClick(this.categoryIds[clickedElementIndex])
       }
     }
-  }
-
-
-
-  ngOnDestroy() {
-    Chart.pluginService.unregister(this.plugin)
   }
 
 }
