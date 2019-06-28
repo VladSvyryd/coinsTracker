@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import { ChartType} from 'chart.js';
-import { MultiDataSet, Label} from 'ng2-charts';
-import {Observable} from "rxjs";
-import {Spending} from "../../models/spending";
-import {DashboardService} from "../../services/dashboard.service";
-import * as Chart from 'chart.js'
+import * as Chart from 'chart.js';
+import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
+import {Label, MultiDataSet} from 'ng2-charts';
+import {Observable} from 'rxjs';
+import {Spending} from '../../models/spending';
+import {DashboardService} from '../../services/dashboard.service';
 
 
 @Component({
@@ -26,22 +26,14 @@ export class DoughnutChartComponent implements OnInit {
   public doughnutChartData: MultiDataSet = [];
   public doughnutChartType: ChartType = 'doughnut';
 
- public doughnutChartOptions: any = {
+  public doughnutChartOptions: ChartOptions = {
     cutoutPercentage: 70,
-    elements: {
-      center: {
-        text: 'Hello',
-        fontColor: '#ff6e00',
-        backgroundColor: '#841386',
-        fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-        fontSize: 25,
-        fontStyle: 'normal'
-      }
+    plugins:{
+      
     }
   };
-  public doughnutChartDatasets: any[] = [
+  public doughnutChartDataset: ChartDataSets[]  =[
     {
-      options: this.doughnutChartOptions,
       backgroundColor: [
         "rgba(37,176,250,0.3)",
         "rgba(67,224,170,0.3)",
@@ -64,7 +56,7 @@ export class DoughnutChartComponent implements OnInit {
     Chart.pluginService.register(this.plugin)
   }
 
-   getCategoryInfo(){
+  getCategoryInfo(){
     let expensesSum = 0;
     this.dashboardService.getAll('expense').subscribe((res)=>{
       for(let i in res) {
@@ -81,7 +73,7 @@ export class DoughnutChartComponent implements OnInit {
     });
   }
 
-    // get information about spendings
+  // get information about spendings
   getSpendingsOnChartClick(id:number) {
     this.spending$ = this.dashboardService.getSpendingByExpenseId(id);
   }
@@ -103,29 +95,29 @@ export class DoughnutChartComponent implements OnInit {
     }
   }
 
-   public plugin = {
+  public plugin = {
 
-      afterDraw: function(chart) {
+    afterDraw: function(chart) {
 
-        let width = chart.canvas.width,
+      let width = chart.canvas.width,
         height = chart.canvas.height,
         ctx = chart.ctx;
 
-        ctx.restore();
-        let fontSize = (height / 250).toFixed(2);
-        ctx.font = fontSize + "em sans-serif";
-        ctx.textBaseline = "middle";
-        ctx.textAlign = 'center';
-        ctx.fillStyle = '#05d1ff';
+      ctx.restore();
+      let fontSize = (height / 250).toFixed(2);
+      ctx.font = fontSize + "em sans-serif";
+      ctx.textBaseline = "middle";
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#05d1ff';
 
-        let text = DoughnutChartComponent.expenses + "€",
+      let text = DoughnutChartComponent.expenses + "€",
 
         textX = ((chart.chartArea.left + chart.chartArea.right) / 2),
         textY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
 
-        ctx.fillText(text, textX, textY);
-        ctx.save();
-      }
+      ctx.fillText(text, textX, textY);
+      ctx.save();
+    }
   };
 
   ngOnDestroy() {
