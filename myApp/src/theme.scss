@@ -164,8 +164,8 @@ $my-light-theme-background: (
 
 $my-light-theme-foreground: (
   base:              black,
-  divider:           $white-12-opacity,
-  dividers:          $white-12-opacity,
+  divider:           $black-12-opacity,
+  dividers:          $black-12-opacity,
   disabled:          rgba(black, 0.3),
   disabled-button:   rgba(black, 0.3),
   focused-button:    map_get($md-accent, 500),
@@ -360,8 +360,8 @@ $my-dark-theme-background: (
 
 $my-dark-theme-foreground: (
   //base:              #625376,
-  divider:           $white-12-opacity,
-  dividers:          $white-12-opacity,
+  divider:            map_get($md-accent, 400)!important,
+  dividers:          map_get($md-accent, 400)!important,
   disabled:          rgba(white, 0.3),
   disabled-button:   rgba(white, 0.3),
   focused-button: map_get($md-accent, 500),

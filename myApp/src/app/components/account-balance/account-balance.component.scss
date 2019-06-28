@@ -1,3 +1,62 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+@import '../../../variables';
+.chart{
+  width: 100%;
+  min-width: 320px;
+  max-width: 600px;
+  padding: 30px 0;
+    margin: 0 auto;
+  h3{
+    margin: 0;
+  }
+}
+.scrollContainer{
+  max-height: 418px;
+  overflow: auto;
+  table{
+    width: 100%;
+  }
+}
+.chartContainer{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  @media #{$mobile} {
+    flex-direction: column;
+
+  }
+}
+.wrapper{
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 10px;
+  min-width: 320px;
+
+    width: 100%;
+  max-width: 520px;
+  min-height: 300px;
+  margin: 0 auto;
+}
+.scrollContainer::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+  border-radius: 10px;
+}
+
+.scrollContainer::-webkit-scrollbar
+{
+  width: 6px;
+  background-color: #F5F5F5;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  background: linear-gradient(to bottom, #4E4068, #272034);
+}

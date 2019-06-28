@@ -215,6 +215,11 @@
       </div>
     </div>
   </div>
+     <mat-divider></mat-divider>
+  <div class="row" *ngIf="!(isMobile | async)?.matches">
+    <app-account-balance></app-account-balance>
+  </div>
+     <mat-divider></mat-divider>
   <div class="row" *ngIf="!(isMobile | async)?.matches">
     <div class="doughnut-chart">
       <app-doughnut-chart></app-doughnut-chart>
