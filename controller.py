@@ -528,6 +528,11 @@ def delete_expense(current_user, expense_id):
         return jsonify({'server_message': 'No such expense found'})
 
     db.session.delete(expense)
+
+    number_of_rows = Spendings.query.filter_by(user_id=current_user.public_id).filter_by(expense_id=expense_id).delete()
+    if not number_of_rows:
+        return jsonify({'server_message': 'No such spending found'})
+
     db.session.commit()
 
     # we should also roll back all values in the account and the spendings this expense was referring to
