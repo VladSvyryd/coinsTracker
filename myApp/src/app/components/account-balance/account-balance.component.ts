@@ -13,6 +13,12 @@ import {formatDate} from "@angular/common";
 export class AccountBalanceComponent implements OnInit {
 
   public accountHistory = [];
+  public dateRange = [
+    {date:"Week",days:7},
+    {date:"Month",days:30},
+    {date:"1/4 Year",days:90},
+    {date:"Year",days:365}
+  ];
 
   public lineChartData = [
     { data: [], label: 'Account balance', borderWidth:1.5},
@@ -61,10 +67,13 @@ export class AccountBalanceComponent implements OnInit {
     this.getAccountHistory();
   }
 
-  getAccountHistory() {
-    this.dashboardService.getAccountBalanceHistory().subscribe((res:any)=>{
+  getAccountHistory(range = 7) {
+    console.log(range)
+     this.lineChartLabels = [];
+    this.lineChartData[0].data = []
+    this.dashboardService.getAccountBalanceHistory(range).subscribe((res:any)=>{
       this.accountHistory = res;
-
+      console.log(this.accountHistory);
       for(let i=0; i<res.length; i++) {
         this.lineChartLabels.push(this.transformDate(res[i].date));
         this.lineChartData[0].data.push(res[i].account_balance)
@@ -75,6 +84,9 @@ export class AccountBalanceComponent implements OnInit {
     return formatDate(date, 'dd-MM','en');
   }
 
+  updateChartOnDate(range) {
+    this.getAccountHistory(range);
+  }
 }
 
 

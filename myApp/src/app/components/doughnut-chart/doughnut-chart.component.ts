@@ -25,12 +25,35 @@ export class DoughnutChartComponent implements OnInit {
   public doughnutChartLabels: Label[] = [];
   public doughnutChartData: MultiDataSet = [];
   public doughnutChartType: ChartType = 'doughnut';
+  public plugin = {
 
+    afterDraw: function(chart) {
+
+      let width = chart.canvas.width,
+        height = chart.canvas.height,
+        ctx = chart.ctx;
+
+      ctx.restore();
+      let fontSize = (height / 250).toFixed(2);
+      ctx.font = fontSize + "em sans-serif";
+      ctx.textBaseline = "middle";
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#05d1ff';
+
+      let text = DoughnutChartComponent.expenses + "€",
+
+        textX = ((chart.chartArea.left + chart.chartArea.right) / 2),
+        textY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
+
+      ctx.fillText(text, textX, textY);
+      ctx.save();
+    }
+  };
   public doughnutChartOptions: ChartOptions = {
     cutoutPercentage: 70,
-    plugins:{
-      
-    }
+    plugins:
+    this.plugin
+
   };
   public doughnutChartDataset: ChartDataSets[]  =[
     {
@@ -53,7 +76,6 @@ export class DoughnutChartComponent implements OnInit {
 
   ngOnInit() {
     this.getCategoryInfo();
-    Chart.pluginService.register(this.plugin)
   }
 
   getCategoryInfo(){
@@ -95,30 +117,7 @@ export class DoughnutChartComponent implements OnInit {
     }
   }
 
-  public plugin = {
 
-    afterDraw: function(chart) {
-
-      let width = chart.canvas.width,
-        height = chart.canvas.height,
-        ctx = chart.ctx;
-
-      ctx.restore();
-      let fontSize = (height / 250).toFixed(2);
-      ctx.font = fontSize + "em sans-serif";
-      ctx.textBaseline = "middle";
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#05d1ff';
-
-      let text = DoughnutChartComponent.expenses + "€",
-
-        textX = ((chart.chartArea.left + chart.chartArea.right) / 2),
-        textY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
-
-      ctx.fillText(text, textX, textY);
-      ctx.save();
-    }
-  };
 
   ngOnDestroy() {
     Chart.pluginService.unregister(this.plugin)

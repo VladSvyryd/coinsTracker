@@ -9,9 +9,7 @@
   max-width: 600px;
   padding: 30px 0;
     margin: 0 auto;
-  h3{
-    margin: 0;
-  }
+
 }
 .scrollContainer{
   max-height: 418px;
@@ -41,6 +39,9 @@
   max-width: 520px;
   min-height: 300px;
   margin: 0 auto;
+   h3{
+    margin: 0;
+  }
 }
 .scrollContainer::-webkit-scrollbar-track
 {
@@ -59,4 +60,10 @@
 {
   border-radius: 10px;
   background: linear-gradient(to bottom, #4E4068, #272034);
+}
+
+.panel {
+  .mat-option{
+    color: whitesmoke;
+  }
 }
