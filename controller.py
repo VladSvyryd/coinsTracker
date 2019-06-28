@@ -324,14 +324,15 @@ def get_accounts_sum(current_user):
     return jsonify(sum)
 
 
-@app.route('/account_balance', methods=['GET'])
+@app.route('/account_balance/<date_range>', methods=['GET'])
 @token_required
-def get_account_balance_history(current_user):
+def get_account_balance_history(current_user, date_range):
+    filter_after = datetime.datetime.today() - datetime.timedelta(days=int(date_range))
 
     #expense_history = Spendings.query.filter_by(user_id=current_user.public_id).all()
     expense_history = Spendings.query.join(Expenses, Spendings.expense_id == Expenses.id)\
         .add_columns(Spendings.id, Spendings.amount, Spendings.date, Spendings.account_balance, Expenses.name)\
-        .filter_by(user_id=current_user.public_id).order_by(Spendings.date.desc())
+        .filter_by(user_id=current_user.public_id).filter(Spendings.date >= filter_after).order_by(Spendings.date.desc())
     output = []
     for expense in expense_history:
         expense_list = dict(id=expense.id, amount=expense.amount, date=expense.date, type="outgoing",

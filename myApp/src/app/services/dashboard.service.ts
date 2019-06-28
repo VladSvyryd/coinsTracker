@@ -127,8 +127,8 @@ export class DashboardService {
 
   
     //*****************************ACCOUNT/INCOME TRACK******************************/
-   getAccountBalanceHistory():Observable<any[]>  {
-    return this.httpClient.get<any[]>(this.server_path+"/account_balance").pipe(
+   getAccountBalanceHistory(date_range:number):Observable<any[]>  {
+    return this.httpClient.get<any[]>(this.server_path+"/account_balance/" + date_range).pipe(
       catchError(this.handleError)
     );
   }

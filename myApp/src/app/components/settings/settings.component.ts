@@ -17,7 +17,7 @@ export class SettingsComponent implements OnInit {
   whiteTheme : boolean;
 
   @Output() changeThemeV: EventEmitter<Boolean> = new EventEmitter();
-  constructor(private auth: AuthServiceService,private appComponent: AppComponent) {
+  constructor(private auth: AuthServiceService,private appComponent: AppComponent,private overlayContainer: OverlayContainer) {
     this.user = auth.getUserFromLocalStorage();
 
   }
@@ -43,6 +43,12 @@ export class SettingsComponent implements OnInit {
   }
    toggleTheme() {
     this.appComponent.changeTheme();
+    if(this.user.dark_theme) {
+      this.overlayContainer.getContainerElement().classList.add('unicorn-dark-theme');
+    }else{
+      this.overlayContainer.getContainerElement().classList.remove('unicorn-dark-theme');
+
+    }
   }
 
 }
