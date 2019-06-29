@@ -21,6 +21,7 @@ import {Icons} from '../../models/icons';
 import {DomSanitizer} from '@angular/platform-browser';
 import {User} from '../../models/user';
 import {AuthServiceService} from '../../services/auth-service.service';
+import {AccountBalanceComponent} from '../account-balance/account-balance.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -61,7 +62,7 @@ export class DashboardComponent implements OnInit {
     private bottomSheet: MatBottomSheet,
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
-    private auth:AuthServiceService
+    private auth:AuthServiceService,
   ) {
     this.icons.forEach((item)=>{
       let path = 'assets/img/fa-icons/'+item.name +'-solid.svg'
@@ -114,8 +115,8 @@ export class DashboardComponent implements OnInit {
   }
 
   private setDraggableRef_z_Index(event: any) {
-  console.log(event.source.getRootElement().classList.add("z_Index_dragged"));
-     //  if( !outLoop && item.nodeName  == "BUTTON") item.classList.add("z_Index_dragged"); outLoop=true;
+    console.log(event.source.getRootElement().classList.add("z_Index_dragged"));
+    //  if( !outLoop && item.nodeName  == "BUTTON") item.classList.add("z_Index_dragged"); outLoop=true;
   }
 
   private tryMakeTransaction() {
@@ -221,6 +222,9 @@ export class DashboardComponent implements OnInit {
       this.dashboardService.createSpending(newSpending).subscribe((res: any) => {
         newSpending.id = res.last_added_id;
         this.sharedService.emitChange('account');
+        this.sharedService.updateChart('account-chart');
+        this.sharedService.updateChart('pie-chart');
+
       });
     }else if(this.last_transaction.type_of_transaction =="inc_acc"){
       this.dashboardService.transaction_Inc_to_Acc(fromData,toData,amount).subscribe(
@@ -230,12 +234,17 @@ export class DashboardComponent implements OnInit {
 
           this.sharedService.emitChange('income');
           this.sharedService.emitChange('account');
+          this.sharedService.updateChart('account-chart');
+          this.sharedService.updateChart('pie-chart');
+
+
         }
       );
     }
     else if(this.last_transaction.type_of_transaction =="acc_acc"){
       this.dashboardService.transaction_Acc_to_Acc(fromData,toData,amount).subscribe(
         (res)=>{
+
         }
       );
     }

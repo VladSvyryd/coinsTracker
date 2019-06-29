@@ -4,6 +4,7 @@ import {Label, Color} from 'ng2-charts';
 import {DashboardService} from "../../services/dashboard.service";
 import {formatDate} from "@angular/common";
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {SharedService} from '../../services/shared.service';
 
 @Component({
   selector: 'app-account-balance',
@@ -20,7 +21,7 @@ export class AccountBalanceComponent implements OnInit {
     {date:"1/4 Year",days:getDaysInMonths(4,new Date().getMonth(),new Date().getFullYear())},
     {date:"Year",days:days_of_a_year(new Date().getFullYear())}
   ];
-d
+  d
   public lineChartData = [
     { data: [], label:"Account balance", borderWidth:1.5},
   ];
@@ -36,10 +37,10 @@ d
         categoryPercentage: 100,
         distribution: 'linear',
         ticks: {
-            suggestedMax: 3
-          }
+          suggestedMax: 3
+        }
       },
-    ],
+      ],
       yAxes: [
         {
           id: 'y-axis-0',
@@ -68,11 +69,21 @@ d
   public lineChartLegend = true;
   public lineChartType = 'line';
   defaultSelected = 7;
-  constructor (private dashService:DashboardService, private dashboardService: DashboardService,private fb: FormBuilder) {
+  constructor (private dashService:DashboardService,private sharedService: SharedService, private dashboardService: DashboardService,private fb: FormBuilder) {
   }
   ngOnInit() {
     this.getAccountHistory();
-
+    this.sharedService.loadChartAgain$.subscribe(name => {
+      switch (name) {
+        case "account-chart":
+          this.getAccountHistory()
+          break;
+        case "pie-chart":
+          break;
+        case "donut-chart":
+          break;
+      }
+    });
   }
 
   getAccountHistory(range = 7) {

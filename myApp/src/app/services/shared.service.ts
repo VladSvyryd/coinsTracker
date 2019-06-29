@@ -7,14 +7,18 @@ import {Subject} from 'rxjs';
 export class SharedService {
   // Observable string sources
   private emitChangeSource = new Subject<any>();
+  private emitChartUpdate = new Subject<any>();
   // Observable string streams
   changeEmitted$ = this.emitChangeSource.asObservable();
   editEmitted$ = this.emitChangeSource.asObservable();
+  loadChartAgain$ = this.emitChartUpdate.asObservable();
   // Service message commands
   emitChange(change: any) {
     this.emitChangeSource.next(change);
   }
-  editModeToggle(change:boolean){
-    this.emitChangeSource.next(change);
+
+  updateChart(change:any){
+    this.emitChartUpdate.next(change);
   }
+
 }
