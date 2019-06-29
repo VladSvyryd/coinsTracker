@@ -3,6 +3,7 @@ import {ChartOptions} from 'chart.js';
 import {Label, Color} from 'ng2-charts';
 import {DashboardService} from "../../services/dashboard.service";
 import {formatDate} from "@angular/common";
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-account-balance',
@@ -15,29 +16,36 @@ export class AccountBalanceComponent implements OnInit {
   public accountHistory = [];
   public dateRange = [
     {date:"Week",days:7},
-    {date:"Month",days:30},
-    {date:"1/4 Year",days:90},
-    {date:"Year",days:365}
+    {date:"Month",days: getDaysInMonths(1,new Date().getMonth(),new Date().getFullYear())},
+    {date:"1/4 Year",days:getDaysInMonths(4,new Date().getMonth(),new Date().getFullYear())},
+    {date:"Year",days:days_of_a_year(new Date().getFullYear())}
   ];
-
+d
   public lineChartData = [
-    { data: [], label: 'Account balance', borderWidth:1.5},
+    { data: [], label:"Account balance", borderWidth:1.5},
   ];
-
+  currency = "€";
   public lineChartLabels: Label[] = [];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     scales: {
       // We use this empty structure as a placeholder for dynamic theming.
       xAxes: [{
-        gridLines: { color: 'rgba(255,255,255,0.1)' }
-      }],
+        gridLines: { color: 'rgba(148,159,177,0.3)',
+        },
+        categoryPercentage: 100,
+        distribution: 'linear',
+        ticks: {
+            suggestedMax: 3
+          }
+      },
+    ],
       yAxes: [
         {
           id: 'y-axis-0',
           position: 'left',
           ticks: {
-           // stepSize : 50,
+            stepSize : 50,
             beginAtZero: true,
           }
         },
@@ -59,21 +67,19 @@ export class AccountBalanceComponent implements OnInit {
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
-
-  constructor (private dashService:DashboardService, private dashboardService: DashboardService) { }
-
-
+  defaultSelected = 7;
+  constructor (private dashService:DashboardService, private dashboardService: DashboardService,private fb: FormBuilder) {
+  }
   ngOnInit() {
     this.getAccountHistory();
+
   }
 
   getAccountHistory(range = 7) {
-    console.log(range)
-     this.lineChartLabels = [];
+    this.lineChartLabels = [];
     this.lineChartData[0].data = []
     this.dashboardService.getAccountBalanceHistory(range).subscribe((res:any)=>{
       this.accountHistory = res;
-      console.log(this.accountHistory);
       for(let i=0; i<res.length; i++) {
         this.lineChartLabels.push(this.transformDate(res[i].date));
         this.lineChartData[0].data.push(res[i].account_balance)
@@ -81,12 +87,33 @@ export class AccountBalanceComponent implements OnInit {
     })
   }
   transformDate(date) {
-    return formatDate(date, 'dd-MM','en');
+    return formatDate(date, 'dd','en');
   }
 
   updateChartOnDate(range) {
+    console.log(range);
     this.getAccountHistory(range);
   }
+
 }
 
+function getDaysInMonths(numberOfMonthsBefore,month,year) {
+  // Here January is 1 based
+  //Day 0 is the last day in the previous month
+  let days = 0;
+  let current_month = month+1;
+  while(numberOfMonthsBefore != 0){
+    days +=  new Date(year, current_month, 0).getDate();
+    numberOfMonthsBefore--;
+    current_month--;
+  }
+  return days
+};
+function days_of_a_year(year)
+{
+  return isLeapYear(year) ? 366 : 365;
+}
 
+function isLeapYear(year) {
+  return year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0);
+}
