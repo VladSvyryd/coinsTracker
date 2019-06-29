@@ -1,14 +1,21 @@
-<div style="display: block;">
-<canvas baseChart width="300" height="300"
-            [datasets]="lineChartData"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [colors]="lineChartColors"
-            [legend]="lineChartLegend"
-            [chartType]="lineChartType"
+    <div style="display: block;">
+      <canvas baseChart width="300" height="300"
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
+        [chartType]="lineChartType"
+      >
+      </canvas>
+       <mat-form-field>
+        <mat-select panelClass="panel" #panel
+                    (selectionChange)="updateChartOnDate(panel.value)"
+                    [(value)]="defaultSelected">
+          <mat-option *ngFor="let d of dateRange"[value]="d.days" >
+            <span>{{d.date}}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-
->
-
-</canvas>
-</div>

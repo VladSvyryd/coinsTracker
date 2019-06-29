@@ -12,7 +12,6 @@
   </div>
   <div class=" wrapper">
     <div mat-subheader class="header"> <h3>Balance history</h3>
-      <form  >
       <mat-form-field>
         <mat-select panelClass="panel" #panel
                     (selectionChange)="updateChartOnDate(panel.value)"
@@ -22,7 +21,6 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </form>
     </div>
     <mat-list class="scrollContainer"  id="style-7">
       <mat-divider ></mat-divider>

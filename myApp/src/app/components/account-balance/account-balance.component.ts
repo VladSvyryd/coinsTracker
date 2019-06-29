@@ -21,11 +21,9 @@ export class AccountBalanceComponent implements OnInit {
     {date:"1/4 Year",days:getDaysInMonths(4,new Date().getMonth(),new Date().getFullYear())},
     {date:"Year",days:days_of_a_year(new Date().getFullYear())}
   ];
-  d
   public lineChartData = [
     { data: [], label:"Account balance", borderWidth:1.5},
   ];
-  currency = "€";
   public lineChartLabels: Label[] = [];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
@@ -69,6 +67,8 @@ export class AccountBalanceComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
   defaultSelected = 7;
+    currency = "€";
+
   constructor (private dashService:DashboardService,private sharedService: SharedService, private dashboardService: DashboardService,private fb: FormBuilder) {
   }
   ngOnInit() {
@@ -78,7 +78,7 @@ export class AccountBalanceComponent implements OnInit {
         case "account-chart":
           this.getAccountHistory()
           break;
-        case "pie-chart":
+        case "line-chart":
           break;
         case "donut-chart":
           break;
@@ -105,7 +105,6 @@ export class AccountBalanceComponent implements OnInit {
   }
 
   updateChartOnDate(range) {
-    console.log(range);
     this.getAccountHistory(range);
   }
 
