@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
@@ -409,6 +411,21 @@ def get_all_spendings(current_user):
     for spending in spendings:
         spending_list = dict(id=spending.id, date=spending.date, amount=spending.amount, expense=spending.expense_id)
         output.append(spending_list)
+    return jsonify(output)
+
+
+@app.route('/spending/<date_range>', methods=['GET'])
+@token_required
+def get_all_spendings_by_days(current_user, date_range):
+
+    filter_after = datetime.datetime.today() - datetime.timedelta(days=int(date_range))
+    spendings = Spendings.query.filter_by(user_id=current_user.public_id).all()
+    output = []
+
+    for spending in spendings:
+        if spending.date >= filter_after:
+            spending_list = dict(id=spending.id, date=spending.date, amount=spending.amount, expense=spending.expense_id)
+            output.append(spending_list)
     return jsonify(output)
 
 

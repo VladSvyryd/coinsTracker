@@ -48,9 +48,16 @@ export class DoughnutChartComponent implements OnInit {
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit() {
-    this.getCategoryInfo();
+    //this.getCategoryInfo();
+    this.getSpendingsInfo();
   }
+  getSpendingsInfo(date_range=getDaysInMonths(1,new Date().getMonth(),new Date().getFullYear())){
+    console.log(date_range);
+    this.dashboardService.getSpendingByDays(date_range).subscribe((res)=>{
+      console.log(res);
+    });
 
+  }
   getCategoryInfo(){
     let expensesSum = 0;
     this.dashboardService.getAll('expense').subscribe((res)=>{
@@ -58,9 +65,7 @@ export class DoughnutChartComponent implements OnInit {
         this.doughnutChartLabels.push(res[i].name);
         this.doughnutChartData.push(res[i].spent_amount);
         this.categoryIds.push(res[i].id);
-
         expensesSum = expensesSum + res[i].spent_amount;
-
       }
       this.nameSingleCat = this.doughnutChartLabels[0];
       this.getSpendingsOnChartClick(this.categoryIds[0]);
@@ -90,4 +95,25 @@ export class DoughnutChartComponent implements OnInit {
     }
   }
 
+}
+
+function getDaysInMonths(numberOfMonthsBefore,month,year) {
+  // Here January is 1 based
+  //Day 0 is the last day in the previous month
+  let days = 0;
+  let current_month = month+1;
+  while(numberOfMonthsBefore != 0){
+    days +=  new Date(year, current_month, 0).getDate();
+    numberOfMonthsBefore--;
+    current_month--;
+  }
+  return days
+};
+function days_of_a_year(year)
+{
+  return isLeapYear(year) ? 366 : 365;
+}
+
+function isLeapYear(year) {
+  return year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0);
 }

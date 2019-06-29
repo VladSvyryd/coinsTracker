@@ -43,16 +43,16 @@ export class LineChartComponent implements OnInit {
   };
   public lineChartColors: Color[] = [
     { // grey
-      //backgroundColor: 'rgba(148,159,177,0.3)',
-      borderColor: '#43E0AA',
+      backgroundColor: 'rgba(0,0,0,0.2)',
+      borderColor: 'rgba(0,255,0,1)',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
     { // red
-      //backgroundColor: 'rgba(255,0,0,0.3)',
-      borderColor: 'red',
+      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: 'rgba(255,0,0,1)',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
@@ -61,8 +61,8 @@ export class LineChartComponent implements OnInit {
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
- defaultSelected = getDaysInMonths(1,new Date().getMonth(),new Date().getFullYear());
- currency = "€";
+  defaultSelected = getDaysInMonths(1,new Date().getMonth(),new Date().getFullYear());
+  currency = "€";
   public dateRange = [
     {date:"Week",days:7},
     {date:"Month",days: getDaysInMonths(1,new Date().getMonth(),new Date().getFullYear())},
@@ -75,7 +75,7 @@ export class LineChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllDataAboutIncomesAndExpenses2();
+    this.getAllDataAboutIncomesAndExpenses();
   }
 
 
@@ -87,7 +87,7 @@ export class LineChartComponent implements OnInit {
       console.log(res)
 
       let mySet = new Set();
-      for(let i=0; i<res.length; i++) {
+      for(let i=0; i<this.defaultSelected; i++) {
         mySet.add(this.transformDate(res[i].date))
         if(res[i].type === "income") {
           this.lineChartData[0].data.push(res[i].amount)
@@ -95,8 +95,10 @@ export class LineChartComponent implements OnInit {
         else{
           this.lineChartData[1].data.push(res[i].amount);
         }
+      this.lineChartLabels.push(i+"");
       }
-      this.lineChartLabels = Array.from(mySet);
+      console.log(this.lineChartData[0].data,
+      this.lineChartData[1].data)
     });
   }
   getAllDataAboutIncomesAndExpenses(date_range=7) {
@@ -149,8 +151,8 @@ export class LineChartComponent implements OnInit {
     return formatDate(date, 'dd-MM','en');
   }
 
-   updateChartOnDate(range) {
-    this.getAllDataAboutIncomesAndExpenses2(range);
+  updateChartOnDate(range) {
+    this.getAllDataAboutIncomesAndExpenses(range);
   }
 }
 

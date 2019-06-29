@@ -107,6 +107,12 @@ export class DashboardService {
     );
   }
 
+   getSpendingByDays(date_range:number):Observable<any[]>  {
+    return this.httpClient.get<Spending[]>(this.server_path+"/spending/" + date_range).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   transaction_Inc_to_Acc(inc:Income, acc:Account,transaction_amount) {
     let {id,amount}: Income = inc;
     let destructedInc = {id,amount};

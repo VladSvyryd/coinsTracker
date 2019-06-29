@@ -18,7 +18,7 @@ export class AccountBalanceComponent implements OnInit {
   public dateRange = [
     {date:"Week",days:7},
     {date:"Month",days: getDaysInMonths(1,new Date().getMonth(),new Date().getFullYear())},
-    {date:"1/4 Year",days:getDaysInMonths(4,new Date().getMonth(),new Date().getFullYear())},
+    {date:"4 Months",days:getDaysInMonths(4,new Date().getMonth(),new Date().getFullYear())},
     {date:"Year",days:days_of_a_year(new Date().getFullYear())}
   ];
   public lineChartData = [
