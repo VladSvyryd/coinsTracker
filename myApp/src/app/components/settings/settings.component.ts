@@ -36,7 +36,7 @@ export class SettingsComponent implements OnInit {
 
   getUserOnProperty(property,newState) {
     Object.keys(this.user).forEach(key => {
-      if (this.user[key] === property) {
+      if (key == property) {
          this.user[key] = newState;
       }
     });

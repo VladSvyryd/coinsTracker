@@ -52,7 +52,6 @@ export class DoughnutChartComponent implements OnInit {
     this.getSpendingsInfo();
   }
   getSpendingsInfo(date_range=getDaysInMonths(1,new Date().getMonth(),new Date().getFullYear())){
-    console.log(date_range);
     this.dashboardService.getSpendingByDays(date_range).subscribe((res)=>{
       console.log(res);
     });

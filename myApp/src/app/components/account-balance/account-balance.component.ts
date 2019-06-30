@@ -44,7 +44,7 @@ export class AccountBalanceComponent implements OnInit {
           id: 'y-axis-0',
           position: 'left',
           ticks: {
-            stepSize : 50,
+           //stepSize : 50,
             beginAtZero: true,
           }
         },

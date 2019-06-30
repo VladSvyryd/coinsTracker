@@ -104,7 +104,7 @@ export class AuthServiceService {
   };
 
  setNewUser(user:User){
-   console.log("cur_user", user);
+   console.log("set_new_cur_user", user);
    localStorage.setItem("userProfile", JSON.stringify(user))
   }
   getUserFromLocalStorage(){
