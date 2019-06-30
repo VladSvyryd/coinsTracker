@@ -63,12 +63,6 @@ export class LineChartComponent implements OnInit {
   public lineChartType = 'line';
   defaultSelected = getDaysInMonths(1,new Date().getMonth(),new Date().getFullYear());
   currency = "€";
-  public dateRange = [
-    {date:"Week",days:7},
-    {date:"Month",days: getDaysInMonths(1,new Date().getMonth(),new Date().getFullYear())},
-    {date:"1/4 Year",days:getDaysInMonths(4,new Date().getMonth(),new Date().getFullYear())},
-    {date:"Year",days:days_of_a_year(new Date().getFullYear())}
-  ];
   constructor(private dashboardService: DashboardService) {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
@@ -78,40 +72,17 @@ export class LineChartComponent implements OnInit {
     this.getAllDataAboutIncomesAndExpenses();
   }
 
-
-  getAllDataAboutIncomesAndExpenses2(date_range=7) {
-    this.lineChartLabels = [];
-    this.lineChartData[0].data = []
-    this.lineChartData[1].data = []
-    this.dashboardService.getIcomesAndExpensesByDate(date_range).subscribe((res:any)=>{
-      console.log(res)
-
-      let mySet = new Set();
-      for(let i=0; i<this.defaultSelected; i++) {
-        mySet.add(this.transformDate(res[i].date))
-        if(res[i].type === "income") {
-          this.lineChartData[0].data.push(res[i].amount)
-        }
-        else{
-          this.lineChartData[1].data.push(res[i].amount);
-        }
-      this.lineChartLabels.push(i+"");
-      }
-      console.log(this.lineChartData[0].data,
-      this.lineChartData[1].data)
-    });
-  }
-  getAllDataAboutIncomesAndExpenses(date_range=7) {
-
+  getAllDataAboutIncomesAndExpenses(date_range=this.defaultSelected) {
     let incomeMap = new Map();
     let expenseMap = new Map();
-
-    let currentDate = Date.now();
-    let oneDayOffset = 24 * 60 * 60 * 1000;
-    for (let i=29; i>=0; i--) {
-      let temp = this.transformDate(currentDate - i * oneDayOffset);
-      incomeMap.set(temp, 0);
-      expenseMap.set(temp, 0);
+    let currMonth = new Date().getMonth() + 1;
+    for (let i=1; i<=this.defaultSelected; i++) {
+      let day;
+      let month;
+      if(i<10)  day = "0" + i; else day = i;
+      if (new Date().getMonth()  < 10) month ="0" + currMonth; else currMonth;
+      incomeMap.set(day +"-" + month, 0);
+      expenseMap.set(day +"-" + month, 0);
     }
 
     this.dashboardService.getIcomesAndExpensesByDate(date_range).subscribe((res:any)=> {

@@ -108,7 +108,7 @@ export class DashboardService {
   }
 
    getSpendingByDays(date_range:number):Observable<any[]>  {
-    return this.httpClient.get<Spending[]>(this.server_path+"/spending/" + date_range).pipe(
+    return this.httpClient.get<Spending[]>(this.server_path+"/spending_by_date/" + date_range).pipe(
       catchError(this.handleError)
     );
   }

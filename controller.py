@@ -201,7 +201,6 @@ def get_all_incomes(current_user):
         income_list['date'] = income.date
         income_list['icon'] = income.icon
         output.append(income_list)
-        print(output)
     return jsonify(output)
 
 
@@ -333,7 +332,7 @@ def get_account_balance_history(current_user, date_range):
 
     expense_history = Spendings.query.join(Expenses, Spendings.expense_id == Expenses.id)\
         .add_columns(Spendings.id, Spendings.amount, Spendings.date, Spendings.account_balance, Expenses.name)\
-        .filter_by(user_id=current_user.public_id).filter(Spendings.date >= filter_after).order_by(Spendings.date.desc())
+        .filter_by(user_id=current_user.public_id).filter(Spendings.date >= filter_after).order_by(Spendings.date.desc()).all()
     output = []
     for expense in expense_history:
         expense_list = dict(id=expense.id, amount=expense.amount, date=expense.date, type="outgoing",
@@ -414,7 +413,7 @@ def get_all_spendings(current_user):
     return jsonify(output)
 
 
-@app.route('/spending/<date_range>', methods=['GET'])
+@app.route('/spending_by_date/<date_range>', methods=['GET'])
 @token_required
 def get_all_spendings_by_days(current_user, date_range):
 
@@ -424,7 +423,7 @@ def get_all_spendings_by_days(current_user, date_range):
 
     for spending in spendings:
         if spending.date >= filter_after:
-            spending_list = dict(id=spending.id, date=spending.date, amount=spending.amount, expense=spending.expense_id)
+            spending_list = dict(id=spending.id, amount=spending.amount, expense_id=spending.expense_id)
             output.append(spending_list)
     return jsonify(output)
 
@@ -610,7 +609,6 @@ def check_refresh_financial_period(current_user):
 def transaction_inc_acc(current_user):
 
     data = request.get_json()
-    print(data)
     acc = Accounts.query.filter_by(user_id=current_user.public_id).filter_by(id=data['acc']["id"]).first()
     if not acc:
         return jsonify({'server_message': 'No such Account found'})
