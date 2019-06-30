@@ -12,6 +12,8 @@ import {MatDatepicker} from '@angular/material/datepicker';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { Moment} from 'moment';
+import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
+import {Observable} from 'rxjs';
 
 
 
@@ -94,6 +96,7 @@ export class PieChartComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
 
+  isMobile: Observable<BreakpointState>;
 
   date = new FormControl(moment());
   selectedYear;
@@ -117,9 +120,10 @@ export class PieChartComponent implements OnInit {
   }
 
 
-  constructor(private dashboardService: DashboardService) {
+  constructor(private dashboardService: DashboardService, private breakpointObserver:BreakpointObserver) {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
+    this.isMobile = this.breakpointObserver.observe(Breakpoints.HandsetPortrait);
   }
 
   ngOnInit() {
