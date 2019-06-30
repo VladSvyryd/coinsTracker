@@ -329,7 +329,6 @@ def get_accounts_sum(current_user):
 @token_required
 def get_account_balance_history(current_user, date_range):
     filter_after = datetime.datetime.today() - datetime.timedelta(days=int(date_range))
-
     expense_history = Spendings.query.join(Expenses, Spendings.expense_id == Expenses.id)\
         .add_columns(Spendings.id, Spendings.amount, Spendings.date, Spendings.account_balance, Expenses.name)\
         .filter_by(user_id=current_user.public_id).filter(Spendings.date >= filter_after).order_by(Spendings.date.desc()).all()
@@ -343,7 +342,7 @@ def get_account_balance_history(current_user, date_range):
     incoming_history = AccountTrack.query.join(Incomes, AccountTrack.income_id == Incomes.id)\
         .add_columns(AccountTrack.id, AccountTrack.amount, AccountTrack.date, AccountTrack.account_balance,
                      Incomes.name)\
-        .filter_by(user_id=current_user.public_id).order_by(AccountTrack.date.desc())
+        .filter_by(user_id=current_user.public_id).filter(AccountTrack.date >= filter_after).order_by(AccountTrack.date.desc())
     for incoming in incoming_history:
         incoming_list = dict(id=incoming.id, amount=incoming.amount, date=incoming.date, type="incoming",
                              account_balance=incoming.account_balance, name=incoming.name)

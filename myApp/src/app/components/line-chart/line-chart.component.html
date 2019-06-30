@@ -8,14 +8,6 @@
         [chartType]="lineChartType"
       >
       </canvas>
-       <mat-form-field>
-        <mat-select panelClass="panel" #panel
-                    (selectionChange)="updateChartOnDate(panel.value)"
-                    [(value)]="defaultSelected">
-          <mat-option *ngFor="let d of dateRange"[value]="d.days" >
-            <span>{{d.date}}</span>
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+
     </div>
 

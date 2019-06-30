@@ -80,7 +80,7 @@ export class LineChartComponent implements OnInit {
       let day;
       let month;
       if(i<10)  day = "0" + i; else day = i;
-      if (new Date().getMonth()  < 10) month ="0" + currMonth; else currMonth;
+      if (currMonth  < 10) month ="0" + currMonth; else currMonth;
       incomeMap.set(day +"-" + month, 0);
       expenseMap.set(day +"-" + month, 0);
     }
