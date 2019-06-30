@@ -332,7 +332,7 @@ def get_account_balance_history(current_user, date_range):
 
     expense_history = Spendings.query.join(Expenses, Spendings.expense_id == Expenses.id)\
         .add_columns(Spendings.id, Spendings.amount, Spendings.date, Spendings.account_balance, Expenses.name)\
-        .filter_by(user_id=current_user.public_id).filter(Spendings.date >= filter_after).order_by(Spendings.date.desc()).all()
+        .filter_by(user_id=current_user.public_id).filter(Spendings.date >= filter_after).all()
     output = []
     for expense in expense_history:
         expense_list = dict(id=expense.id, amount=expense.amount, date=expense.date, type="outgoing",
@@ -658,19 +658,19 @@ def transaction_acc_acc(current_user):
 @token_required
 def get_income_track_and_spendings(current_user, date_range):
 
-    filter_after = datetime.datetime.today() - datetime.timedelta(days=int(date_range))
-    #current_month = datetime.datetime.today().month
+    #filter_after = datetime.datetime.today() - datetime.timedelta(days=int(date_range))
+    selected_month = date_range
 
-    expense_history = Spendings.query.filter(Spendings.date >= filter_after, Spendings.user_id == current_user.public_id).all()
-    #expense_history = Spendings.query.filter(extract('month', Spendings.date) == current_month, Spendings.user_id == current_user.public_id).all()
+    #expense_history = Spendings.query.filter(Spendings.date >= filter_after, Spendings.user_id == current_user.public_id).all()
+    expense_history = Spendings.query.filter(extract('month', Spendings.date) == selected_month, Spendings.user_id == current_user.public_id).all()
 
     output = []
     for expense in expense_history:
         expense_list = dict(id=expense.id, amount=expense.amount, date=expense.date, type="expense")
         output.append(expense_list)
 
-    income_tracks = AccountTrack.query.filter(AccountTrack.date >= filter_after, AccountTrack.user_id == current_user.public_id).all()
-    #income_tracks = AccountTrack.query.filter(extract('month', AccountTrack.date) == current_month, AccountTrack.user_id == current_user.public_id).all()
+    #income_tracks = AccountTrack.query.filter(AccountTrack.date >= filter_after, AccountTrack.user_id == current_user.public_id).all()
+    income_tracks = AccountTrack.query.filter(extract('month', AccountTrack.date) == selected_month, AccountTrack.user_id == current_user.public_id).all()
 
     for it in income_tracks:
         income_track_list = dict(id=it.id, amount=it.amount, date=it.date, type="income")
