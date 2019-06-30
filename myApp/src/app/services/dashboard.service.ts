@@ -145,6 +145,12 @@ export class DashboardService {
     );
   }
 
+   getSpendingByDate(date_range:number):Observable<any[]>  {
+    return this.httpClient.get<any[]>(this.server_path+"/expense_by_date/"+date_range).pipe(
+      catchError(this.handleError)
+    );
+  }
+
 
 
 

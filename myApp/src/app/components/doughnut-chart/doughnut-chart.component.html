@@ -1,5 +1,16 @@
 <div class="chartContainer">
   <div class="chart">
+    <mat-form-field>
+        <input matInput [matDatepicker]="dp" placeholder="Select Month" [formControl]="date">
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp
+                        [touchUi]="(isMobile | async)?.matches"
+                        startView="year"
+                        (yearSelected)="chosenYearHandler($event)"
+                        (monthSelected)="chosenMonthHandler($event, dp)"
+                        panelClass="example-month-picker">
+        </mat-datepicker>
+      </mat-form-field>
     <canvas baseChart
             [data]="doughnutChartData"
             [labels]="doughnutChartLabels"
@@ -31,4 +42,5 @@
       </table>
     </div>
   </div>
+
 </div>

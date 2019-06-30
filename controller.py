@@ -11,7 +11,6 @@ from functools import wraps  # for decorator
 from flask_cors import CORS
 from operator import itemgetter
 from sqlalchemy import extract
-from sqlalchemy import asc
 
 
 import os
@@ -347,6 +346,7 @@ def get_account_balance_history(current_user, date_range):
         incoming_list = dict(id=incoming.id, amount=incoming.amount, date=incoming.date, type="incoming",
                              account_balance=incoming.account_balance, name=incoming.name)
         output.append(incoming_list)
+
     output = sorted(output, key=itemgetter('date'), reverse=False)
     return jsonify(output)
 
@@ -511,6 +511,24 @@ def get_all_expenses(current_user):
         expenses_list['icon'] = expense.icon
         expenses_list['wanted_limit'] = expense.wanted_limit
         expenses_list['spent_amount'] = expense.spent_amount
+        output.append(expenses_list)
+    return jsonify(output)
+
+
+@app.route('/expense_by_date/<date_range>', methods=['GET'])
+@token_required
+def get_expense_by_date(current_user, date_range):
+
+    selected_month = date_range
+
+    expenses = Spendings.query.join(Expenses, Spendings.expense_id == Expenses.id) \
+        .filter(extract('month', Spendings.date) == selected_month, Expenses.user_id == current_user.public_id) \
+        .with_entities(Expenses.id, Expenses.name, func.sum(Spendings.amount).label('sum_amount'))\
+        .group_by(Spendings.expense_id).all()
+
+    output = []
+    for expense in expenses:
+        expenses_list = dict(id=expense.id, name=expense.name, spent_amount=expense.sum_amount)
         output.append(expenses_list)
     return jsonify(output)
 
