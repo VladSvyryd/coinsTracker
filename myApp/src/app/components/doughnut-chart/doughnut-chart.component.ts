@@ -14,6 +14,7 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { Moment} from 'moment';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
+import {SharedService} from '../../services/shared.service';
 
 
 const moment = _moment;
@@ -102,16 +103,29 @@ export class DoughnutChartComponent implements OnInit {
   }
 
 ;
-  constructor(private dashboardService: DashboardService) {}
+  constructor(private dashboardService: DashboardService,private sharedService:SharedService) {}
 
   ngOnInit() {
     this.selectedMonth = new Date().getMonth() + 1;
     this.selectedYear = new Date().getFullYear();
     this.getCategoryInfo();
+        this.sharedService.loadChartAgain$.subscribe(name => {
+      switch (name) {
+        case "account-chart":
+          break;
+        case "line-chart":
+          break;
+        case "donut-chart":
+          this.selectedMonth = new Date().getMonth() + 1;
+          this.selectedYear = new Date().getFullYear();
+          this.getCategoryInfo();
+          break;
+      }
+    });
   }
 
   getCategoryInfo(){
-
+    console.log("now")
     let doughnutLabels = [];
     let doughnutData = [];
     this.categoryIds = [];

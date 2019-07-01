@@ -223,20 +223,19 @@ export class DashboardComponent implements OnInit {
         newSpending.id = res.last_added_id;
         this.sharedService.emitChange('account');
         this.sharedService.updateChart('account-chart');
-        this.sharedService.updateChart('pie-chart');
+        this.sharedService.updateChart('line-chart');
+        this.sharedService.updateChart('donut-chart');
 
       });
     }else if(this.last_transaction.type_of_transaction =="inc_acc"){
       this.dashboardService.transaction_Inc_to_Acc(fromData,toData,amount).subscribe(
 
         (res)=>{
-          console.log(fromData);
-
+          this.incomes$.subscribe(res=>console.log(res));
           this.sharedService.emitChange('income');
           this.sharedService.emitChange('account');
           this.sharedService.updateChart('account-chart');
-          this.sharedService.updateChart('pie-chart');
-
+          this.sharedService.updateChart('line-chart');
 
         }
       );
@@ -244,7 +243,7 @@ export class DashboardComponent implements OnInit {
     else if(this.last_transaction.type_of_transaction =="acc_acc"){
       this.dashboardService.transaction_Acc_to_Acc(fromData,toData,amount).subscribe(
         (res)=>{
-
+          this.sharedService.updateChart('account-chart');
         }
       );
     }
