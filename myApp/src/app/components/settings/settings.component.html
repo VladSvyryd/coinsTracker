@@ -1,4 +1,4 @@
-<div>
+<div class="outerBox">
   <h3 mat-subheader>Settings</h3>
   <mat-list role="list">
     <mat-list-item role="listitem">
@@ -12,7 +12,7 @@
       </mat-slide-toggle>
     </mat-list-item>
     <mat-list-item role="listitem">
-      <label >Coins Name (visible if: On):</label>
+      <label >Coin Name (visible if: On):</label>
       <mat-slide-toggle
         (change)="updateUserSettings('coinsNamesOn', slider2.checked)"
         [checked]="user.coinsNamesOn"

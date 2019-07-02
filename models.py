@@ -22,6 +22,7 @@ class Expenses(db.Model):
     wanted_limit = db.Column(db.Integer, default=0)
     spent_amount = db.Column(db.Integer, default=0)
     icon = db.Column(db.String(50))
+    created_date = db.Column(db.TIMESTAMP)
 
 
 class Incomes(db.Model):

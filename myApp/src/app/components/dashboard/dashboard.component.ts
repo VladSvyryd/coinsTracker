@@ -77,6 +77,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.incomes$ = this.dashboardService.getAll('income');
     this.accounts$ = this.dashboardService.getAll('account');
     this.categories$ = this.dashboardService.getAll('expense');
@@ -168,7 +169,7 @@ export class DashboardComponent implements OnInit {
       // collision detection goes through all accounts, and could be done on the same element, bug fixed
       if (
         this.isCollide(draggableElementRef, droppableElementRef) &&
-      droppableElementRef.id !== draggableElementRef.id
+        droppableElementRef.id !== draggableElementRef.id
       ) {
         if (draggableElementRef.classList.contains("acc") &&
           droppableElementRef.classList.contains("acc")) {
@@ -229,10 +230,10 @@ export class DashboardComponent implements OnInit {
         this.sharedService.updateChart('account-chart');
         this.sharedService.updateChart('line-chart');
         this.sharedService.updateChart('donut-chart');
-           let account_result = fromData.amount -= amount;
-          let expense_result = toData.amount += amount;
-          this.updateCoinsOf('account',fromData.id,account_result);
-          this.updateCoinsOf('expense',toData.id,expense_result);
+        let account_result = fromData.amount -= amount;
+        let expense_result = toData.amount += amount;
+        this.updateCoinsOf('account',fromData.id,account_result);
+        this.updateCoinsOf('expense',toData.id,expense_result);
 
       });
     }else if(this.last_transaction.type_of_transaction =="inc_acc"){
@@ -376,7 +377,7 @@ export class DashboardComponent implements OnInit {
       case 'account':
         document.querySelector('#accountInfoBox_'+ withId).innerHTML = "€ " + toValue;
         break;
-        case 'expense':
+      case 'expense':
         document.querySelector('#expenseInfoBox_'+ withId).innerHTML = "€ " + toValue;
         break;
     }

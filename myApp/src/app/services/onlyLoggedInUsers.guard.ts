@@ -11,8 +11,7 @@ export class OnlyLoggedInUsersGuard implements  CanActivate{
 
    canActivate() {
     console.log("OnlyLoggedInUsers");
-    //if (!this.authService.isTokenExpired()) {
-    if (true) {
+    if (!this.authService.isTokenExpired()) {
       return true;
     } else {
       this.router.navigate(["ups"]);

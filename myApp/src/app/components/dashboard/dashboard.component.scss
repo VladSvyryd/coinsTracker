@@ -9,7 +9,8 @@
   justify-content: space-around;
   flex-wrap: wrap;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 30px auto;
+
   .left-col{
     flex: 1;
   }
@@ -118,7 +119,7 @@ mat-grid-list {
       flex-wrap: wrap;
       padding: 7px 0;
       max-width:100%;
-      min-width:303px;
+      min-width:279px;
     }
     .box {
       color: rgba(0, 0, 0, 0.87);
@@ -131,7 +132,7 @@ mat-grid-list {
       font-size: 14px;
       flex-basis: 0;
       position: relative;
-      margin: 25px 10px;
+      margin: 35px 10px;
       &.active{
         background-color: black;
       }
@@ -274,7 +275,12 @@ $size: 56px;
     justify-content: space-around;
     flex-wrap: wrap;
     width: 100%;
-    padding:  0 0 50px 0;
+    padding:  0 0 50px 20px;
+    @media #{$mobile} {
+          padding:  0 0 0px 0px;
+
+    }
+
 }
 .doughnut-chart{
   width: 100%;

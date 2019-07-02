@@ -8,6 +8,7 @@ import * as jwt_decode from 'jwt-decode';
 
 
 import {User} from "../models/user";
+import {Router} from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +18,7 @@ export class AuthServiceService {
   server_path = "http://127.0.0.1:5000";
 
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,private router: Router) {
   }
 
   login(email: string, password: string) {
@@ -36,6 +37,7 @@ export class AuthServiceService {
       let newUser:User = {email:email, dark_theme: false,fixedLayout:false,coinsNamesOn:true}
           this.setNewUser(newUser);
       }
+      this.router.navigate(['/dashboard']);
     });
 
 

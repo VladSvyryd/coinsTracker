@@ -9,6 +9,9 @@
   max-width: 600px;
   padding: 30px 0;
   margin: 0 auto;
+ @media #{$mobile} {
+
+  }
 
 }
 .scrollContainer{
@@ -70,7 +73,7 @@
 .scrollContainer::-webkit-scrollbar-thumb
 {
   border-radius: 10px;
-  background: linear-gradient(to bottom, #4E4068, #272034);
+  background: #4e406878;
 }
 
 .panel {

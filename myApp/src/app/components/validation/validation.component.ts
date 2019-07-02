@@ -54,7 +54,7 @@ export class ValidationComponent implements OnInit {
   }
   tryLogin(){
     this.authService.login(this.options.value.email,this.options.value.password);
-    this.router.navigate(['/dashboard']);
+
 
   }
 

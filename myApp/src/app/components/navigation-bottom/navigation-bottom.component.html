@@ -1,6 +1,5 @@
 <div class="bottomNavigation">
   <mat-action-list class= "navigationButtons">
-    <span class="spacer"></span>
     <button mat-list-item routerLink="dashboard"><mat-icon>dashboard</mat-icon> <span class="label">Dashboard</span>
     </button>
     <button mat-list-item (click)="editModeActive()"><mat-icon>edit</mat-icon> <span class="label">Edit Mode</span>  </button>
@@ -8,7 +7,9 @@
       <mat-icon  aria-hidden="false" aria-label="Settings">settings</mat-icon>
       <span class="label">Settings</span>
     </button>
-    <button mat-list-item  (click)="tryLogout();"  class="menu-item">
+    <button mat-list-item (click)="goBack()" *ngIf="(isMobile | async)?.matches"><mat-icon class="goBack" aria-hidden="false">arrow_back</mat-icon>
+      <span class="label">Back</span> </button>
+    <button mat-list-item  (click)="tryLogout();" *ngIf="!(isMobile | async)?.matches" class="menu-item">
       <mat-icon  aria-hidden="false" aria-label="Log Out">exit_to_app</mat-icon><span class="label">Logout</span>
     </button>
     <app-circle-menu class="rightNavButton" *ngIf="(isMobile | async)?.matches"></app-circle-menu>

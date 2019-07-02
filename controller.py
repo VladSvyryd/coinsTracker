@@ -209,7 +209,6 @@ def get_incomes_sum(current_user):
     sum = Incomes.query.with_entities(func.sum(Incomes.amount)).filter_by(
         user_id=current_user.public_id
     ).first()
-    print(sum)
     return jsonify(sum)
 
 
@@ -290,7 +289,6 @@ def create_account(current_user):
 
     # get data
     data = request.get_json()
-    print(data)
     new_account = Accounts(name=data['name'], user_id=current_user.public_id, amount=(int)(data['amount']),
                            date=datetime.datetime.utcnow(), icon=data['icon'])
     db.session.add(new_account)
@@ -311,7 +309,6 @@ def get_all_accounts(current_user):
         account_list = dict(id=account.id, name=account.name, description=account.description,
                             amount=account.amount, date=account.date, icon=account.icon)
         output.append(account_list)
-    print(output)
     return jsonify(output)
 
 
@@ -502,6 +499,8 @@ def upgrade_spending(current_user, spending_id):
 @app.route('/expense', methods=['GET'])
 @token_required
 def get_all_expenses(current_user):
+    # selected_month = datetime.datetime.utcnow().month;
+   #  expenses = Expenses.query.filter_by(user_id=current_user.public_id).filter(extract('month', Expenses.created_date) == selected_month).all()
     expenses = Expenses.query.filter_by(user_id=current_user.public_id).all()
     output = []
     for expense in expenses:
@@ -511,6 +510,7 @@ def get_all_expenses(current_user):
         expenses_list['icon'] = expense.icon
         expenses_list['wanted_limit'] = expense.wanted_limit
         expenses_list['spent_amount'] = expense.spent_amount
+        expenses_list['created_date'] = expense.created_date
         output.append(expenses_list)
     return jsonify(output)
 
@@ -541,7 +541,7 @@ def create_expense(current_user):
     data = request.get_json()
 
     new_expense = Expenses(name=data['name'],
-                           user_id=current_user.public_id, wanted_limit=data['wanted_limit'], icon=data['icon'])
+                           user_id=current_user.public_id, wanted_limit=data['wanted_limit'], icon=data['icon'], created_date=datetime.datetime.utcnow())
     db.session.add(new_expense)
     db.session.commit()
     # on client side we need id of newly created element / this will get last element id
@@ -607,17 +607,21 @@ def reset_expenses(account_id):
 @app.route('/refresh_spending', methods=['POST'])
 @token_required
 def check_refresh_financial_period(current_user):
-    current_date = datetime.datetime.now()
+    current_date = datetime.datetime.utcnow()
     current_month = current_date.month
     current_day = current_date.day
-    wanted_refresh_day = current_user.wanted_refresh_day
-
-    if not wanted_refresh_day:
-        return
+    user = User.query.filter_by(user_id=current_user.public_id).first()
+    print(user)
+    w_refresh_day = user.wanted_refresh_day
+    print(current_day,w_refresh_day)
+    if not w_refresh_day:
+        return  jsonify({'server_message': 'w_refresh_day is null'})
     else:
-        if current_day == wanted_refresh_day and current_user.last_refresh_month < current_month:
+        if current_day == w_refresh_day and user.last_refresh_month < current_month:
             reset_expenses()
-            current_user.last_refresh_month = current_month
+            user.last_refresh_month = current_month
+    return jsonify({'server_message': 'Refreshed'})
+
 
 
 @app.route('/inc_to_acc', methods=['PUT'])
@@ -657,7 +661,6 @@ def transaction_inc_acc(current_user):
 def transaction_acc_acc(current_user):
 
     data = request.get_json()
-    print(data)
     acc1 = Accounts.query.filter_by(user_id=current_user.public_id).filter_by(id=data['accIdFrom']).first()
     if not acc1:
         return jsonify({'server_message': 'No such Account1 found'})

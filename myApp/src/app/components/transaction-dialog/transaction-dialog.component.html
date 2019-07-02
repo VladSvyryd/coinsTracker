@@ -25,7 +25,7 @@
       />
     </mat-form-field>
    <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [disabled]="!(amount.valid)" (click)="sendData()" >Ok</button>
+  <button mat-flat-button color="warn" (click)="onNoClick()">No Thanks</button>
+  <button mat-flat-button color="primary" [disabled]="!(amount.valid)" (click)="sendData()" >Ok</button>
 </div>
   </form>

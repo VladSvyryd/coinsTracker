@@ -178,7 +178,12 @@ export class DashboardService {
     );
   }
 
-
+  refreshExpenseHistoryOfCurrentMonth(path:string){
+    let trigger={};
+     return this.httpClient.post(this.server_path + "/" + path, trigger).pipe(
+      catchError(this.handleError)
+    );
+  }
 
 
 

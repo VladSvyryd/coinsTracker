@@ -17,7 +17,8 @@ export class CounterComponent implements OnInit {
 
   private income_sum$: Observable<number>;
   private account_sum$: Observable<number>;
-
+  private noIncomeSum;
+  private noAccountSum;
 
   amount:any;
   constructor( private sharedService: SharedService, private dashService:DashboardService) { }
@@ -25,7 +26,13 @@ export class CounterComponent implements OnInit {
   ngOnInit() {
     this.income_sum$ = this.dashService.getSum('income');
     this.account_sum$ = this.dashService.getSum('account');
-
+    this.income_sum$.subscribe(res=>{
+      if(res[0] == null )this.noIncomeSum = true;
+    });
+    this.account_sum$.subscribe(
+      res=>{
+       if(res[0] == null ) this.noAccountSum = true;
+      });
     // service that listen to changes of Sums
     this.sharedService.changeEmitted$.subscribe(sum => {
       switch (sum) {

@@ -14,6 +14,12 @@ body,html {
   mat-sidenav{
         border-right-color: #695d7f!important;
   }
+ .scrollContainer::-webkit-scrollbar-thumb
+{
+   background: linear-gradient(to bottom, #4E4068, #272034)!important;
+
+}
+
   .line h3 {
     color: white;
   }
@@ -126,6 +132,8 @@ body,html {
   .mat-option {
     .mat-icon{
       margin-right: 0;
+      color: white;
+
     }
   }
 }
@@ -149,3 +157,17 @@ body,html {
   }
 }
 
+ mat-dialog-container{
+    mat-icon{
+      color: #4E4068;
+    }
+   .header-box{
+     color: #4E4068;
+   }
+   .mat-button-wrapper{
+          // color: #4E4068;
+   }
+  }
+.mat-calendar-body-selected{
+  background-color: white;
+}

@@ -27,7 +27,6 @@ export class AppComponent {
   otherTheme: boolean;
   current_user: User;
   private editModeActive = false;
-  validationPage = false;
   changeTheme() {
     this.otherTheme = !this.otherTheme;
   }
@@ -35,10 +34,8 @@ export class AppComponent {
   constructor(overlayContainer: OverlayContainer, public router: Router, private breakpointObserver: BreakpointObserver, private _location: Location, private authService: AuthServiceService) {
     this.isMobile = this.breakpointObserver.observe(Breakpoints.HandsetPortrait);
     this.current_user = this.authService.getUserFromLocalStorage();
-    this.otherTheme = this.current_user.dark_theme;
+    this.otherTheme  = this.current_user == null ? false : this.current_user.dark_theme;
     if(this.otherTheme) overlayContainer.getContainerElement().classList.add('unicorn-dark-theme');
-    console.log(this.router.url);
-    if(this.router.url == "/validation") this.validationPage = !this.validationPage;
   }
 
   editModeToggle() {

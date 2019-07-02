@@ -4,7 +4,7 @@ export interface Expense {
   wanted_limit?:  number;
   description?:  string;
   spent_amount?: number;
-  date?:         string; //???
+  created_date?:         string; //???
   icon?:         string; //???
 
 }

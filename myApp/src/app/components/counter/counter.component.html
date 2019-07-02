@@ -1,10 +1,11 @@
- <div class="line">
-        <div>
-          <h3>{{title}}</h3>
-        </div>
-        <div [ngSwitch]="data">
-          <h3 class="amount" *ngSwitchCase="'income'" >{{income_sum$ | async}} €</h3>
-          <h3 class="amount" *ngSwitchCase="'account'" >{{account_sum$ | async}} €</h3>
-          <h3 class="amount" *ngSwitchCase="'expense.ts'" >{{category_sum$ | async}} €</h3>
-        </div>
- </div>
+<div class="line">
+  <div>
+    <h3>{{title}}</h3>
+  </div>
+  <div [ngSwitch]="data">
+    <h3 class="amount" *ngSwitchCase="'income'" >{{(income_sum$ | async)}}<span *ngIf="!noIncomeSum"> € </span> </h3>
+    <h3 class="amount" *ngSwitchCase="'account'" >{{(account_sum$ | async)}}<span *ngIf="!noAccountSum"> € </span>
+    </h3>
+    <h3 class="amount" *ngSwitchCase="'expense.ts'" >{{category_sum$ | async}} €</h3>
+  </div>
+</div>

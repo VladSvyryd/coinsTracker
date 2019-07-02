@@ -3,33 +3,30 @@
   <mat-toolbar class="header" *ngIf="(isMobile | async)?.matches">
     <span class="right-spacer"></span>
 
-    <div class="counters" *ngIf="(isMobile | async)?.matches">
+    <div class="counters" *ngIf="(isMobile | async)?.matches&&router.url != '/validation'">
       <app-counter  data="income" [title]="'Income'"></app-counter>
       <app-counter  data="account" [title]="'Account'"></app-counter>
-
-
     </div>
     <span class="right-spacer"></span>
-
   </mat-toolbar>
-
   <mat-sidenav-container  class="sidebar">
-    <mat-sidenav #sidenav mode="side" [opened]="!(isMobile | async)?.matches" class="example-sidenav"
+    <mat-sidenav #sidenav mode="side" [opened]="!(isMobile | async)?.matches &&router.url != '/validation'" class="example-sidenav"
                  [fixedInViewport]="options.fixed" [fixedTopGap]="options.top"
                  [fixedBottomGap]="options.bottom">
-      <app-navigation-bottom *ngIf="!(isMobile | async)?.matches && !validationPage"  (editMode)="editModeToggle()"
+      <app-navigation-bottom *ngIf="!(isMobile | async)?.matches "
+                             (editMode)="editModeToggle()"
       ></app-navigation-bottom>
 
     </mat-sidenav>
 
     <mat-sidenav-content class="mainA">
-      <button mat-icon-button *ngIf="!(isMobile | async)?.matches"
+      <button mat-icon-button *ngIf="!(isMobile | async)?.matches && router.url != '/validation'"
               id="toggleMenu"(click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 
-<app-navigation-bottom *ngIf="(isMobile | async)?.matches && !validationPage"  (editMode)="editModeToggle()"
+<app-navigation-bottom *ngIf="(isMobile | async)?.matches &&router.url != '/validation'"  (editMode)="editModeToggle()"
                   class="bottomNavigation">
 </app-navigation-bottom>
 

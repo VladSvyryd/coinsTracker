@@ -38,7 +38,7 @@
 }
 
 .circular-menu.active:after {
-  transform: scale3d(10, 10, 1);
+  transform: scale3d(8.5, 8.5, 1);
   transition-timing-function: cubic-bezier(.68, 1.55, .265, 1);
   opacity: 1;
 }
@@ -70,6 +70,9 @@
   border-radius: 50%;
   background-color: hsla(0,0%,0%,.1);
   transition: transform .3s ease, background .2s ease;
+      display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .circular-menu .menu-item:hover {

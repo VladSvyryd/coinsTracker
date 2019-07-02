@@ -15,7 +15,7 @@ import {AccountBalanceComponent} from "./components/account-balance/account-bala
 const routes: Routes = [
   { path: '', component: ValidationComponent},
   { path: 'dashboard', component: DashboardComponent,  canActivate: [OnlyLoggedInUsersGuard]},
-  { path: 'pie-chart', component: PieChartComponent,  canActivate: [OnlyLoggedInUsersGuard]},
+  { path: 'line-chart', component: LineChartComponent,  canActivate: [OnlyLoggedInUsersGuard]},
   { path: 'account-balance', component: AccountBalanceComponent},
   { path: 'validation', component: ValidationComponent},
   { path: 'tester', component: TesterComponent},
