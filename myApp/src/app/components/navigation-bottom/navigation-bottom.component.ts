@@ -7,6 +7,7 @@ import {User} from '../../models/user';
 import {AuthServiceService} from '../../services/auth-service.service';
 import {SharedService} from '../../services/shared.service';
 import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class NavigationBottomComponent implements OnInit {
       this.updateTheme(!bool)
     }
   }
-  constructor(private _location: Location, private authService: AuthServiceService,private breakpointObserver: BreakpointObserver) {
+  constructor(private _location: Location,private router:Router, private authService: AuthServiceService,private breakpointObserver: BreakpointObserver) {
     this.current_user = this.authService.getUserFromLocalStorage();
     this.isMobile = this.breakpointObserver.observe(Breakpoints.HandsetPortrait);
 
@@ -51,5 +52,10 @@ export class NavigationBottomComponent implements OnInit {
 
   editModeActive(){
     this.editMode.emit();
+  }
+  tryLogout(){
+    this.authService.logout();
+    this.router.navigate(['/validation'])
+
   }
 }

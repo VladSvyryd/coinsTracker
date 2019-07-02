@@ -19,6 +19,7 @@
 .scrollContainer{
   max-height: 243px;
   overflow: auto;
+  padding-left: 15px;
   table{
     width: 100%;
   }
@@ -40,11 +41,25 @@
   background-color: white;
   border-radius: 10px;
   min-width: 320px;
-  padding: 0 0 0 20px;
   min-height: 300px;
-
-  h3{
-    margin: 0;
+  @media screen and (min-width: 1136px) {
+    margin-right: -120px;
+  }
+  margin: 20px auto;
+  .header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    mat-form-field{
+       width: 100%;
+      max-width: 100px;
+      input{
+        text-align: center;
+      }
+    }
+    h3{
+      margin: 0;
+    }
   }
 }
 .scrollContainer::-webkit-scrollbar-track

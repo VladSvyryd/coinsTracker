@@ -2,17 +2,26 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Observable, throwError} from 'rxjs';
 import {Account} from "../models/account";
-import {catchError} from "rxjs/operators";
+import {catchError,map} from "rxjs/operators";
 import {Income} from "../models/income";
 import {Expense} from "../models/expense";
 import {Spending} from '../models/spending';
-import {AccountTrack} from "../models/account-track";
-import {IncomeTrack} from "../models/income-track";
-import {User} from '../models/user';
-
+class IncomeObject {
+  constructor(
+    public name:string,
+    public amount?:number,
+    public date?:string,
+    public wanted_income?:number,
+    public paycheck_date?:any,
+    public total?: number,
+    public id?:number,
+    public icon?:string
+  ) {}
+}
 @Injectable({
   providedIn: 'root'
 })
+
 export class DashboardService {
   server_path = "http://127.0.0.1:5000";
 
@@ -25,7 +34,25 @@ export class DashboardService {
   getAll(path:string):Observable<any[]> {
     return this.httpClient.get<any[]>(this.server_path + "/" + path);
   }
-
+  getAllIncomes(path:string):Observable<Income[]> {
+    return this.httpClient.get<any[]>(this.server_path + "/" + path).pipe(
+      map(res => {
+        console.log(res);
+        return res.map(item => {
+          return new IncomeObject(
+            item.name,
+            item.amount,
+            item.date,
+            item.wanted_income,
+            item.paycheck_date,
+            item.total,
+            item.id,
+            item.icon,
+          );
+        });
+      })
+    );
+  }
   getSum(path:string): Observable<number>{
     return this.httpClient.get<number>(this.server_path + "/" + path + '_sum');
   }
@@ -107,7 +134,7 @@ export class DashboardService {
     );
   }
 
-   getSpendingByDays(date_range:number):Observable<any[]>  {
+  getSpendingByDays(date_range:number):Observable<any[]>  {
     return this.httpClient.get<Spending[]>(this.server_path+"/spending_by_date/" + date_range).pipe(
       catchError(this.handleError)
     );
@@ -119,21 +146,21 @@ export class DashboardService {
     let destructedAcc = {id: acc.id, amount:acc.amount}
     let transactionData = {inc: destructedInc,acc: destructedAcc,transaction_amount:transaction_amount};
     console.log(transactionData)
-      return this.httpClient.put(this.server_path+"/inc_to_acc", transactionData).pipe(
+    return this.httpClient.put(this.server_path+"/inc_to_acc", transactionData).pipe(
       catchError(this.handleError)
     )
   }
   transaction_Acc_to_Acc(accFrom:Account, accTo: Account,transaction_amount){
     let transactionData = {accIdFrom: accFrom.id, accIdTo:accTo.id, transaction_amount}
-      return this.httpClient.put(this.server_path+"/acc_to_acc", transactionData).pipe(
+    return this.httpClient.put(this.server_path+"/acc_to_acc", transactionData).pipe(
       catchError(this.handleError)
     )
   }
 
 
-  
-    //*****************************ACCOUNT/INCOME TRACK******************************/
-   getAccountBalanceHistory(date_range:number):Observable<any[]>  {
+
+  //*****************************ACCOUNT/INCOME TRACK******************************/
+  getAccountBalanceHistory(date_range:number):Observable<any[]>  {
     return this.httpClient.get<any[]>(this.server_path+"/account_balance/" + date_range).pipe(
       catchError(this.handleError)
     );
@@ -145,7 +172,7 @@ export class DashboardService {
     );
   }
 
-   getSpendingByDate(date_range:number):Observable<any[]>  {
+  getSpendingByDate(date_range:number):Observable<any[]>  {
     return this.httpClient.get<any[]>(this.server_path+"/expense_by_date/"+date_range).pipe(
       catchError(this.handleError)
     );

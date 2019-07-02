@@ -33,6 +33,10 @@ mat-slide-toggle{
 
 #toggleMenu {
   position: fixed;
+  mat-icon{
+    color: #4E4068;
+    opacity: 0.7;
+  }
 }
 .right-spacer{
   flex: 1 1 auto;

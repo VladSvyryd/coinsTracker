@@ -28,7 +28,7 @@
                 [@fadeIn]="bounce"
                 cdkDragBoundary=".mainA"
                 class="inc"
-                id="{{ income.id }}"
+                id="incomeID_{{ income.id }}"
               >
                 <!-- (click)="openDialogToEditOld({ title: 'Income', item: income })"-->
                 <mat-icon svgIcon="{{income.icon}}" aria-hidden="false" ></mat-icon>
@@ -41,7 +41,7 @@
               <mat-icon (click)="openDialogToEditOld({ title: 'Income', item: income })"
                         class="infoIcon edit_mode"
               >info_outline</mat-icon>
-              <div class="infoBox">
+              <div class="infoBox " id="incomeInfoBox_{{ income.id }}">
                 {{ currency }}&nbsp;{{ income.amount || 0 }}
               </div>
               <div class="nameBox" *ngIf="userSettings.coinsNamesOn">
@@ -97,7 +97,7 @@
                 (cdkDragReleased)="makeTransaction_ResetPosition($event, acc)"
                 (cdkDragStarted)="setDraggableRef_z_Index($event)"
 
-                id="{{ account.id }}"
+                id="accountID_{{ account.id }}"
 
               >
                 <!-- (click)="openDialogToEditOld({ title: 'Account', item: account })"-->
@@ -110,7 +110,7 @@
               <mat-icon (click)="openDialogToEditOld({ title: 'Account', item: account })"
                         class="infoIcon edit_mode"
               >info_outline</mat-icon>
-              <div class="infoBox">
+              <div class="infoBox"  id="accountInfoBox_{{ account.id }}">
                 {{ currency }}&nbsp;{{ account.amount || 0 }}
               </div>
               <div class="nameBox" *ngIf="userSettings.coinsNamesOn">
@@ -162,7 +162,7 @@
                 [cdkDragData]="category"
                 [cdkDragDisabled]="true"
                 #cat
-                id="{{category.id}}"
+                id="categoryID_{{category.id}}"
                 (click)="showExpensInfo(category.id)"
               >
 
@@ -177,7 +177,7 @@
                         class="deleteIcon edit_mode"
               >close</mat-icon>
 
-              <div *ngIf="category" class="infoBox">
+              <div *ngIf="category" class="infoBox" id="expenseInfoBox_{{ category.id }}">
                 {{ currency }}&nbsp;{{ category.spent_amount || 0 }}
               </div>
               <div class="nameBox" *ngIf="userSettings.coinsNamesOn">
@@ -215,12 +215,12 @@
       </div>
     </div>
   </div>
-     <mat-divider></mat-divider>
   <div class="row" *ngIf="!(isMobile | async)?.matches">
+     <mat-divider></mat-divider>
     <app-account-balance></app-account-balance>
   </div>
-     <mat-divider></mat-divider>
   <div class="row" *ngIf="!(isMobile | async)?.matches">
+     <mat-divider></mat-divider>
     <div class="doughnut-chart">
       <app-doughnut-chart></app-doughnut-chart>
     </div>

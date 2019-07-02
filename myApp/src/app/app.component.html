@@ -17,22 +17,20 @@
     <mat-sidenav #sidenav mode="side" [opened]="!(isMobile | async)?.matches" class="example-sidenav"
                  [fixedInViewport]="options.fixed" [fixedTopGap]="options.top"
                  [fixedBottomGap]="options.bottom">
-      <app-navigation-bottom *ngIf="!(isMobile | async)?.matches"  (editMode)="editModeToggle()" ></app-navigation-bottom>
+      <app-navigation-bottom *ngIf="!(isMobile | async)?.matches && !validationPage"  (editMode)="editModeToggle()"
+      ></app-navigation-bottom>
 
     </mat-sidenav>
 
     <mat-sidenav-content class="mainA">
-
-      <button mat-icon-button *ngIf="!(isMobile | async)?.matches" color="accent"
+      <button mat-icon-button *ngIf="!(isMobile | async)?.matches"
               id="toggleMenu"(click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
-
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 
-<app-navigation-bottom *ngIf="(isMobile | async)?.matches"  (editMode)="editModeToggle()"
+<app-navigation-bottom *ngIf="(isMobile | async)?.matches && !validationPage"  (editMode)="editModeToggle()"
                   class="bottomNavigation">
-
 </app-navigation-bottom>
 
 </div>

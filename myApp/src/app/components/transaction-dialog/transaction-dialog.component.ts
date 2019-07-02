@@ -23,7 +23,6 @@ export class TransactionDialogComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.data = received_data;
-    console.log(this.data);
     this.form = new FormGroup({
       amount: this.amount,
       description: new FormControl()

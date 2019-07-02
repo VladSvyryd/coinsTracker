@@ -5,7 +5,7 @@
   </button>
 
   <menu class="items-wrapper">
-    <button mat-icon-button (click)="tryLogout()"  class="menu-item">
+    <button mat-icon-button (click)="tryLogout(); toggleMenu()"  class="menu-item">
       <mat-icon  aria-hidden="false" aria-label="Log Out">exit_to_app</mat-icon>
     </button>
     <button mat-icon-button routerLink="doughnut-chart" (click)="toggleMenu()"  class="menu-item">

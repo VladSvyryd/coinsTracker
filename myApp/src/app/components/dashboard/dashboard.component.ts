@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {DashboardService} from '../../services/dashboard.service';
 import {Account} from '../../models/account';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -9,7 +9,7 @@ import {Income} from '../../models/income';
 import {Spending} from '../../models/spending';
 import {Expense} from '../../models/expense';
 import {EditWindowComponent} from '../edit-window/edit-window.component';
-import {Observable, timer} from 'rxjs';
+import {Observable} from 'rxjs';
 import {SharedService} from '../../services/shared.service';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 import {transition, trigger, useAnimation} from '@angular/animations';
@@ -168,9 +168,13 @@ export class DashboardComponent implements OnInit {
       // collision detection goes through all accounts, and could be done on the same element, bug fixed
       if (
         this.isCollide(draggableElementRef, droppableElementRef) &&
-        droppableElementRef.id !== draggableElementRef.id
+      droppableElementRef.id !== draggableElementRef.id
       ) {
-        if (draggableElementRef.classList.contains("acc") && droppableElementRef.classList.contains("acc")) type_of_transaction = "acc_acc";
+        if (draggableElementRef.classList.contains("acc") &&
+          droppableElementRef.classList.contains("acc")) {
+          type_of_transaction = "acc_acc";
+        }
+
         this.last_transaction = {
           type_of_transaction: type_of_transaction,
           cdkDrag,
@@ -225,18 +229,23 @@ export class DashboardComponent implements OnInit {
         this.sharedService.updateChart('account-chart');
         this.sharedService.updateChart('line-chart');
         this.sharedService.updateChart('donut-chart');
+           let account_result = fromData.amount -= amount;
+          let expense_result = toData.amount += amount;
+          this.updateCoinsOf('account',fromData.id,account_result);
+          this.updateCoinsOf('expense',toData.id,expense_result);
 
       });
     }else if(this.last_transaction.type_of_transaction =="inc_acc"){
       this.dashboardService.transaction_Inc_to_Acc(fromData,toData,amount).subscribe(
-
         (res)=>{
-          this.incomes$.subscribe(res=>console.log(res));
           this.sharedService.emitChange('income');
           this.sharedService.emitChange('account');
           this.sharedService.updateChart('account-chart');
           this.sharedService.updateChart('line-chart');
-
+          let income_result = fromData.amount -= amount;
+          let account_result = toData.amount += amount;
+          this.updateCoinsOf('income',fromData.id,income_result);
+          this.updateCoinsOf('account',toData.id,account_result);
         }
       );
     }
@@ -244,6 +253,10 @@ export class DashboardComponent implements OnInit {
       this.dashboardService.transaction_Acc_to_Acc(fromData,toData,amount).subscribe(
         (res)=>{
           this.sharedService.updateChart('account-chart');
+          let account_result1 = fromData.amount -= amount;
+          let account_result2 = toData.amount += amount;
+          this.updateCoinsOf('account',fromData.id,account_result1);
+          this.updateCoinsOf('account',toData.id,account_result2);
         }
       );
     }
@@ -354,6 +367,20 @@ export class DashboardComponent implements OnInit {
     else
       return input;
   };
+
+  private updateCoinsOf(name: string,withId:number,toValue:any) {
+    switch (name) {
+      case 'income':
+        document.querySelector('#incomeInfoBox_'+ withId).innerHTML = "€ " + toValue;
+        break;
+      case 'account':
+        document.querySelector('#accountInfoBox_'+ withId).innerHTML = "€ " + toValue;
+        break;
+        case 'expense':
+        document.querySelector('#expenseInfoBox_'+ withId).innerHTML = "€ " + toValue;
+        break;
+    }
+  }
 }
 
 // :TODO - Update on frontEnd Income,Account,Expenses

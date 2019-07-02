@@ -1,16 +1,6 @@
 <div class="chartContainer">
   <div class="chart">
-    <mat-form-field>
-        <input matInput [matDatepicker]="dp" placeholder="Select Month" [formControl]="date">
-        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-        <mat-datepicker #dp
-                        [touchUi]="(isMobile | async)?.matches"
-                        startView="year"
-                        (yearSelected)="chosenYearHandler($event)"
-                        (monthSelected)="chosenMonthHandler($event, dp)"
-                        panelClass="example-month-picker">
-        </mat-datepicker>
-      </mat-form-field>
+
     <canvas baseChart
             [data]="doughnutChartData"
             [labels]="doughnutChartLabels"
@@ -25,7 +15,19 @@
   </div>
   </div>
   <div class=" wrapper">
-    <h3 mat-subheader>{{nameSingleCat}}</h3>
+     <div mat-subheader class="header"> <h3>{{nameSingleCat}}</h3>
+           <mat-form-field>
+        <input matInput [matDatepicker]="dp" placeholder="Select Month" [formControl]="date">
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp
+                        [touchUi]="(isMobile | async)?.matches"
+                        startView="year"
+                        (yearSelected)="chosenYearHandler($event)"
+                        (monthSelected)="chosenMonthHandler($event, dp)"
+                        panelClass="example-month-picker">
+        </mat-datepicker>
+      </mat-form-field>
+     </div>
     <div class="scrollContainer">
       <table matSort *ngIf="spending$ | async as spendings">
 
