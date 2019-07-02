@@ -11,6 +11,9 @@ body,html {
 }
 
 .unicorn-dark-theme{
+  mat-sidenav{
+        border-right-color: #695d7f!important;
+  }
   .line h3 {
     color: white;
   }

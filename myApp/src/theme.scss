@@ -361,8 +361,8 @@ $my-dark-theme-background: (
 
 $my-dark-theme-foreground: (
   //base:              #625376,
-  divider:            map_get($md-accent, 400)!important,
-  dividers:          map_get($md-accent, 400)!important,
+  divider:            map_get($md-accent, 400),
+  dividers:          map_get($md-accent, 400),
   disabled:          rgba(white, 0.3),
   disabled-button:   rgba(white, 0.3),
   focused-button: map_get($md-accent, 500),
