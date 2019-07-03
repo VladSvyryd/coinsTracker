@@ -231,7 +231,8 @@ export class DashboardComponent implements OnInit {
         this.sharedService.updateChart('line-chart');
         this.sharedService.updateChart('donut-chart');
         let account_result = fromData.amount -= amount;
-        let expense_result = toData.amount += amount;
+        let expense_result = toData.spent_amount += amount;
+        console.log(fromData,toData);
         this.updateCoinsOf('account',fromData.id,account_result);
         this.updateCoinsOf('expense',toData.id,expense_result);
 
