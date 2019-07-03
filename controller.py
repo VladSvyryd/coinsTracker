@@ -424,6 +424,24 @@ def get_all_spendings_by_days(current_user, date_range):
     return jsonify(output)
 
 
+@app.route('/spending_by_expense_id_and_month/<id_month>', methods=['GET'])
+@token_required
+def get_all_spendings_by_expense_id_and_month(current_user, id_month):
+
+    parsed_id_month = id_month.split(',')
+    expense_id = parsed_id_month[0]
+    month = parsed_id_month[1]
+    spendings = Spendings.query.filter_by(user_id=current_user.public_id)\
+        .filter_by(expense_id=expense_id)\
+        .filter(extract('month', Spendings.date) == month).all()
+    output = []
+
+    for spending in spendings:
+        spending_output = dict(amount=spending.amount, date=spending.date, description=spending.description)
+        output.append(spending_output)
+    return jsonify(output)
+
+
 @app.route('/spending/<expense_id>', methods=['GET'])
 # this is a decorator to make this route opened to authenticated users with token
 @token_required

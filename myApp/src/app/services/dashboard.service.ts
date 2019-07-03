@@ -6,6 +6,7 @@ import {catchError,map} from "rxjs/operators";
 import {Income} from "../models/income";
 import {Expense} from "../models/expense";
 import {Spending} from '../models/spending';
+import {months} from "moment";
 class IncomeObject {
   constructor(
     public name:string,
@@ -130,6 +131,13 @@ export class DashboardService {
 
   getSpendingByExpenseId(id:number):Observable<any[]>  {
     return this.httpClient.get<Spending[]>(this.server_path+"/spending/" + id).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getSpendingByExpenseIdAndMonth(id:number, date_range:number):Observable<any[]>  {
+    let idMonth = id + "," + date_range;
+    return this.httpClient.get<Spending[]>(this.server_path+"/spending_by_expense_id_and_month/" + idMonth).pipe(
       catchError(this.handleError)
     );
   }

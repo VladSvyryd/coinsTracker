@@ -91,13 +91,13 @@ export class AccountBalanceComponent implements OnInit {
     this.lineChartData[0].data = []
     this.dashboardService.getAccountBalanceHistory(range).subscribe((res:any)=>{
       this.accountHistory = res;
-        let mySet = new Set();
+       // let mySet = new Set();
       for(let i=0; i<res.length; i++) {
-        mySet.add(this.transformDate(res[i].date))
-        //this.lineChartLabels.push(this.transformDate(res[i].date));
+       // mySet.add(this.transformDate(res[i].date))
+        this.lineChartLabels.push(this.transformDate(res[i].date));
         this.lineChartData[0].data.push(res[i].account_balance)
       }
-      this.lineChartLabels = Array.from(mySet);
+     // this.lineChartLabels = Array.from(mySet);
     })
   }
   transformDate(date) {

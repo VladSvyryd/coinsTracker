@@ -154,7 +154,7 @@ export class DoughnutChartComponent implements OnInit {
 
   // get information about spendings
   getSpendingsOnChartClick(id:number) {
-    this.spending$ = this.dashboardService.getSpendingByExpenseId(id);
+    this.spending$ = this.dashboardService.getSpendingByExpenseIdAndMonth(id, this.selectedMonth);
   }
 
   chartClicked(e: any): void {
