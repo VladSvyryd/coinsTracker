@@ -308,7 +308,8 @@ export class DashboardComponent implements OnInit {
       let newItem: Expense = {
         name: item.name,
         description: item.description || '',
-        icon:item.icon
+        icon:item.icon,
+        spent_amount:item.amount
       };
       this.dashboardService.createCategory(item).subscribe((res: any) => {
         newItem.id = res.last_added_id;
