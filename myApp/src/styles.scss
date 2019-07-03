@@ -19,7 +19,13 @@ body,html {
    background: linear-gradient(to bottom, #4E4068, #272034)!important;
 
 }
+mat-dialog-container {
 
+
+  .header-box {
+    color:rgba(255,255,255,0.75);
+  }
+}
   .line h3 {
     color: white;
   }

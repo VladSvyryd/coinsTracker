@@ -109,7 +109,7 @@ export class DashboardService {
   //*****************************EXPENSES******************************/
 
   createCategory(category:Expense) {
-    let new_category:Expense = {name: category.name, description: category.description, wanted_limit: category.wanted_limit || 0, icon:category.icon};
+    let new_category:Expense = {name: category.name, description: category.description, wanted_limit: category.wanted_limit || 0, icon:category.icon, spent_amount:category.spent_amount};
     return this.httpClient.post(this.server_path+"/expense", new_category).pipe(
       catchError(this.handleError)
     )
