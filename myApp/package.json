@@ -25,7 +25,7 @@
     "@auth0/angular-jwt": "^2.1.0",
     "@ngx-pwa/local-storage": "^7.4.2",
     "@types/slideout": "^0.1.19",
-    "angular": "^1.7.8",
+    "angular": "^1.8.3",
     "angular-jwt": "^0.1.11",
     "angular2-jwt": "^0.2.3",
     "chart.js": "^2.8.0",
